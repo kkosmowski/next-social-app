@@ -5,4 +5,9 @@ const codeToLocale: Record<LocaleCode, Locale> = {
   pl: 'pl-PL',
 };
 
-export default codeToLocale;
+const localeToCode: Record<Locale, LocaleCode> = {
+  'en-US': 'en',
+  'pl-PL': 'pl',
+};
+
+export { codeToLocale, localeToCode };

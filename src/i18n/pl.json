@@ -1,0 +1,11 @@
+{
+  "TEST": "Witam bardzo",
+
+  "NAV.HOME": "Strona główna",
+  "NAV.MESSAGES": "Wiadomości",
+  "NAV.USER.PROFILE": "Profil",
+  "NAV.USER.EDIT": "Edycja profilu",
+  "NAV.USER.SETTINGS": "Ustawienia",
+  "NAV.USER.LOGOUT": "Wyloguj się",
+  "NAV.LOGIN": "Zaloguj się"
+}

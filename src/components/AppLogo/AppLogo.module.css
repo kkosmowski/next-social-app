@@ -1,0 +1,18 @@
+.logo {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background: -webkit-linear-gradient(var(--white-50) 0%, var(--white-300) 50%, var(--white-500) 50%, var(--white-50) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    user-select: none;
+}
+
+@media (min-width: 1024px) {
+    font-size: 2.4rem;
+    letter-spacing: 0.6rem;
+}

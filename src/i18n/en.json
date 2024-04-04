@@ -1,0 +1,11 @@
+{
+  "TEST": "Hello there",
+
+  "NAV.HOME": "Home",
+  "NAV.MESSAGES": "Messages",
+  "NAV.USER.PROFILE": "Profile",
+  "NAV.USER.EDIT": "Edit profile",
+  "NAV.USER.SETTINGS": "Settings",
+  "NAV.USER.LOGOUT": "Sign out",
+  "NAV.LOGIN": "Sign in"
+}
