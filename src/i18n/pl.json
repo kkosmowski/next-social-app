@@ -1,11 +1,17 @@
 {
-  "TEST": "Witam bardzo",
+  "AUTH.EMAIL.LABEL": "Adres e-mail",
+  "AUTH.EMAIL.PLACEHOLDER": "Wprowadź e-mail",
+  "AUTH.PASSWORD.LABEL": "Hasło",
+  "AUTH.PASSWORD.PLACEHOLDER": "Wprowadź hasło",
+
+  "LOGIN.SUBMIT": "Zaloguj",
+  "LOGIN.TITLE": "Logowanie",
 
   "NAV.HOME": "Strona główna",
+  "NAV.LOGIN": "Zaloguj się",
   "NAV.MESSAGES": "Wiadomości",
-  "NAV.USER.PROFILE": "Profil",
   "NAV.USER.EDIT": "Edycja profilu",
-  "NAV.USER.SETTINGS": "Ustawienia",
   "NAV.USER.LOGOUT": "Wyloguj się",
-  "NAV.LOGIN": "Zaloguj się"
+  "NAV.USER.PROFILE": "Profil",
+  "NAV.USER.SETTINGS": "Ustawienia"
 }

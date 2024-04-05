@@ -1,11 +1,17 @@
 {
-  "TEST": "Hello there",
+  "AUTH.EMAIL.LABEL": "E-mail",
+  "AUTH.EMAIL.PLACEHOLDER": "Enter e-mail",
+  "AUTH.PASSWORD.LABEL": "Password",
+  "AUTH.PASSWORD.PLACEHOLDER": "Enter password",
+
+  "LOGIN.SUBMIT": "Sign In",
+  "LOGIN.TITLE": "Sign In",
 
   "NAV.HOME": "Home",
+  "NAV.LOGIN": "Sign in",
   "NAV.MESSAGES": "Messages",
-  "NAV.USER.PROFILE": "Profile",
   "NAV.USER.EDIT": "Edit profile",
-  "NAV.USER.SETTINGS": "Settings",
   "NAV.USER.LOGOUT": "Sign out",
-  "NAV.LOGIN": "Sign in"
+  "NAV.USER.PROFILE": "Profile",
+  "NAV.USER.SETTINGS": "Settings"
 }
