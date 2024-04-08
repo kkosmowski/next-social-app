@@ -1,10 +1,21 @@
+import { redirect } from 'next/navigation';
+
 import type { PageProps } from '@/types/common';
 import getIntl from '@/app/utils/getIntl';
 import LoginForm from '@/app/[localeCode]/(auth)/login/LoginForm';
+import { Routes } from '@/consts/navigation';
+import dynamicRoute from '@/app/utils/dynamicRoute';
+import session from '@/app/api/[utils]/SessionClient';
 
 import styles from './page.module.css';
 
 async function LoginPage({ params: { localeCode } }: PageProps) {
+  const isLoggedIn = await session.isLoggedIn();
+
+  if (isLoggedIn) {
+    redirect(dynamicRoute(Routes.home, { localeCode }));
+  }
+
   const { t } = await getIntl(localeCode);
 
   return (

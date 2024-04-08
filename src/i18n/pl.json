@@ -3,6 +3,7 @@
   "AUTH.EMAIL.PLACEHOLDER": "Wprowadź e-mail",
   "AUTH.PASSWORD.LABEL": "Hasło",
   "AUTH.PASSWORD.PLACEHOLDER": "Wprowadź hasło",
+  "AUTH.ERROR.USER_NOT_FOUND": "Podany e-mail lub hasło nie są poprawne.",
 
   "LOGIN.SUBMIT": "Zaloguj",
   "LOGIN.TITLE": "Logowanie",
@@ -13,5 +14,7 @@
   "NAV.USER.EDIT": "Edycja profilu",
   "NAV.USER.LOGOUT": "Wyloguj się",
   "NAV.USER.PROFILE": "Profil",
-  "NAV.USER.SETTINGS": "Ustawienia"
+  "NAV.USER.SETTINGS": "Ustawienia",
+
+  "ERROR.EMPTY_INPUT": "To pole nie może być puste."
 }

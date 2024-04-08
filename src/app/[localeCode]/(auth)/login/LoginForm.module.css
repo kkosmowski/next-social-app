@@ -7,3 +7,8 @@
 .button {
     margin-block: 1rem;
 }
+
+.errorText {
+    font-size: 1.4rem;
+    color: var(--error-500);
+}

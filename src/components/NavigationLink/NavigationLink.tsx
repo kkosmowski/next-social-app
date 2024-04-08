@@ -1,19 +1,29 @@
+'use client';
+
 import Link from 'next/link';
 
-import type { NavLink } from '@/types/navigation';
-import getIntl from '@/app/utils/getIntl';
+import type { NavLink, RouteAccess } from '@/types/navigation';
 import type { LocaleCode } from '@/types/i18n';
+import { useAuth } from '@/contexts/AuthProvider';
+import useIntl from '@/app/hooks/useIntl';
 
 type Props = Omit<NavLink, 'route'> & {
   route: string;
   localeCode: LocaleCode;
 };
 
-async function NavigationLink({ route, label, access, localeCode }: Props) {
-  const { t } = await getIntl(localeCode);
+function hasAccess(access: RouteAccess, isLoggedIn: boolean | undefined) {
+  if (access === 'all') return true;
+  if (access === 'guest-only') return !isLoggedIn;
+  if (access === 'logged-only') return isLoggedIn;
+}
+
+function NavigationLink({ route, label, access }: Props) {
+  const { t } = useIntl();
+  const { isLoggedIn } = useAuth();
 
   // @todo: handle access
-  if (access) {
+  if (hasAccess(access, isLoggedIn)) {
     return <Link href={route}>{t(label)}</Link>;
   }
   return <></>;

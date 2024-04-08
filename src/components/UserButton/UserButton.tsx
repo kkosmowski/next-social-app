@@ -35,8 +35,7 @@ const userButtonOptions: NavLink[] = [
 ];
 
 function UserButton() {
-  const { t, locale } = useIntl();
-  const code = localeToCode[locale];
+  const { t, localeCode } = useIntl();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -55,7 +54,7 @@ function UserButton() {
           <Backdrop onClick={toggleMenu} />
           <menu className={styles.floatingMenu} onClick={toggleMenu}>
             {userButtonOptions.map(({ key, route, label }) => (
-              <Link key={key} href={route({ localeCode: code })} className={styles.menuItem}>
+              <Link key={key} href={route({ localeCode })} className={styles.menuItem}>
                 {t(label)}
               </Link>
             ))}

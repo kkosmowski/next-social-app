@@ -1,6 +1,9 @@
+'use client';
+
 import type { ReactNode } from 'react';
 
 import type { PropsWithChildren } from '@/types/common';
+import { useAuth } from '@/contexts/AuthProvider';
 
 type Props =
   | PropsWithChildren<{ content?: undefined }>
@@ -10,11 +13,11 @@ type Props =
     };
 
 function GuestOnly({ content, children }: Props) {
+  const { isLoggedIn } = useAuth();
+
   if (content && children) {
     throw new Error('GuestOnly Error: Do not pass both content and children');
   }
-
-  const isLoggedIn = true;
 
   if (!isLoggedIn) {
     return children ?? content;

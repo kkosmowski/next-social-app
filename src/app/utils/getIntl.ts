@@ -12,17 +12,17 @@ import validateLocaleCode from '@/i18n/validateLocaleCode';
 type IntlShape = Omit<_IntlShape<ReactNode>, 'locale'> & {
   t: TFunction;
   locale: Locale;
-  code: LocaleCode;
+  localeCode: LocaleCode;
 };
 
-async function getIntl(_code: string): Promise<IntlShape> {
-  const code = validateLocaleCode(_code);
-  const locale = codeToLocale[code];
+async function getIntl(code: string): Promise<IntlShape> {
+  const localeCode = validateLocaleCode(code);
+  const locale = codeToLocale[localeCode];
 
-  const messages = (await import(`@/i18n/${code}.json`)).default;
+  const messages = (await import(`@/i18n/${localeCode}.json`)).default;
   const intl = createIntl<ReactNode>({ locale, messages });
 
-  return { t: tFunction(intl), code, ...intl } as unknown as Promise<IntlShape>;
+  return { t: tFunction(intl), localeCode, ...intl } as unknown as Promise<IntlShape>;
 }
 
 export default getIntl;

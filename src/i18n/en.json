@@ -3,6 +3,7 @@
   "AUTH.EMAIL.PLACEHOLDER": "Enter e-mail",
   "AUTH.PASSWORD.LABEL": "Password",
   "AUTH.PASSWORD.PLACEHOLDER": "Enter password",
+  "AUTH.ERROR.USER_NOT_FOUND": "Provided credentials are incorrect.",
 
   "LOGIN.SUBMIT": "Sign In",
   "LOGIN.TITLE": "Sign In",
@@ -13,5 +14,7 @@
   "NAV.USER.EDIT": "Edit profile",
   "NAV.USER.LOGOUT": "Sign out",
   "NAV.USER.PROFILE": "Profile",
-  "NAV.USER.SETTINGS": "Settings"
+  "NAV.USER.SETTINGS": "Settings",
+
+  "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }

@@ -1,9 +1,4 @@
-import getIntl from '@/app/utils/getIntl';
-import type { PageProps } from '@/types/common';
-
-async function Home({ params: { localeCode } }: PageProps) {
-  const { t } = await getIntl(localeCode);
-
+async function Home() {
   return <section>Hello</section>;
 }
 

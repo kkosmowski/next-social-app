@@ -7,6 +7,7 @@ import getIntl from '@/app/utils/getIntl';
 import type { LocaleCode } from '@/types/i18n';
 import ServerIntlProvider from '@/contexts/ServerIntlProvider';
 import Navigation from '@/components/Navigation';
+import AuthProvider from '@/contexts/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,17 +21,19 @@ type Props = {
 };
 
 async function RootLayout({ params, children }: PropsWithChildren<Props>) {
-  const { messages, locale, code } = await getIntl(params.localeCode);
+  const { messages, locale } = await getIntl(params.localeCode);
 
   return (
     <html lang="en">
       <ServerIntlProvider messages={messages} locale={locale}>
-        <body className={inter.className}>
-          <main>
-            <Navigation localeCode={params.localeCode} />
-            {children}
-          </main>
-        </body>
+        <AuthProvider>
+          <body className={inter.className}>
+            <main>
+              <Navigation localeCode={params.localeCode} />
+              {children}
+            </main>
+          </body>
+        </AuthProvider>
       </ServerIntlProvider>
     </html>
   );
