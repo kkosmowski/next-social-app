@@ -23,7 +23,7 @@ class ApiClient {
     throw new Error((await res.json()).error);
   }
 
-  async post<T, R>(endpoint: Endpoint, body: T, options?: FetchOptions): Promise<R> {
+  async post<T, R>(endpoint: Endpoint, body?: T, options?: FetchOptions): Promise<R> {
     const res = await this.fetch(endpoint, {
       ...options,
       init: {

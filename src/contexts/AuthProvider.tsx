@@ -5,7 +5,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { useRouter } from 'next/navigation';
 
 import type { PropsWithChildren } from '@/types/common';
-import type { GetMeResponse, LoginPayload, LoginResponse, User, UserModel } from '@/types/auth';
+import type { GetMeResponse, LoginPayload, LoginResponse, LogoutResponse, User, UserModel } from '@/types/auth';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { TranslationKey } from '@/types/i18n';
@@ -18,7 +18,7 @@ import { Routes } from '@/consts/navigation';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
-  me: User | null;
+  user: User | null;
   login: (credentials: LoginPayload) => Promise<void>;
   loginApiError: string;
   logout: () => Promise<void>;
@@ -26,7 +26,7 @@ type AuthContextValues = {
 
 const AuthContext = createContext<AuthContextValues>({
   isLoggedIn: undefined,
-  me: null,
+  user: null,
   login: () => Promise.resolve(),
   loginApiError: '',
   logout: () => Promise.resolve(),
@@ -43,48 +43,62 @@ function searchCookiesForToken(): string | null {
 function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>();
   const [loginApiError, setLoginApiError] = useState('');
-  const [me, setMe] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const { t, localeCode } = useIntl();
   const router = useRouter();
 
-  const setUser = useCallback((data: UserModel) => {
-    setMe(mapUserModelToUser(data));
+  const setCurrentUser = useCallback((data: UserModel) => {
+    setUser(mapUserModelToUser(data));
     setIsLoggedIn(true);
     router.push(dynamicRoute(Routes.home, { localeCode }));
   }, []);
 
-  const getMe = useCallback(async () => {
+  const clearCurrentUser = useCallback(() => {
+    setUser(null);
+    setIsLoggedIn(false);
+    router.push(dynamicRoute(Routes.home, { localeCode }));
+  }, []);
+
+  const getMe = useCallback(async (signal: AbortSignal) => {
     try {
-      const data = await api.get<GetMeResponse>(endpoints.me, {
-        init: { headers: { Authorization: CookieService.get(TOKEN_COOKIE_KEY) || '' } },
-      });
-      setUser(data);
+      const data = await api.get<GetMeResponse>(endpoints.me, { init: { signal } });
+      setCurrentUser(data);
     } catch (e) {}
   }, []);
 
   useEffect(() => {
     const token = searchCookiesForToken();
+    const controller = new AbortController();
 
     if (token) {
-      void getMe();
+      void getMe(controller.signal);
     }
+
+    return () => {
+      controller.abort();
+    };
   }, [getMe]);
 
   const login = useCallback(async (credentials: LoginPayload) => {
     try {
       const data = await api.post<LoginPayload, LoginResponse>(endpoints.login, credentials);
-      setUser(data);
+      setCurrentUser(data);
     } catch (e: unknown) {
       const error = e as Error;
       setLoginApiError(t(error.message as TranslationKey));
     }
   }, []);
 
-  const logout = useCallback(async () => {}, []);
+  const logout = useCallback(async () => {
+    try {
+      await api.post<undefined, LogoutResponse>(endpoints.logout);
+      clearCurrentUser();
+    } catch (e) {}
+  }, []);
 
   const values: AuthContextValues = {
     isLoggedIn,
-    me,
+    user,
     login,
     loginApiError,
     logout,

@@ -2,14 +2,15 @@
 
 import { useState } from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Backdrop from '@/components/Backdrop';
 import useIntl from '@/app/hooks/useIntl';
 import { Routes } from '@/consts/navigation';
-import { localeToCode } from '@/i18n/consts';
 import type { NavLink } from '@/types/navigation';
 import dynamicRoute from '@/app/utils/dynamicRoute';
+import { useAuth } from '@/contexts/AuthProvider';
 
 import styles from './UserButton.module.css';
 
@@ -36,6 +37,7 @@ const userButtonOptions: NavLink[] = [
 
 function UserButton() {
   const { t, localeCode } = useIntl();
+  const { user, logout } = useAuth();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -45,7 +47,11 @@ function UserButton() {
   return (
     <section className={styles.wrapper}>
       <button className={`${styles.button} xs-icon`} onClick={toggleMenu}>
-        <span className={styles.avatar}>K</span>
+        {user?.avatarUrl ? (
+          <Image src={user.avatarUrl} className={styles.avatar} width={24} height={24} alt={t('NAV.USER.AVATAR_ALT')} />
+        ) : (
+          <span className={styles.avatar}>{user?.username.slice(0, 1) ?? '-'}</span>
+        )}
         <span className={styles.name}>Krzysztof</span>
       </button>
 
@@ -59,7 +65,9 @@ function UserButton() {
               </Link>
             ))}
 
-            <button className={`${styles.menuItem} ghost`}>{t('NAV.USER.LOGOUT')}</button>
+            <button className={`${styles.menuItem} ghost`} onClick={logout}>
+              {t('NAV.USER.LOGOUT')}
+            </button>
           </menu>
         </>
       )}

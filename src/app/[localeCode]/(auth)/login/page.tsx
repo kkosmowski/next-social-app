@@ -10,7 +10,7 @@ import session from '@/app/api/[utils]/SessionClient';
 import styles from './page.module.css';
 
 async function LoginPage({ params: { localeCode } }: PageProps) {
-  const isLoggedIn = await session.isLoggedIn();
+  const { isLoggedIn } = await session.getData();
 
   if (isLoggedIn) {
     redirect(dynamicRoute(Routes.home, { localeCode }));

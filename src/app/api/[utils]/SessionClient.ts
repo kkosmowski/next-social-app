@@ -1,10 +1,28 @@
-import type { RecordAuthResponse, RecordModel } from 'pocketbase';
-
 import pb from '@/app/api/pocketbase';
+import prepareAuth from '@/app/api/[utils]/prepareAuth';
+import type { UserModel } from '@/types/auth';
+
+type SessionData =
+  | {
+      user: UserModel;
+      token: string;
+      isLoggedIn: true;
+    }
+  | {
+      user: null;
+      token: null;
+      isLoggedIn: false;
+    };
+
+const emptySessionData: SessionData = {
+  user: null,
+  token: null,
+  isLoggedIn: false,
+};
 
 class SessionClient {
-  authData: RecordAuthResponse<RecordModel> | null = null;
-  _isLoggedIn = false;
+  queued = Promise.resolve(emptySessionData);
+  data: SessionData = emptySessionData;
   updatedAt: Date | null = null;
   staleTime = 2 * 60 * 1000; // 2 minutes
 
@@ -15,36 +33,49 @@ class SessionClient {
     return this.updatedAt.getTime() + this.staleTime > now.getTime();
   }
 
+  private queue(fn: () => Promise<SessionData>) {
+    return (this.queued = this.queued.then(fn));
+  }
+
   async refreshDataIfNeeded() {
-    if (this.authData && this.isDataFresh()) {
+    if (this.data.isLoggedIn && this.isDataFresh()) {
       return;
     }
 
     if (pb.authStore.isValid) {
-      this.authData = await pb.users.authRefresh();
-      this._isLoggedIn = !!this.authData.token;
+      const authData = await pb.users.authRefresh();
+
+      this.data = {
+        user: prepareAuth(authData),
+        token: authData.token,
+        isLoggedIn: true,
+      };
       this.updatedAt = new Date();
     } else {
-      this.authData = null;
-      this._isLoggedIn = false;
-      this.updatedAt = null;
-      pb.authStore.clear();
+      this.logout();
     }
   }
 
   async getData() {
-    try {
-      await this.refreshDataIfNeeded();
+    return this.queue(
+      () =>
+        new Promise<SessionData>(async (resolve) => {
+          try {
+            await this.refreshDataIfNeeded();
 
-      return this.authData;
-    } catch (e) {}
+            resolve(this.data);
+          } catch (e) {
+            resolve(emptySessionData);
+          }
+        }),
+    );
   }
 
-  async isLoggedIn() {
+  logout() {
     try {
-      await this.refreshDataIfNeeded();
-
-      return this._isLoggedIn;
+      this.data = emptySessionData;
+      this.updatedAt = null;
+      pb.authStore.clear();
     } catch (e) {}
   }
 }

@@ -1,6 +1,5 @@
 import { navigationLinks } from '@/consts/navigation';
 import NavigationLink from '@/components/NavigationLink';
-import type { LocaleCode } from '@/types/i18n';
 import AppLogo from '@/components/AppLogo';
 import LoggedOnly from '@/components/LoggedOnly';
 import GuestOnly from '@/components/GuestOnly';
@@ -11,7 +10,7 @@ import validateLocaleCode from '@/i18n/validateLocaleCode';
 import styles from './Navigation.module.css';
 
 type Props = {
-  localeCode: LocaleCode;
+  localeCode: string;
 };
 
 async function Navigation({ localeCode }: Props) {

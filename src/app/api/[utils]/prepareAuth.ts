@@ -1,8 +1,6 @@
-import { cookies } from 'next/headers';
 import type { RecordAuthResponse, RecordModel } from 'pocketbase';
 
 import { POCKETBASE_URL } from '@/app/api/env';
-import { TOKEN_COOKIE_KEY } from '@/consts/auth';
 import type { UserModel } from '@/types/auth';
 
 function buildAvatarUrl(authData: RecordModel) {
@@ -18,7 +16,6 @@ function prepareAuth(authData: RecordAuthResponse<RecordModel>) {
     created: authData.record.created,
     avatarUrl: buildAvatarUrl(authData.record),
   };
-  cookies().set(TOKEN_COOKIE_KEY, authData.token);
   return data;
 }
 

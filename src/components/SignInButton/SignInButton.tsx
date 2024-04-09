@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import useIntl from '@/app/hooks/useIntl';
 import { Routes } from '@/consts/navigation';
 import dynamicRoute from '@/app/utils/dynamicRoute';
-import { localeToCode } from '@/i18n/consts';
 
 import styles from './SignInButton.module.css';
 

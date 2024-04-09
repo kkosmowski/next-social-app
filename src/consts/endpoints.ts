@@ -1,5 +1,6 @@
 const authEndpoints = {
   login: '/auth/signin',
+  logout: '/auth/logout',
   me: '/auth/me',
 } as const;
 

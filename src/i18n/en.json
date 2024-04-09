@@ -3,7 +3,9 @@
   "AUTH.EMAIL.PLACEHOLDER": "Enter e-mail",
   "AUTH.PASSWORD.LABEL": "Password",
   "AUTH.PASSWORD.PLACEHOLDER": "Enter password",
-  "AUTH.ERROR.USER_NOT_FOUND": "Provided credentials are incorrect.",
+  "AUTH.ERROR.USER_NOT_FOUND": "Could not find the user.",
+  "AUTH.ERROR.INVALID_CREDENTIALS": "Provided credentials are incorrect.",
+  "AUTH.ERROR.NOT_LOGGED_IN": "User is not logged in.",
 
   "LOGIN.SUBMIT": "Sign In",
   "LOGIN.TITLE": "Sign In",
@@ -11,10 +13,12 @@
   "NAV.HOME": "Home",
   "NAV.LOGIN": "Sign in",
   "NAV.MESSAGES": "Messages",
+  "NAV.USER.AVATAR_ALT": "Your avatar",
   "NAV.USER.EDIT": "Edit profile",
   "NAV.USER.LOGOUT": "Sign out",
   "NAV.USER.PROFILE": "Profile",
   "NAV.USER.SETTINGS": "Settings",
 
+  "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }
