@@ -5,6 +5,8 @@ export type UserModel = {
   verified: boolean;
   created: string;
   avatarUrl: string;
+  status: string;
+  about: string;
 };
 
 export type User = Omit<UserModel, 'created'> & {

@@ -15,6 +15,7 @@ import { TOKEN_COOKIE_KEY } from '@/consts/auth';
 import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
+import session from '@/app/api/[utils]/SessionClient';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
@@ -47,10 +48,15 @@ function AuthProvider({ children }: PropsWithChildren) {
   const { t, localeCode } = useIntl();
   const router = useRouter();
 
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      session.logout();
+    }
+  }, [isLoggedIn]);
+
   const setCurrentUser = useCallback((data: UserModel) => {
     setUser(mapUserModelToUser(data));
     setIsLoggedIn(true);
-    router.push(dynamicRoute(Routes.home, { localeCode }));
   }, []);
 
   const clearCurrentUser = useCallback(() => {

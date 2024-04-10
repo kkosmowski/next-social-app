@@ -62,7 +62,6 @@ class SessionClient {
         new Promise<SessionData>(async (resolve) => {
           try {
             await this.refreshDataIfNeeded();
-
             resolve(this.data);
           } catch (e) {
             resolve(emptySessionData);

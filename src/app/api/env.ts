@@ -1,3 +1,3 @@
 import ensureVariable from '@/utils/ensureVariable';
 
-export const POCKETBASE_URL = ensureVariable('POCKETBASE_URL', process.env.POCKETBASE_URL);
+export const POCKETBASE_URL = ensureVariable('NEXT_PUBLIC_POCKETBASE_URL', process.env.NEXT_PUBLIC_POCKETBASE_URL);

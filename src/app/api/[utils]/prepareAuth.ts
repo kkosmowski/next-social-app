@@ -15,6 +15,8 @@ function prepareAuth(authData: RecordAuthResponse<RecordModel>) {
     verified: authData.record.verified,
     created: authData.record.created,
     avatarUrl: buildAvatarUrl(authData.record),
+    status: authData.record.status,
+    about: authData.record.about,
   };
   return data;
 }

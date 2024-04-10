@@ -19,6 +19,9 @@
   "NAV.USER.PROFILE": "Profile",
   "NAV.USER.SETTINGS": "Settings",
 
+  "ME.ABOUT": "About",
+  "ME.AVATAR_ALT": "Your avatar",
+
   "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }

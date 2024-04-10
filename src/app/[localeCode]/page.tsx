@@ -1,5 +1,5 @@
 async function Home() {
-  return <section>Hello</section>;
+  return <section className="page-section">Hello</section>;
 }
 
 export default Home;

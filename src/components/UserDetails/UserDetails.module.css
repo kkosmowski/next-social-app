@@ -1,0 +1,32 @@
+.wrapper {
+    width: 20rem;
+    gap: 2rem;
+}
+
+.row {
+    display: flex;
+    gap: 2rem;
+}
+
+.divider {
+    margin-block: 1rem;
+    border-top: 0;
+    border-bottom-color: var(--white-400);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutTitle {
+    font: inherit;
+    color: var(--secondary-400);
+    font-weight: 500;
+}
+
+.about {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    color: var(--secondary-600);
+}

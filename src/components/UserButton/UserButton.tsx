@@ -52,7 +52,7 @@ function UserButton() {
         ) : (
           <span className={styles.avatar}>{user?.username.slice(0, 1) ?? '-'}</span>
         )}
-        <span className={styles.name}>Krzysztof</span>
+        <span className={styles.name}>{user?.username}</span>
       </button>
 
       {menuVisible && (
