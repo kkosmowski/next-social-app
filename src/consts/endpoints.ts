@@ -4,8 +4,13 @@ const authEndpoints = {
   me: '/auth/me',
 } as const;
 
+const postEndpoints = {
+  posts: '/posts',
+} as const;
+
 const endpoints = {
   ...authEndpoints,
+  ...postEndpoints,
 };
 
 export type Endpoint = (typeof endpoints)[keyof typeof endpoints];

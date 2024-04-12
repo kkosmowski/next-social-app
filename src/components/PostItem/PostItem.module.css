@@ -1,0 +1,38 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem 2rem;
+    background-color: var(--white-100);
+}
+
+.title {
+    padding-block-end: 0.4rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.content {
+    padding-block-start: 2rem;
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+
+.content:not(:last-child) {
+    padding-block-end: 2rem;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author {
+    font-style: normal;
+    font-weight: 400;
+}
+
+.date {
+    font-size: 1.4rem;
+    color: var(--secondary-500);
+}

@@ -1,10 +1,10 @@
 import pb from '@/app/api/pocketbase';
-import prepareAuth from '@/app/api/[utils]/prepareAuth';
-import type { UserModel } from '@/types/auth';
+import type { User } from '@/types/auth';
+import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 
 type SessionData =
   | {
-      user: UserModel;
+      user: User;
       token: string;
       isLoggedIn: true;
     }
@@ -46,7 +46,7 @@ class SessionClient {
       const authData = await pb.users.authRefresh();
 
       this.data = {
-        user: prepareAuth(authData),
+        user: mapUserRecordToUser(authData.record),
         token: authData.token,
         isLoggedIn: true,
       };

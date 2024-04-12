@@ -13,7 +13,7 @@ input.error {
 }
 
 input.error::placeholder {
-    color: var(--error-300);
+    color: var(--error-400);
 }
 
 

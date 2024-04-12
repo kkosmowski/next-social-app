@@ -17,6 +17,14 @@ button:not(.ghost) {
     padding: 0.8rem 1.4rem;
 }
 
+button:not(.ghost):not(.filled):hover {
+    background-color: var(--transparent-black-4);
+}
+
+button:not(.ghost):not(.filled):active {
+    background-color: var(--transparent-black-7);
+}
+
 button:not(.ghost).large {
     padding: 1.2rem 2rem;
 }
@@ -45,6 +53,10 @@ button.primary.filled:hover {
     box-shadow: inset 0 0 0 0.3rem var(--primary-400);
 }
 
+button.primary.filled:active {
+    background-color: var(--primary-400);
+}
+
 button.secondary.filled {
     background-color: var(--secondary-600);
     color: var(--white-100);
@@ -55,8 +67,20 @@ button.secondary.filled:hover {
     box-shadow: inset 0 0 0 0.3rem var(--secondary-400);
 }
 
+button.secondary.filled:active {
+    background-color: var(--secondary-400);
+}
+
 button.primary {
     color: var(--primary-500);
+}
+
+button.primary:not(.ghost):not(.filled):hover {
+    background-color: var(--transparent-primary-7);
+}
+
+button.primary:not(.ghost):not(.filled):active {
+    background-color: var(--transparent-primary-15);
 }
 
 button.secondary {

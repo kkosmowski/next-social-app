@@ -1,16 +1,12 @@
-export type UserModel = {
-  id: string;
+import type { Model } from './common';
+
+export type User = Omit<Model, 'updated'> & {
   email: string;
   username: string;
   verified: boolean;
-  created: string;
   avatarUrl: string;
   status: string;
   about: string;
-};
-
-export type User = Omit<UserModel, 'created'> & {
-  created: Date;
 };
 
 export type LoginPayload = {
@@ -18,6 +14,6 @@ export type LoginPayload = {
   password: string;
 };
 
-export type LoginResponse = UserModel;
+export type LoginResponse = User;
 export type LogoutResponse = void;
-export type GetMeResponse = UserModel;
+export type GetMeResponse = User;

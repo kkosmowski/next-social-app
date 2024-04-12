@@ -6,6 +6,7 @@
   "AUTH.ERROR.USER_NOT_FOUND": "Could not find the user.",
   "AUTH.ERROR.INVALID_CREDENTIALS": "Provided credentials are incorrect.",
   "AUTH.ERROR.NOT_LOGGED_IN": "User is not logged in.",
+  "AUTH.ERROR.NOT_AUTHORIZED": "You are not authorized.",
 
   "LOGIN.SUBMIT": "Sign In",
   "LOGIN.TITLE": "Sign In",

@@ -8,5 +8,5 @@
 
 .errorText {
     font-size: 1.3rem;
-    color: var(--error-500);
+    color: var(--error-600);
 }

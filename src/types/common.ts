@@ -7,3 +7,9 @@ export type PropsWithChildren<T = unknown> = T & {
 export type PageProps<T = unknown, P = unknown> = T & {
   params: P & { localeCode: string };
 };
+
+export type Model = {
+  id: string;
+  created: string;
+  updated: string;
+};

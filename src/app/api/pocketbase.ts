@@ -7,6 +7,7 @@ export const pbClient = new PocketBase(POCKETBASE_URL);
 const pb = {
   authStore: pbClient.authStore,
   users: pbClient.collection('users'),
+  posts: pbClient.collection('posts'),
 };
 
 export default pb;

@@ -3,7 +3,7 @@
 import type { FormEvent } from 'react';
 import { useEffect, useState } from 'react';
 
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import useIntl from '@/app/hooks/useIntl';
 import PasswordInput from '@/components/PasswordInput';
@@ -26,9 +26,11 @@ function LoginForm() {
   const [error, setError] = useState(loginApiError);
   const [fieldErrors, setFieldErrors] = useState<Record<string, TranslationKey | undefined> | null>(null);
 
-  if (isLoggedIn) {
-    router.push(dynamicRoute(Routes.home, { localeCode }));
-  }
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push(dynamicRoute(Routes.home, { localeCode }));
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     setError(loginApiError);

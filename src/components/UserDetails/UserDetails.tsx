@@ -1,13 +1,13 @@
 import Image from 'next/image';
 
-import type { UserModel } from '@/types/auth';
+import type { User } from '@/types/auth';
 import type { LocaleCode } from '@/types/i18n';
 import getIntl from '@/app/utils/getIntl';
 
 import styles from './UserDetails.module.css';
 
 type Props = {
-  user: UserModel;
+  user: User;
   localeCode: LocaleCode;
 };
 

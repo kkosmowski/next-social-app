@@ -5,12 +5,16 @@
     --black-300: #1e1e1e;
     --black-400: #2e2e2e;
     --black-500: #2a2a2a;
+
     --white-50: #fff;
     --white-100: #fbfbfb;
     --white-200: #f3f3f3;
     --white-300: #ededed;
     --white-400: #e0e0e0;
     --white-500: #cbcbcb;
+
+    --transparent-black-4: rgba(0, 0, 0, 0.04);
+    --transparent-black-7: rgba(0, 0, 0, 0.07);
 
     --primary-50: #e8eaf6;
     --primary-100: #c5cbe9;
@@ -22,6 +26,11 @@
     --primary-700: #3140a5;
     --primary-800: #29379d;
     --primary-900: #1b278d;
+
+    --transparent-primary-4: rgba(63, 81, 181, 0.04);
+    --transparent-primary-7: rgba(63, 81, 181, 0.07);
+    --transparent-primary-11: rgba(63, 81, 181, 0.11);
+    --transparent-primary-15: rgba(63, 81, 181, 0.15);
 
     --secondary-50: #eaeaea;
     --secondary-100: #cbcbca;

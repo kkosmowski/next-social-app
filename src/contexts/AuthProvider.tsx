@@ -5,11 +5,10 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { useRouter } from 'next/navigation';
 
 import type { PropsWithChildren } from '@/types/common';
-import type { GetMeResponse, LoginPayload, LoginResponse, LogoutResponse, User, UserModel } from '@/types/auth';
+import type { GetMeResponse, LoginPayload, LoginResponse, LogoutResponse, User } from '@/types/auth';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { TranslationKey } from '@/types/i18n';
-import mapUserModelToUser from '@/utils/mapUserModelToUser';
 import useIntl from '@/app/hooks/useIntl';
 import { TOKEN_COOKIE_KEY } from '@/consts/auth';
 import CookieService from '@/utils/cookieService';
@@ -54,8 +53,8 @@ function AuthProvider({ children }: PropsWithChildren) {
     }
   }, [isLoggedIn]);
 
-  const setCurrentUser = useCallback((data: UserModel) => {
-    setUser(mapUserModelToUser(data));
+  const setCurrentUser = useCallback((data: User) => {
+    setUser(data);
     setIsLoggedIn(true);
   }, []);
 
