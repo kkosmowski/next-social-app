@@ -50,7 +50,7 @@ body > main {
   flex-direction: column;
   align-items: center;
   flex: 1;
-  padding: 0.8rem;
+  padding: .8rem;
 }
 
 li {
@@ -59,7 +59,15 @@ li {
 
 .page-section {
   flex: 1;
-  width: min(120rem, 100%);
-  padding: 2rem;
+  width: 100%;
+  padding: 1.2rem;
   background-color: var(--white-200);
 }
+
+@media (min-width: 1024px) {
+  .page-section {
+    width: min(120rem, 100%);
+    padding: 2rem
+  }
+}
+

@@ -1,24 +1,25 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem 2rem;
+    padding: .8rem 1.2rem 1.2rem;
     background-color: var(--white-100);
 }
 
 .title {
-    padding-block-end: 0.4rem;
-    font-size: 1.6rem;
+    padding-block-end: 0.2rem;
     font-weight: 500;
 }
 
 .content {
-    padding-block-start: 2rem;
+    padding-block-start: 1.2rem;
     white-space: pre-wrap;
-    line-height: 1.4;
+    word-break: break-word;
+    line-height: 1.5;
+    font-size: 1.4rem;
 }
 
 .content:not(:last-child) {
-    padding-block-end: 2rem;
+    padding-block-end: .8rem;
 }
 
 .details {
@@ -30,9 +31,43 @@
 .author {
     font-style: normal;
     font-weight: 400;
+    font-size: 1.4rem;
 }
 
 .date {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--secondary-500);
+}
+
+@media (min-width: 1024px) {
+    .wrapper {
+        padding: 1rem 2rem 2rem;
+    }
+
+    .title {
+        padding-block-end: 0.4rem;
+        font-size: 1.6rem;
+    }
+
+    .content {
+        padding-block-start: 1.6rem;
+        font-size: 1.5rem;
+    }
+
+    .content:not(:last-child) {
+        padding-block-end: 1.2rem;
+    }
+
+    .author {
+        font-size: 1.5rem;
+    }
+
+
+    .details {
+        gap: 1rem;
+    }
+
+    .date {
+        font-size: 1.4rem;
+    }
 }
