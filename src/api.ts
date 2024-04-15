@@ -1,6 +1,7 @@
 import { API_URL } from '@/env';
 import stringifyParams from '@/utils/stringifyParams';
 import type { Endpoint } from '@/consts/endpoints';
+import type { DynamicEndpoint } from '@/app/utils/dynamicEndpoint';
 
 type FetchOptions = {
   init?: RequestInit;
@@ -16,14 +17,19 @@ class ApiClient {
     this.apiUrl = apiUrl;
   }
 
-  async get<R>(endpoint: Endpoint, options?: FetchOptions): Promise<R> {
+  async get<R>(endpoint: Endpoint | DynamicEndpoint, options?: FetchOptions): Promise<R> {
     const res = await this.fetch(endpoint, options);
 
-    if (res.ok) return res.json();
+    if (res.ok) {
+      if (res.status !== 204) {
+        return res.json();
+      }
+      return Promise.resolve() as Promise<R>;
+    }
     throw new Error((await res.json()).error);
   }
 
-  async post<T, R>(endpoint: Endpoint, body?: T, options?: FetchOptions): Promise<R> {
+  async post<T, R>(endpoint: Endpoint | DynamicEndpoint, body?: T, options?: FetchOptions): Promise<R> {
     const res = await this.fetch(endpoint, {
       ...options,
       init: {
@@ -33,7 +39,31 @@ class ApiClient {
       },
     });
 
-    if (res.ok) return res.json();
+    if (res.ok) {
+      if (res.status !== 204) {
+        return res.json();
+      }
+      return Promise.resolve() as Promise<R>;
+    }
+    throw new Error((await res.json()).error);
+  }
+
+  async delete<T, R>(endpoint: Endpoint | DynamicEndpoint, body?: T, options?: FetchOptions): Promise<R> {
+    const res = await this.fetch(endpoint, {
+      ...options,
+      init: {
+        ...options?.init,
+        method: 'DELETE',
+        body: JSON.stringify(body),
+      },
+    });
+
+    if (res.ok) {
+      if (res.status !== 204) {
+        return res.json();
+      }
+      return Promise.resolve() as Promise<R>;
+    }
     throw new Error((await res.json()).error);
   }
 }

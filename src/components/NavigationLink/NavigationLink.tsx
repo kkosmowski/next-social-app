@@ -6,9 +6,10 @@ import type { NavLink, RouteAccess } from '@/types/navigation';
 import type { LocaleCode } from '@/types/i18n';
 import { useAuth } from '@/contexts/AuthProvider';
 import useIntl from '@/app/hooks/useIntl';
+import type { DynamicRoute } from '@/app/utils/dynamicRoute';
 
 type Props = Omit<NavLink, 'route'> & {
-  route: string;
+  route: DynamicRoute;
   localeCode: LocaleCode;
 };
 

@@ -47,8 +47,14 @@
     cursor: pointer;
 }
 
+.menuItem:link,
+.menuItem:visited {
+    color: inherit;
+}
+
 .menuItem:hover {
     background-color: var(--secondary-500);
+    text-decoration: none;
 }
 
 .menuItem:not(:last-child) {

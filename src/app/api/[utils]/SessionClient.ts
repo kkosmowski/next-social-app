@@ -24,7 +24,7 @@ class SessionClient {
   queued = Promise.resolve(emptySessionData);
   data: SessionData = emptySessionData;
   updatedAt: Date | null = null;
-  staleTime = 2 * 60 * 1000; // 2 minutes
+  staleTime = 30 * 60 * 1000; // 30 minutes
 
   isDataFresh() {
     if (!this.updatedAt) return false;

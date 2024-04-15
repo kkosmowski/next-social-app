@@ -5,7 +5,7 @@ import { ERROR_NOT_LOGGED_IN, TOKEN_COOKIE_KEY } from '@/consts/auth';
 import session from '@/app/api/[utils]/SessionClient';
 import { ERROR_UNKNOWN } from '@/consts/common';
 
-async function POST() {
+export async function POST() {
   const { isLoggedIn } = await session.getData();
 
   if (!isLoggedIn) {
@@ -14,7 +14,7 @@ async function POST() {
 
   try {
     session.logout();
-    const response = NextResponse.json({});
+    const response = new NextResponse(undefined, { status: 204 });
     response.cookies.delete(TOKEN_COOKIE_KEY);
     cookies().delete(TOKEN_COOKIE_KEY);
     return response;
@@ -22,5 +22,3 @@ async function POST() {
     return NextResponse.json({ error: 'Unknown error during logging out', code: ERROR_UNKNOWN }, { status: 400 });
   }
 }
-
-export { POST };

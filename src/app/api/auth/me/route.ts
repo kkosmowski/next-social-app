@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { ERROR_NO_USER_FOUND, TOKEN_COOKIE_KEY } from '@/consts/auth';
 import session from '@/app/api/[utils]/SessionClient';
 
-async function GET() {
+export async function GET() {
   const data = await session.getData();
 
   if (!data.isLoggedIn) {
@@ -17,5 +17,3 @@ async function GET() {
 
   return response;
 }
-
-export { GET };

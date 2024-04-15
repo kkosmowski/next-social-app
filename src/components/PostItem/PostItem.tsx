@@ -22,7 +22,7 @@ async function PostItem(props: Post) {
 
       <TagsList tags={props.tags} />
 
-      <PostActions likes={props.likes} />
+      <PostActions postId={props.id} likes={props.likes} />
     </article>
   );
 }

@@ -3,16 +3,17 @@
 import styles from './PostLikes.module.css';
 
 type Props = {
+  isLoading: boolean;
   likesCount: number;
-  likedByCurrentUser: boolean;
+  isLikedByCurrentUser: boolean;
   onLike: VoidFunction;
 };
 
-function PostLikes({ likesCount, likedByCurrentUser, onLike }: Props) {
-  const className = likedByCurrentUser ? `${styles.active}` : undefined;
+function PostLikes({ isLoading, likesCount, isLikedByCurrentUser, onLike }: Props) {
+  const className = isLikedByCurrentUser ? `${styles.active}` : undefined;
 
   return (
-    <button className={className} onClick={onLike}>
+    <button className={className} onClick={onLike} disabled={isLoading}>
       👍 {likesCount || ''}
     </button>
   );

@@ -6,6 +6,7 @@ const authEndpoints = {
 
 const postEndpoints = {
   posts: '/posts',
+  postLike: '/posts/:postId/like',
 } as const;
 
 const endpoints = {

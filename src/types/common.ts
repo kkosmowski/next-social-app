@@ -13,3 +13,5 @@ export type Model = {
   created: string;
   updated: string;
 };
+
+export type Distinct<T, DistinctName> = T & { __type__: DistinctName };

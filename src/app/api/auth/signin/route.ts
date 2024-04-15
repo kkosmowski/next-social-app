@@ -6,7 +6,7 @@ import pb from '@/app/api/pocketbase';
 import { ERROR_INVALID_CREDENTIALS, TOKEN_COOKIE_KEY } from '@/consts/auth';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 
-async function POST(request: Request) {
+export async function POST(request: Request) {
   const payload: LoginPayload = await request.json();
 
   try {
@@ -22,5 +22,3 @@ async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid credentials.', code: ERROR_INVALID_CREDENTIALS }, { status: 404 });
   }
 }
-
-export { POST };
