@@ -54,9 +54,14 @@ class SessionClient {
   }
 
   async refreshDataIfNeeded() {
+    console.log('refreshDataIfNeeded');
+    console.log('isLoggedIn:', this.data.isLoggedIn, ', isDataFresh:', this.isDataFresh());
+
     if (this.data.isLoggedIn && this.isDataFresh()) {
       return;
     }
+
+    console.log('refreshDataIfNeeded, isValid:', pb.authStore.isValid);
 
     if (pb.authStore.isValid) {
       const authData = await pb.users.authRefresh();

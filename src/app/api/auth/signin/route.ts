@@ -11,7 +11,8 @@ export async function POST(request: Request) {
 
   try {
     const authData = await pb.users.authWithPassword(payload.email, payload.password);
-    pb.authStore.save(authData.token, authData.record);
+    console.log('await pb.users.authWithPassword called');
+    console.log('record response', authData);
     const data = mapUserRecordToUser(authData.record);
 
     cookies().set(TOKEN_COOKIE_KEY, authData.token);
