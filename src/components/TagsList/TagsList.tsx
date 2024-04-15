@@ -1,10 +1,9 @@
-import type { Tag } from '@/types/post';
 import PostTag from '../PostTag';
 
 import styles from './TagsList.module.css';
 
 type Props = {
-  tags: Tag[];
+  tags: string[];
 };
 async function TagsList({ tags }: Props) {
   if (!tags.length) {
@@ -14,7 +13,7 @@ async function TagsList({ tags }: Props) {
   return (
     <ul className={styles.list}>
       {tags.map((tag) => (
-        <PostTag key={tag.name} name={tag.name} />
+        <PostTag key={tag} name={tag} />
       ))}
     </ul>
   );

@@ -19,10 +19,6 @@ export type Comment = Model & {
   likes: PostLike[];
 };
 
-export type Tag = Omit<Model, 'created' | 'updated'> & {
-  name: string;
-};
-
 export type Post = Model & {
   title: string;
   content: string;
