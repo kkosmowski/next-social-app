@@ -1,4 +1,11 @@
 .footer {
     display: flex;
     gap: 1rem;
+    padding-block-start: .8rem;
+}
+
+@media (min-width: 1024px) {
+    .footer {
+        padding-block-start: 1.2rem;
+    }
 }

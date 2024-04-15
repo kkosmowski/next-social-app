@@ -11,7 +11,6 @@ import type { PostLike } from '@/types/post';
 import { useAuth } from '@/contexts/AuthProvider';
 import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import dynamicRoute from '@/app/utils/dynamicRoute';
-import useIntl from '@/app/hooks/useIntl';
 import { Routes } from '@/consts/navigation';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
@@ -33,7 +32,6 @@ async function removeLike(postId: string) {
 
 function PostActions({ postId, likes }: Props) {
   const { user } = useAuth();
-  const { localeCode } = useIntl();
   const router = useRouter();
   const likesCount = likes.length;
   const isLikedByCurrentUser = !!user?.id && likes.some((like) => user.id === like.userId);
@@ -43,7 +41,7 @@ function PostActions({ postId, likes }: Props) {
   const handleLike = async () => {
     setIsLoading(true);
     if (!user) {
-      router.push(dynamicRoute(Routes.login, { localeCode }));
+      router.push(dynamicRoute(Routes.login));
       return;
     }
 

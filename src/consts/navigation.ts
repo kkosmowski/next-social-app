@@ -9,6 +9,8 @@ export enum Routes {
   settings = '/:localeCode/settings',
 
   login = '/:localeCode/login',
+
+  user = '/:localeCode/users/:username',
 }
 
 export const navigationLinks: NavLink[] = [

@@ -3,14 +3,12 @@
 import Link from 'next/link';
 
 import type { NavLink, RouteAccess } from '@/types/navigation';
-import type { LocaleCode } from '@/types/i18n';
 import { useAuth } from '@/contexts/AuthProvider';
 import useIntl from '@/app/hooks/useIntl';
 import type { DynamicRoute } from '@/app/utils/dynamicRoute';
 
 type Props = Omit<NavLink, 'route'> & {
   route: DynamicRoute;
-  localeCode: LocaleCode;
 };
 
 function hasAccess(access: RouteAccess, isLoggedIn: boolean | undefined) {
@@ -23,7 +21,6 @@ function NavigationLink({ route, label, access }: Props) {
   const { t } = useIntl();
   const { isLoggedIn } = useAuth();
 
-  // @todo: handle access
   if (hasAccess(access, isLoggedIn)) {
     return <Link href={route}>{t(label)}</Link>;
   }

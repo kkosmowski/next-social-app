@@ -6,6 +6,7 @@
   "AUTH.ERROR.USER_NOT_FOUND": "Nie znaleziono użytkownika.",
   "AUTH.ERROR.INVALID_CREDENTIALS": "Podany e-mail lub hasło nie są poprawne.",
   "AUTH.ERROR.NOT_LOGGED_IN": "Użytkownik nie jest zalogowany.",
+  "AUTH.ERROR.NOT_AUTHORIZED": "Brak dostępu.",
 
   "LOGIN.SUBMIT": "Zaloguj",
   "LOGIN.TITLE": "Logowanie",
@@ -18,6 +19,11 @@
   "NAV.USER.LOGOUT": "Wyloguj się",
   "NAV.USER.PROFILE": "Profil",
   "NAV.USER.SETTINGS": "Ustawienia",
+
+  "ME.ABOUT": "O mnie",
+  "ME.AVATAR_ALT": "Twój awatar",
+
+  "COMMON.BACK": "Wróć",
 
   "ERROR.UNKNOWN": "Coś poszło nie tak. ",
   "ERROR.EMPTY_INPUT": "To pole nie może być puste."

@@ -14,6 +14,17 @@ class CookieService {
 
     return null;
   }
+  static clear(key: string) {
+    if (!document) {
+      console.warn('Attempted to use document.cookie on server side.');
+      return;
+    }
+
+    const cookie = decodeURIComponent(document.cookie);
+
+    const cookieArray = cookie.split('; ').filter((pair) => !pair.includes(key));
+    document.cookie = cookieArray.join('; ');
+  }
 }
 
 export default CookieService;

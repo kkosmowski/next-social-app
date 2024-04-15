@@ -7,9 +7,8 @@ type I18nConfig = {
 };
 
 export const localeCodes: LocaleCode[] = ['en', 'pl'];
+export const locales: Locale[] = localeCodes.map((code) => codeToLocale[code]);
 export const defaultLocaleCode: LocaleCode = 'en';
+export const defaultLocale = codeToLocale[defaultLocaleCode];
 
-export const i18nConfig: I18nConfig = {
-  locales: localeCodes.map((code) => codeToLocale[code]),
-  defaultLocale: codeToLocale[defaultLocaleCode],
-};
+export const i18nConfig: I18nConfig = { locales, defaultLocale };

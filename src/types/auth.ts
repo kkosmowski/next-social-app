@@ -1,13 +1,4 @@
-import type { Model } from './common';
-
-export type User = Omit<Model, 'updated'> & {
-  email: string;
-  username: string;
-  verified: boolean;
-  avatarUrl: string;
-  status: string;
-  about: string;
-};
+import type { User } from './user';
 
 export type LoginPayload = {
   email: string;

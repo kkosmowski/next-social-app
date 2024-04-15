@@ -1,12 +1,15 @@
+import Link from 'next/link';
+
 import type { Post } from '@/types/post';
 import formatDate from '@/utils/formatDate';
 import TagsList from '@/components/TagsList';
 import PostActions from '@/components/PostActions';
+import dynamicRoute from '@/app/utils/dynamicRoute';
+import { Routes } from '@/consts/navigation';
 
 import styles from './PostItem.module.css';
 
 async function PostItem(props: Post) {
-  // console.log(props);
   return (
     <article className={styles.wrapper}>
       <header>
@@ -14,7 +17,9 @@ async function PostItem(props: Post) {
       </header>
 
       <section className={styles.details}>
-        <address className={styles.author}>{props.user.username}</address>
+        <address className={styles.author}>
+          <Link href={dynamicRoute(Routes.user, { username: props.user.username })}>{props.user.username}</Link>
+        </address>
         <time className={styles.date}>{formatDate(props.created, 'd-MM-yyyy hh:mm')}</time>
       </section>
 

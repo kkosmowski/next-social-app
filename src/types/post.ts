@@ -1,5 +1,5 @@
 import type { Model } from '@/types/common';
-import type { User } from '@/types/auth';
+import type { User } from '@/types/user';
 
 // should be used only on server side
 export type PostLikeModel = Model & {

@@ -5,7 +5,8 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { useRouter } from 'next/navigation';
 
 import type { PropsWithChildren } from '@/types/common';
-import type { GetMeResponse, LoginPayload, LoginResponse, LogoutResponse, User } from '@/types/auth';
+import type { GetMeResponse, LoginPayload, LoginResponse, LogoutResponse } from '@/types/auth';
+import type { User } from '@/types/user';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { TranslationKey } from '@/types/i18n';
@@ -15,6 +16,7 @@ import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import session from '@/app/api/[utils]/SessionClient';
+import cookieService from '@/utils/cookieService';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
@@ -44,12 +46,13 @@ function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>();
   const [loginApiError, setLoginApiError] = useState('');
   const [user, setUser] = useState<User | null>(null);
-  const { t, localeCode } = useIntl();
+  const { t } = useIntl();
   const router = useRouter();
 
   useEffect(() => {
     if (isLoggedIn === false) {
       session.logout();
+      void logout();
     }
   }, [isLoggedIn]);
 
@@ -61,7 +64,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   const clearCurrentUser = useCallback(() => {
     setUser(null);
     setIsLoggedIn(false);
-    router.push(dynamicRoute(Routes.home, { localeCode }));
+    router.push(dynamicRoute(Routes.home));
   }, []);
 
   const getMe = useCallback(async (signal: AbortSignal) => {
@@ -76,7 +79,7 @@ function AuthProvider({ children }: PropsWithChildren) {
     const controller = new AbortController();
 
     if (token) {
-      void getMe(controller.signal);
+      session.getData(token).then(() => getMe(controller.signal));
     }
 
     return () => {
@@ -98,6 +101,7 @@ function AuthProvider({ children }: PropsWithChildren) {
     try {
       await api.post<undefined, LogoutResponse>(endpoints.logout);
       clearCurrentUser();
+      cookieService.clear(TOKEN_COOKIE_KEY);
     } catch (e) {}
   }, []);
 

@@ -1,7 +1,7 @@
 import type { RecordModel } from 'pocketbase';
 
 import { POCKETBASE_URL } from '@/app/api/env';
-import type { User } from '@/types/auth';
+import type { User } from '@/types/user';
 
 function buildAvatarUrl(record: RecordModel) {
   return POCKETBASE_URL + '/api/files/' + record.collectionName + '/' + record.id + '/' + record.avatar;

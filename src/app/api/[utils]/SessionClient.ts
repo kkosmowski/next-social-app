@@ -1,6 +1,11 @@
 import pb from '@/app/api/pocketbase';
-import type { User } from '@/types/auth';
+import type { User } from '@/types/user';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
+import type { Locale, LocaleCode } from '@/types/i18n';
+import { codeToLocale, localeToCode } from '@/i18n/consts';
+import validateLocaleCode from '@/i18n/validateLocaleCode';
+import validateLocale from '@/i18n/validateLocale';
+import { defaultLocale, defaultLocaleCode } from '@/i18n/config';
 
 type SessionData =
   | {
@@ -14,17 +19,28 @@ type SessionData =
       isLoggedIn: false;
     };
 
+type I18nData = {
+  locale: Locale;
+  localeCode: LocaleCode;
+};
+
 const emptySessionData: SessionData = {
   user: null,
   token: null,
   isLoggedIn: false,
 };
 
+const defaultI18n: I18nData = {
+  locale: defaultLocale,
+  localeCode: defaultLocaleCode,
+};
+
 class SessionClient {
-  queued = Promise.resolve(emptySessionData);
-  data: SessionData = emptySessionData;
-  updatedAt: Date | null = null;
-  staleTime = 30 * 60 * 1000; // 30 minutes
+  private queued = Promise.resolve(emptySessionData);
+  private data: SessionData = emptySessionData;
+  private updatedAt: Date | null = null;
+  private readonly staleTime = 30 * 60 * 1000; // 30 minutes
+  private currentI18n = defaultI18n;
 
   isDataFresh() {
     if (!this.updatedAt) return false;
@@ -76,6 +92,37 @@ class SessionClient {
       this.updatedAt = null;
       pb.authStore.clear();
     } catch (e) {}
+  }
+
+  setI18n({ locale, localeCode }: { locale?: string; localeCode?: string }) {
+    if ((locale === undefined || locale == '') && (localeCode === undefined || localeCode === '')) {
+      throw new Error('setI18n Error: Please provide at least one – locale or localeCode.');
+    }
+
+    // if no locale then there has to be localeCode, otherwise first if would throw error
+    const _locale: Locale = locale ? validateLocale(locale) : codeToLocale[validateLocaleCode(localeCode as string)];
+    const _localeCode: LocaleCode = localeCode ? validateLocaleCode(localeCode) : localeToCode[_locale];
+
+    if (_locale !== codeToLocale[_localeCode]) {
+      throw new Error('setI18n Error: locale and localeCode mismatch. Please ensure both point to the same language.');
+    }
+
+    this.currentI18n = {
+      locale: _locale,
+      localeCode: _localeCode,
+    };
+  }
+
+  getLocale() {
+    return this.currentI18n.locale;
+  }
+
+  getLocaleCode() {
+    return this.currentI18n.localeCode;
+  }
+
+  getI18n() {
+    return this.currentI18n;
   }
 }
 

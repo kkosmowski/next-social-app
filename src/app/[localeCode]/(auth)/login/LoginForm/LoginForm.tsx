@@ -18,7 +18,7 @@ import { Routes } from '@/consts/navigation';
 import styles from './LoginForm.module.css';
 
 function LoginForm() {
-  const { t, localeCode } = useIntl();
+  const { t } = useIntl();
   const router = useRouter();
   const { login, loginApiError, isLoggedIn } = useAuth();
   const [email, setEmail] = useState('');
@@ -28,7 +28,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.push(dynamicRoute(Routes.home, { localeCode }));
+      router.push(dynamicRoute(Routes.home));
     }
   }, [isLoggedIn]);
 

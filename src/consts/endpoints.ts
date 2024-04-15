@@ -9,9 +9,14 @@ const postEndpoints = {
   postLike: '/posts/:postId/like',
 } as const;
 
+const userEndpoints = {
+  user: '/users/:username',
+} as const;
+
 const endpoints = {
   ...authEndpoints,
   ...postEndpoints,
+  ...userEndpoints,
 };
 
 export type Endpoint = (typeof endpoints)[keyof typeof endpoints];

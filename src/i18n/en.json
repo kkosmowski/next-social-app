@@ -23,6 +23,8 @@
   "ME.ABOUT": "About",
   "ME.AVATAR_ALT": "Your avatar",
 
+  "COMMON.BACK": "Back",
+
   "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }

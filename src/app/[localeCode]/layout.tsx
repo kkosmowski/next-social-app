@@ -7,6 +7,7 @@ import getIntl from '@/app/utils/getIntl';
 import ServerIntlProvider from '@/contexts/ServerIntlProvider';
 import Navigation from '@/components/Navigation';
 import AuthProvider from '@/contexts/AuthProvider';
+import session from '@/app/api/[utils]/SessionClient';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,14 +17,15 @@ export const metadata: Metadata = {
 };
 
 async function RootLayout({ params, children }: PropsWithChildren<PageProps>) {
-  const { messages, locale } = await getIntl(params.localeCode);
+  const { messages, locale, localeCode } = await getIntl(params.localeCode);
+  session.setI18n({ locale, localeCode });
 
   return (
     <html lang="en">
       <ServerIntlProvider messages={messages} locale={locale}>
         <AuthProvider>
           <body className={inter.className}>
-            <Navigation localeCode={params.localeCode} />
+            <Navigation />
             <main>{children}</main>
           </body>
         </AuthProvider>
