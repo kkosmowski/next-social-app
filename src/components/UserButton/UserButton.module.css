@@ -12,8 +12,9 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: var(--white-400);
-    color: var(--black-200);
+    background-color: var(--secondary-400);
+    color: var(--white-400);
+    font-weight: 500;
     font-size: 1.3rem;
 }
 

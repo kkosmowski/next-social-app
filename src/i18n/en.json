@@ -24,6 +24,8 @@
   "ME.AVATAR_ALT": "Your avatar",
 
   "COMMON.BACK": "Back",
+  "COMMON.DONE": "Done",
+  "COMMON.LOADING": "Loading",
 
   "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."

@@ -24,6 +24,7 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(loginApiError);
+  const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, TranslationKey | undefined> | null>(null);
 
   useEffect(() => {
@@ -37,6 +38,7 @@ function LoginForm() {
   }, [loginApiError]);
 
   const handleSubmit = async (event: FormEvent) => {
+    setIsLoading(true);
     event.preventDefault();
 
     const formData = getFormData<LoginPayload>(event.target);
@@ -51,7 +53,8 @@ function LoginForm() {
       return;
     }
 
-    login(formData.data);
+    await login(formData.data);
+    setIsLoading(false);
   };
 
   const handleChange = (name: 'email' | 'password') => (value: string) => {
@@ -72,8 +75,8 @@ function LoginForm() {
 
       <span className={styles.errorText}>{error}</span>
 
-      <button className={`${styles.button} primary filled large`} type="submit">
-        {t('LOGIN.SUBMIT')}
+      <button className={`${styles.button} primary filled large`} type="submit" disabled={isLoading}>
+        {isLoading ? t('COMMON.LOADING') : isLoggedIn ? t('COMMON.DONE') : t('LOGIN.SUBMIT')}
       </button>
     </form>
   );

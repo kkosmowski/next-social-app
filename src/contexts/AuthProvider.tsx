@@ -16,7 +16,6 @@ import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import session from '@/app/api/[utils]/SessionClient';
-import cookieService from '@/utils/cookieService';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
@@ -52,7 +51,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     if (isLoggedIn === false) {
       session.logout();
-      void logout();
+      // void logout();
     }
   }, [isLoggedIn]);
 
@@ -79,7 +78,7 @@ function AuthProvider({ children }: PropsWithChildren) {
     const controller = new AbortController();
 
     if (token) {
-      session.getData(token).then(() => getMe(controller.signal));
+      session.getData().then(() => getMe(controller.signal));
     }
 
     return () => {
@@ -101,7 +100,7 @@ function AuthProvider({ children }: PropsWithChildren) {
     try {
       await api.post<undefined, LogoutResponse>(endpoints.logout);
       clearCurrentUser();
-      cookieService.clear(TOKEN_COOKIE_KEY);
+      CookieService.clear(TOKEN_COOKIE_KEY);
     } catch (e) {}
   }, []);
 

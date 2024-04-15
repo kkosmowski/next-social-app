@@ -24,6 +24,8 @@
   "ME.AVATAR_ALT": "Twój awatar",
 
   "COMMON.BACK": "Wróć",
+  "COMMON.DONE": "Gotowe",
+  "COMMON.LOADING": "Ładowanie",
 
   "ERROR.UNKNOWN": "Coś poszło nie tak. ",
   "ERROR.EMPTY_INPUT": "To pole nie może być puste."
