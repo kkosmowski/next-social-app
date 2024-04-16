@@ -7,4 +7,5 @@ export const ERROR_INVALID_CREDENTIALS: TranslationKey = 'AUTH.ERROR.INVALID_CRE
 export const ERROR_NOT_LOGGED_IN: TranslationKey = 'AUTH.ERROR.NOT_LOGGED_IN';
 export const ERROR_NOT_AUTHORIZED: TranslationKey = 'AUTH.ERROR.NOT_AUTHORIZED';
 
-export const TOKEN_COOKIE_KEY = 'token';
+export const PB_AUTH_COOKIE_KEY = 'pb_auth';
+export const IS_LOGGED_COOKIE_KEY = 'is_logged';

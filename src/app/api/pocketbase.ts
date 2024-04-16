@@ -1,17 +1,32 @@
-import PocketBase from 'pocketbase';
+import _PocketBase from 'pocketbase';
 
 import { POCKETBASE_URL } from '@/app/api/env';
 
-export const pbClient = new PocketBase(POCKETBASE_URL);
+// extends client with custom methods for easier, personalized usage
+class PocketBase extends _PocketBase {
+  constructor() {
+    super(POCKETBASE_URL);
+  }
 
-const pb = {
-  authStore: pbClient.authStore,
-  users: pbClient.collection('users'),
-  posts: pbClient.collection('posts'),
-  postLikes: pbClient.collection('post_likes'),
-  comments: pbClient.collection('comments'),
-  commentLikes: pbClient.collection('comment_likes'),
-  tags: pbClient.collection('tags'),
-};
+  get users() {
+    return this.collection('users');
+  }
 
-export default pb;
+  get posts() {
+    return this.collection('posts');
+  }
+
+  get postLikes() {
+    return this.collection('post_likes');
+  }
+
+  get comments() {
+    return this.collection('comments');
+  }
+
+  get commentLikes() {
+    return this.collection('comment_likes');
+  }
+}
+
+export default PocketBase;

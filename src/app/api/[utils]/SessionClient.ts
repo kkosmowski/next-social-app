@@ -1,4 +1,3 @@
-import pb from '@/app/api/pocketbase';
 import type { User } from '@/types/user';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 import type { Locale, LocaleCode } from '@/types/i18n';
@@ -6,17 +5,21 @@ import { codeToLocale, localeToCode } from '@/i18n/consts';
 import validateLocaleCode from '@/i18n/validateLocaleCode';
 import validateLocale from '@/i18n/validateLocale';
 import { defaultLocale, defaultLocaleCode } from '@/i18n/config';
+import PocketBase from '@/app/api/pocketbase';
+import { PB_AUTH_COOKIE_KEY } from '@/consts/auth';
 
 type SessionData =
   | {
       user: User;
       token: string;
       isLoggedIn: true;
+      pb: PocketBase;
     }
   | {
       user: null;
       token: null;
       isLoggedIn: false;
+      pb: PocketBase;
     };
 
 type I18nData = {
@@ -28,6 +31,7 @@ const emptySessionData: SessionData = {
   user: null,
   token: null,
   isLoggedIn: false,
+  pb: new PocketBase(),
 };
 
 const defaultI18n: I18nData = {
@@ -36,61 +40,43 @@ const defaultI18n: I18nData = {
 };
 
 class SessionClient {
-  private queued = Promise.resolve(emptySessionData);
   private data: SessionData = emptySessionData;
-  private updatedAt: Date | null = null;
-  private readonly staleTime = 30 * 60 * 1000; // 30 minutes
   private currentI18n = defaultI18n;
 
-  isDataFresh() {
-    if (!this.updatedAt) return false;
+  async refreshData(cookies: string | string[]) {
+    const pb = new PocketBase();
 
-    const now = new Date();
-    return this.updatedAt.getTime() + this.staleTime > now.getTime();
-  }
+    const cookie =
+      typeof cookies === 'string' ? cookies : cookies.find((string) => string.includes(PB_AUTH_COOKIE_KEY));
 
-  private queue(fn: () => Promise<SessionData>) {
-    return (this.queued = this.queued.then(fn));
-  }
-
-  async refreshDataIfNeeded() {
-    if (this.data.isLoggedIn && this.isDataFresh()) {
-      return;
+    if (!cookie) {
+      this.data = emptySessionData;
+      return emptySessionData;
     }
 
-    if (pb.authStore.isValid) {
-      const authData = await pb.users.authRefresh();
+    pb.authStore.loadFromCookie(cookie);
 
-      this.data = {
-        user: mapUserRecordToUser(authData.record),
-        token: authData.token,
-        isLoggedIn: true,
-      };
-      this.updatedAt = new Date();
-    } else {
-      this.logout();
+    if (!pb.authStore.isValid) {
+      this.data = emptySessionData;
+      return emptySessionData;
     }
-  }
 
-  async getData() {
-    return this.queue(
-      () =>
-        new Promise<SessionData>(async (resolve) => {
-          try {
-            await this.refreshDataIfNeeded();
-            resolve(this.data);
-          } catch (e) {
-            resolve(emptySessionData);
-          }
-        }),
-    );
+    const authData = await pb.users.authRefresh();
+
+    this.data = {
+      user: mapUserRecordToUser(authData.record),
+      token: authData.token,
+      isLoggedIn: true,
+      pb,
+    };
+
+    return this.data;
   }
 
   logout() {
     try {
       this.data = emptySessionData;
-      this.updatedAt = null;
-      pb.authStore.clear();
+      this.currentI18n = defaultI18n;
     } catch (e) {}
   }
 

@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-import pb from '@/app/api/pocketbase';
 import session from '@/app/api/[utils]/SessionClient';
 import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
 import type { PostLikeModel } from '@/types/post';
@@ -16,7 +16,7 @@ type Params = {
 };
 
 export async function POST(_: NextRequest, { params }: Params) {
-  const { isLoggedIn, user } = await session.getData();
+  const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
     return NextResponse.json({ error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN }, { status: 401 });
@@ -40,7 +40,7 @@ export async function POST(_: NextRequest, { params }: Params) {
 }
 
 export async function DELETE(_: NextRequest, { params }: Params) {
-  const { isLoggedIn, user } = await session.getData();
+  const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
     return NextResponse.json({ error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN }, { status: 401 });

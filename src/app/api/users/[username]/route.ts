@@ -1,9 +1,10 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
-import pb from '@/app/api/pocketbase';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 import { ERROR_NO_USER_FOUND } from '@/consts/auth';
+import session from '@/app/api/[utils]/SessionClient';
 
 type Params = {
   params: {
@@ -12,6 +13,8 @@ type Params = {
 };
 
 export async function GET(_: NextRequest, { params }: Params) {
+  const { pb } = await session.refreshData(cookies().toString());
+
   if (!params.username) {
     return NextResponse.json({ error: 'No username provided.', code: ERROR_NO_USER_FOUND }, { status: 404 });
   }

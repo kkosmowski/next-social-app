@@ -11,7 +11,7 @@ import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { TranslationKey } from '@/types/i18n';
 import useIntl from '@/app/hooks/useIntl';
-import { TOKEN_COOKIE_KEY } from '@/consts/auth';
+import { IS_LOGGED_COOKIE_KEY } from '@/consts/auth';
 import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
@@ -37,8 +37,8 @@ function useAuth() {
   return useContext(AuthContext);
 }
 
-function searchCookiesForToken(): string | null {
-  return CookieService.get(TOKEN_COOKIE_KEY);
+function hasIsLoggedCookie(): boolean {
+  return CookieService.get(IS_LOGGED_COOKIE_KEY) === 'true';
 }
 
 function AuthProvider({ children }: PropsWithChildren) {
@@ -74,11 +74,11 @@ function AuthProvider({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    const token = searchCookiesForToken();
+    const isLogged = hasIsLoggedCookie();
     const controller = new AbortController();
 
-    if (token) {
-      session.getData().then(() => getMe(controller.signal));
+    if (isLogged) {
+      getMe(controller.signal);
     }
 
     return () => {
@@ -100,7 +100,6 @@ function AuthProvider({ children }: PropsWithChildren) {
     try {
       await api.post<undefined, LogoutResponse>(endpoints.logout);
       clearCurrentUser();
-      CookieService.clear(TOKEN_COOKIE_KEY);
     } catch (e) {}
   }, []);
 
