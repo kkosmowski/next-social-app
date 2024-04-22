@@ -66,6 +66,10 @@ button.primary.filled:disabled {
     color: var(--transparent-white-65);
 }
 
+button.primary.filled:focus-visible {
+    box-shadow: 0 0 0 2px var(--primary-500);
+}
+
 button.secondary.filled:not(:disabled) {
     background-color: var(--secondary-600);
     color: var(--white-100);

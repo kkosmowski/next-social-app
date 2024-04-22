@@ -51,7 +51,7 @@ touch $indexFile
 clientBeginning="'use client';\n\n"
 beginning=""
 typeProps="type Props = {\n\n}\n\n"
-stylesImport="import styles from './$name.modules.css';\n\n"
+stylesImport="import styles from './$cssFile';\n\n"
 bodyAndExport=" {\n\n  return (\n  );\n}\n\nexport default $name;\n"
 
 result="function $name("

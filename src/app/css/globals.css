@@ -25,6 +25,11 @@
   margin: 0;
 }
 
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-300);
+}
+
 html {
   font-size: 10px; /* 10px = 1rem */
 }

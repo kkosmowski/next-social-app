@@ -23,7 +23,18 @@
   "ME.ABOUT": "About",
   "ME.AVATAR_ALT": "Your avatar",
 
+  "POSTS.TITLE": "All posts",
+  "POSTS.CREATE": "Add new post",
+  "POSTS.ADD.CONTENT.LABEL": "Post content",
+  "POSTS.ADD.CONTENT.PLACEHOLDER": "Post content...",
+  "POSTS.ADD.TAGS.LABEL": "Tags",
+  "POSTS.ADD.TAGS.PLACEHOLDER": "tag1, tag2, tag3",
+  "POSTS.ADD.TITLE.LABEL": "Post title",
+  "POSTS.ADD.TITLE.PLACEHOLDER": "Post title...",
+  "POSTS.ADD.SUBMIT": "Submit new post",
+
   "COMMON.BACK": "Back",
+  "COMMON.CANCEL": "Cancel",
   "COMMON.DONE": "Done",
   "COMMON.LOADING": "Loading",
 

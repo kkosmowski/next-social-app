@@ -1,2 +1,2 @@
 component:
-	./component.sh $(name) $(type) $(props) $(styles)
+	./component.sh $(name) $(t) $(p) $(s)

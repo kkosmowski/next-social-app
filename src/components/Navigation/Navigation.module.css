@@ -11,6 +11,10 @@
     color: var(--white-100);
 }
 
+.header *:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--secondary-200);
+}
+
 .nav {
     display: flex;
     align-items: stretch;

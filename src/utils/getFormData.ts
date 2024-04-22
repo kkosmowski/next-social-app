@@ -1,12 +1,14 @@
 import { ERROR_EMPTY_INPUT } from '@/consts/common';
 import type { TranslationKey } from '@/types/i18n';
+import type { FormErrors } from '@/types/common';
 
 const isFormElement = (element: Element | EventTarget): element is HTMLFormElement =>
   (element as Element).tagName === 'FORM';
 
-const isInputElement = (element: Element): element is HTMLInputElement => element.tagName === 'INPUT';
+const isInputElement = (element: Element): element is HTMLInputElement =>
+  ['INPUT', 'TEXTAREA'].includes(element.tagName);
 
-const getFormData = <T>(form: EventTarget): { data: T; errors: Record<string, TranslationKey> | null } | null => {
+const getFormData = <T>(form: EventTarget): { data: T; errors: FormErrors<T> } => {
   if (!isFormElement(form)) return null;
 
   const data: Record<string, string> = {};

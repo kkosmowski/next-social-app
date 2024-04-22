@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
 
+import type { TranslationKey } from '@/types/i18n';
+
 export type PropsWithChildren<T = unknown> = T & {
   children: ReactNode;
 };
@@ -15,3 +17,5 @@ export type Model = {
 };
 
 export type Distinct<T, DistinctName> = T & { __type__: DistinctName };
+
+export type FormErrors<T> = Record<keyof T, TranslationKey | undefined> & { global: TranslationKey | undefined };

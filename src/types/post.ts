@@ -28,4 +28,10 @@ export type Post = Model & {
   tags: string[];
 };
 
+export type AddPostForm = Pick<Post, 'title' | 'content'> & {
+  tags: string;
+};
+
 export type GetPostsResponse = Post[];
+export type AddPostPayload = Pick<Post, 'title' | 'content' | 'tags'>;
+export type AddPostResponse = Post;

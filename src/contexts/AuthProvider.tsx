@@ -10,7 +10,6 @@ import type { User } from '@/types/user';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { TranslationKey } from '@/types/i18n';
-import useIntl from '@/app/hooks/useIntl';
 import { IS_LOGGED_COOKIE_KEY } from '@/consts/auth';
 import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
@@ -21,7 +20,7 @@ type AuthContextValues = {
   isLoggedIn: boolean | undefined;
   user: User | null;
   login: (credentials: LoginPayload) => Promise<void>;
-  loginApiError: string;
+  loginApiError: TranslationKey | undefined;
   logout: () => Promise<void>;
 };
 
@@ -29,7 +28,7 @@ const AuthContext = createContext<AuthContextValues>({
   isLoggedIn: undefined,
   user: null,
   login: () => Promise.resolve(),
-  loginApiError: '',
+  loginApiError: undefined,
   logout: () => Promise.resolve(),
 });
 
@@ -43,9 +42,8 @@ function hasIsLoggedCookie(): boolean {
 
 function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>();
-  const [loginApiError, setLoginApiError] = useState('');
+  const [loginApiError, setLoginApiError] = useState<TranslationKey | undefined>();
   const [user, setUser] = useState<User | null>(null);
-  const { t } = useIntl();
   const router = useRouter();
 
   useEffect(() => {
@@ -92,7 +90,7 @@ function AuthProvider({ children }: PropsWithChildren) {
       setCurrentUser(data);
     } catch (e: unknown) {
       const error = e as Error;
-      setLoginApiError(t(error.message as TranslationKey));
+      setLoginApiError(error.message as TranslationKey);
     }
   }, []);
 
