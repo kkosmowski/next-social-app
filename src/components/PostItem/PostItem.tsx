@@ -6,14 +6,16 @@ import TagsList from '@/components/TagsList';
 import PostActions from '@/components/PostActions';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
+import PostControls from '@/components/PostControls';
 
 import styles from './PostItem.module.css';
 
 async function PostItem(props: Post) {
   return (
     <article className={styles.wrapper}>
-      <header>
-        <h4 className={styles.title}>{props.title}</h4>
+      <header className={styles.header}>
+        <h3 className={styles.title}>{props.title}</h3>
+        <PostControls postId={props.id} authorId={props.user.id} />
       </header>
 
       <section className={styles.details}>

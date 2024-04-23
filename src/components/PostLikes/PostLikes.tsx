@@ -10,11 +10,16 @@ type Props = {
 };
 
 function PostLikes({ isLoading, likesCount, isLikedByCurrentUser, onLike }: Props) {
-  const className = isLikedByCurrentUser ? `${styles.active}` : undefined;
+  const className = isLikedByCurrentUser ? `${styles.active} icon` : 'icon';
+  let content = '👍';
+
+  if (likesCount) {
+    content += ` ${likesCount}`;
+  }
 
   return (
     <button className={className} onClick={onLike} disabled={isLoading}>
-      👍 {likesCount || ''}
+      {content}
     </button>
   );
 }

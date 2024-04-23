@@ -17,8 +17,12 @@ button:disabled {
     cursor: not-allowed !important;
 }
 
-button:not(.ghost) {
-    padding: 0.8rem 1.4rem;
+button:not(.ghost,.icon) {
+    padding: 1rem 1.4rem;
+}
+
+button.icon {
+    padding: 1rem;
 }
 
 button:not(.ghost,:disabled,.filled):hover {
@@ -29,8 +33,12 @@ button:not(.ghost,:disabled,.filled):active {
     background-color: var(--transparent-black-7);
 }
 
-button:not(.ghost).large {
-    padding: 1.2rem 2rem;
+button:not(.ghost,.icon).large {
+    padding: 1.4rem 2rem;
+}
+
+button.icon.large {
+    padding: 1.4rem;
 }
 
 button.ghost {
@@ -93,6 +101,10 @@ button.primary {
     color: var(--primary-500);
 }
 
+button.primary.ghost:hover {
+    color: var(--primary-300);
+}
+
 button.primary:not(.ghost,:disabled,.filled):hover {
     background-color: var(--transparent-primary-7);
 }
@@ -103,6 +115,18 @@ button.primary:not(.ghost,:disabled,.filled):active {
 
 button.secondary {
     color: var(--secondary-500);
+}
+
+button.secondary.ghost:hover {
+    color: var(--secondary-300);
+}
+
+button.error {
+    color: var(--error-500);
+}
+
+button.error.ghost:hover {
+    color: var(--error-300);
 }
 
 @media (max-width: 1023px) {
@@ -123,11 +147,17 @@ button.secondary {
         font-size: 1.4rem;
     }
 
-    button:not(.ghost) {
+    button:not(.ghost,.icon) {
         padding: 1rem 2rem;
     }
+    button.icon {
+        padding: 1rem;
+    }
 
-    button:not(.ghost).large {
+    button:not(.ghost,.icon).large {
         padding: 1.5rem 3rem;
+    }
+    button.icon.large {
+        padding: 1.5rem;
     }
 }

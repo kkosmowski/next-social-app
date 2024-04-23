@@ -8,6 +8,7 @@ import ServerIntlProvider from '@/contexts/ServerIntlProvider';
 import Navigation from '@/components/Navigation';
 import AuthProvider from '@/contexts/AuthProvider';
 import session from '@/app/api/[utils]/SessionClient';
+import ConfirmationProvider from '@/contexts/ConfirmationProvider/ConfirmationProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,8 +26,10 @@ async function RootLayout({ params, children }: PropsWithChildren<PageProps>) {
       <ServerIntlProvider messages={messages} locale={locale}>
         <AuthProvider>
           <body className={inter.className}>
-            <Navigation />
-            <main>{children}</main>
+            <ConfirmationProvider>
+              <Navigation />
+              <main>{children}</main>
+            </ConfirmationProvider>
           </body>
         </AuthProvider>
       </ServerIntlProvider>

@@ -15,6 +15,7 @@ import CookieService from '@/utils/cookieService';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import session from '@/app/api/[utils]/SessionClient';
+import { handleError } from '@/utils/handleError';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
@@ -88,9 +89,9 @@ function AuthProvider({ children }: PropsWithChildren) {
     try {
       const data = await api.post<LoginPayload, LoginResponse>(endpoints.login, credentials);
       setCurrentUser(data);
-    } catch (e: unknown) {
-      const error = e as Error;
-      setLoginApiError(error.message as TranslationKey);
+    } catch (e) {
+      const error = handleError(e);
+      setLoginApiError(error.message);
     }
   }, []);
 

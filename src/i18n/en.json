@@ -32,12 +32,19 @@
   "POSTS.ADD.TITLE.LABEL": "Post title",
   "POSTS.ADD.TITLE.PLACEHOLDER": "Post title...",
   "POSTS.ADD.SUBMIT": "Submit new post",
+  "POSTS.DELETE.CONFIRM.TITLE": "Confirm post deletion",
+  "POSTS.DELETE.CONFIRM.DESCRIPTION": "Are you sure you want to remove this post? This operation cannot be undone.",
 
   "COMMON.BACK": "Back",
   "COMMON.CANCEL": "Cancel",
+  "COMMON.CONFIRM": "Confirm",
+  "COMMON.DELETE": "Delete",
   "COMMON.DONE": "Done",
+  "COMMON.EDIT": "Edit",
   "COMMON.LOADING": "Loading",
 
   "ERROR.UNKNOWN": "Something went wrong.",
+  "ERROR.RESOURCE_NOT_FOUND": "Provided resource could not be found.",
+  "ERROR.FORBIDDEN_ACTION": "Attempted action is forbidden due to lack of permissions.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }

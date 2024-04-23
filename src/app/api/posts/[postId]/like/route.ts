@@ -8,6 +8,7 @@ import type { PostLikeModel } from '@/types/post';
 import type { Model } from '@/types/common';
 import mapPostLikeRecordToPostLike from '@/utils/dataMappers/mapPostLikeRecordToPostLike';
 import { ERROR_UNKNOWN } from '@/consts/common';
+import { HttpStatus } from '@/consts/api';
 
 type Params = {
   params: {
@@ -19,7 +20,10 @@ export async function POST(_: NextRequest, { params }: Params) {
   const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json({ error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN }, { status: 401 });
+    return NextResponse.json(
+      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
+      { status: HttpStatus.Unauthorized },
+    );
   }
 
   const newLike: Omit<PostLikeModel, keyof Model> = {
@@ -31,11 +35,11 @@ export async function POST(_: NextRequest, { params }: Params) {
     const createdLike = await pb.postLikes.create(newLike);
 
     return new NextResponse(JSON.stringify(mapPostLikeRecordToPostLike(createdLike)), {
-      status: 201,
+      status: HttpStatus.Created,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: 400 });
+    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: HttpStatus.InternalServerError });
   }
 }
 
@@ -43,15 +47,18 @@ export async function DELETE(_: NextRequest, { params }: Params) {
   const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json({ error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN }, { status: 401 });
+    return NextResponse.json(
+      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
+      { status: HttpStatus.Unauthorized },
+    );
   }
 
   try {
     const likeToDelete = await pb.postLikes.getFirstListItem(`post="${params.postId}" && user="${user.id}"`);
     await pb.postLikes.delete(likeToDelete.id);
 
-    return new NextResponse(undefined, { status: 204 });
+    return new NextResponse(undefined, { status: HttpStatus.NoContent });
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: 400 });
+    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: HttpStatus.InternalServerError });
   }
 }

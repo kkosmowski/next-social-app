@@ -17,6 +17,9 @@
   --z-backdrop: 100;
   --z-modal: 200;
   --z-menu: 300;
+
+  --shadow-color: var(--white-300);
+  --basic-shadow: 3px 4px 0 0 var(--shadow-color);
 }
 
 * {

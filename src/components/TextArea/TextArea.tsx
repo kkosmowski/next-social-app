@@ -20,7 +20,10 @@ function TextArea(props: TextAreaProps) {
 
   return (
     <label className={styles.label}>
-      {label}
+      <span>
+        {label}
+        {props.required && <span className={styles.required}>*</span>}
+      </span>
       <textarea name={name} value={value} onChange={onChange} className={_className} {...inputProps} />
       <span className={styles.errorText}>{error && t(error)}</span>
     </label>

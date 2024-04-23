@@ -19,3 +19,7 @@ export type Model = {
 export type Distinct<T, DistinctName> = T & { __type__: DistinctName };
 
 export type FormErrors<T> = Record<keyof T, TranslationKey | undefined> & { global: TranslationKey | undefined };
+
+export type I18nError = Omit<Error, 'message'> & {
+  message: TranslationKey;
+};

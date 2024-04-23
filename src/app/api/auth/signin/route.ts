@@ -4,6 +4,7 @@ import type { LoginPayload } from '@/types/auth';
 import { ERROR_INVALID_CREDENTIALS, PB_AUTH_COOKIE_KEY } from '@/consts/auth';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 import PocketBase from '@/app/api/pocketbase';
+import { HttpStatus } from '@/consts/api';
 
 const getIsLoggedCookie = (exp: string | undefined) => {
   if (!exp) {
@@ -34,6 +35,9 @@ export async function POST(request: Request) {
       },
     });
   } catch (e) {
-    return NextResponse.json({ error: 'Invalid credentials.', code: ERROR_INVALID_CREDENTIALS }, { status: 404 });
+    return NextResponse.json(
+      { error: 'Invalid credentials.', code: ERROR_INVALID_CREDENTIALS },
+      { status: HttpStatus.NotFound },
+    );
   }
 }

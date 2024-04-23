@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 import { ERROR_NO_USER_FOUND } from '@/consts/auth';
 import session from '@/app/api/[utils]/SessionClient';
+import { HttpStatus } from '@/consts/api';
 
 type Params = {
   params: {
@@ -16,7 +17,10 @@ export async function GET(_: NextRequest, { params }: Params) {
   const { pb } = await session.refreshData(cookies().toString());
 
   if (!params.username) {
-    return NextResponse.json({ error: 'No username provided.', code: ERROR_NO_USER_FOUND }, { status: 404 });
+    return NextResponse.json(
+      { error: 'No username provided.', code: ERROR_NO_USER_FOUND },
+      { status: HttpStatus.NotFound },
+    );
   }
 
   const record = await pb.users.getFirstListItem(`username="${params.username}"`);

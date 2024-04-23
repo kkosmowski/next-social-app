@@ -3,9 +3,10 @@
     flex-direction: column;
     text-align: center;
     gap: 1rem;
+    padding: 2rem;
 }
 
 .title {
     margin-bottom: 2rem;
-    color: var(--black-100)
+    color: var(--black-200);
 }

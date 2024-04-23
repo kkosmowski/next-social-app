@@ -40,12 +40,13 @@ fi
 
 # build paths for simplicity
 dir=./src/components/$name
-file=$dir/$name.tsx
-cssFile=$dir/$name.module.css
+path=$dir/$name.tsx
+cssFile=$name.module.css
+cssPath=$dir/$cssFile
 indexFile=$dir/index.ts
 
 # create directory and files with content based on user's choices
-mkdir $dir && touch $file
+mkdir $dir && touch $path
 touch $indexFile
 
 clientBeginning="'use client';\n\n"
@@ -64,7 +65,7 @@ fi
 
 if [ "$withStyles" = "y" ]; then
   beginning="$beginning$stylesImport"
-  touch $cssFile
+  touch $cssPath
 fi
 
 if [ "$withProps" = "y" ]; then
@@ -74,7 +75,7 @@ else
   result="$result)"
 fi
 
-printf "$beginning$result$bodyAndExport" >> $file
+printf "$beginning$result$bodyAndExport" >> $path
 printf "import $name from './$name';\n\nexport default $name;\n" >> $indexFile
 
 git add $dir

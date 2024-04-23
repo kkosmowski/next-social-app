@@ -8,11 +8,11 @@ import { useRouter } from 'next/navigation';
 import useIntl from '@/app/hooks/useIntl';
 import AddNewPost from '@/components/AddNewPost';
 import getFormData from '@/utils/getFormData';
-import type { TranslationKey } from '@/types/i18n';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import type { AddPostForm, AddPostPayload, AddPostResponse } from '@/types/post';
 import type { FormErrors } from '@/types/common';
+import { handleError } from '@/utils/handleError';
 
 import styles from './PostsFeedHeader.module.css';
 
@@ -33,12 +33,12 @@ function PostsFeedHeader() {
   const addPost = async (payload: AddPostPayload) => {
     try {
       return api.post<AddPostPayload, AddPostResponse>(endpoints.posts, payload);
-    } catch (e: unknown) {
-      const error = e as Error;
+    } catch (e) {
+      const error = handleError(e);
       setIsLoading(false);
       setErrors((errors) => ({
         ...errors,
-        global: (error.message as TranslationKey) ?? 'ERROR.UNKNOWN',
+        global: error.message ?? 'ERROR.UNKNOWN',
       }));
     }
   };
