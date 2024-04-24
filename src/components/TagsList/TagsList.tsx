@@ -5,7 +5,7 @@ import styles from './TagsList.module.css';
 type Props = {
   tags: string[];
 };
-async function TagsList({ tags }: Props) {
+function TagsList({ tags }: Props) {
   if (!tags.length) {
     return null;
   }

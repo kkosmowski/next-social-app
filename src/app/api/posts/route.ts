@@ -7,6 +7,9 @@ import mapPostRecordToPost from '@/utils/dataMappers/mapPostRecordToPost';
 import session from '@/app/api/[utils]/SessionClient';
 import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
 import { HttpStatus } from '@/consts/api';
+import validatePostPayload from '@/app/api/[utils]/validatePostPayload';
+import { ERROR_INVALID_PAYLOAD } from '@/consts/common';
+import mapPostToPostRecord from '@/utils/dataMappers/mapPostToPostRecord';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,15 +35,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { title, content, tags }: AddPostPayload = await request.json();
+  const payload: AddPostPayload = await request.json();
+  const [isValid, validationError] = validatePostPayload(payload);
 
-  const data = {
-    title,
-    content,
-    user: user.id,
-    tags: tags.length ? tags.join(',') : undefined,
-  };
+  if (!isValid) {
+    return NextResponse.json(
+      { error: validationError, code: ERROR_INVALID_PAYLOAD },
+      { status: HttpStatus.BadRequest },
+    );
+  }
 
+  const data = mapPostToPostRecord({ ...payload, user });
   const record = await pb.posts.create(data, { expand: 'user' });
   const post = mapPostRecordToPost(record);
 

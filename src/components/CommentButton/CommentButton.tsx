@@ -1,9 +1,11 @@
 'use client';
 
-type Props = {};
+type Props = {
+  disabled?: boolean;
+};
 
-function CommentButton({}: Props) {
-  return <button>Comment</button>;
+function CommentButton({ disabled }: Props) {
+  return <button disabled={disabled}>Comment</button>;
 }
 
 export default CommentButton;

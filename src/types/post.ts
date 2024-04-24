@@ -7,6 +7,13 @@ export type PostLikeModel = Model & {
   user: string;
 };
 
+export type PostModel = Model & {
+  title: string;
+  content: string;
+  user: string;
+  tags: string;
+};
+
 export type PostLike = Omit<Model, 'updated'> & {
   postId: string;
   userId: string;
@@ -28,7 +35,7 @@ export type Post = Model & {
   tags: string[];
 };
 
-export type AddPostForm = Pick<Post, 'title' | 'content'> & {
+export type PostFormValues = Pick<Post, 'title' | 'content'> & {
   tags: string;
 };
 

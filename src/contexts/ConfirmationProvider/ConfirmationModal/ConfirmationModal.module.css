@@ -2,7 +2,7 @@
     width: 100%;
     padding: 3rem 1.6rem;
     background-color: var(--white-50);
-    box-shadow: var(--basic-shadow);
+    box-shadow: var(--transparent-shadow);
 }
 
 .title {

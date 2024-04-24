@@ -20,6 +20,7 @@ import styles from './PostActions.module.css';
 type Props = {
   postId: string;
   likes: PostLike[];
+  isEditMode?: boolean;
 };
 
 async function addLike(postId: string) {
@@ -30,7 +31,7 @@ async function removeLike(postId: string) {
   await api.delete(dynamicEndpoint(endpoints.postLike, { postId }));
 }
 
-function PostActions({ postId, likes }: Props) {
+function PostActions({ postId, likes, isEditMode }: Props) {
   const { user } = useAuth();
   const router = useRouter();
   const likesCount = likes.length;
@@ -58,14 +59,15 @@ function PostActions({ postId, likes }: Props) {
     <footer className={styles.footer}>
       <PostLikes
         isLoading={isLoading}
+        disabled={isEditMode}
         isLikedByCurrentUser={isLikedByCurrentUser}
         likesCount={likesCount}
         onLike={handleLike}
       />
 
-      <CommentButton />
+      <CommentButton disabled={isEditMode} />
 
-      <ShareButton />
+      <ShareButton disabled={isEditMode} />
     </footer>
   );
 }

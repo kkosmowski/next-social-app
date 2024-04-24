@@ -1,16 +1,20 @@
 input,
 textarea {
     border: 0;
-    background-color: var(--white-100);
     color: var(--black-200);
     font: inherit;
     font-size: 1.4rem;
+}
+
+input:not(.ghost),
+textarea:not(.ghost) {
+    background-color: var(--white-100);
     padding: 1rem 1.6rem;
     box-shadow: var(--basic-shadow), 0 0 0 1px var(--shadow-color);
 }
 
-input.error,
-textarea.error {
+input.error:not(.ghost),
+textarea.error:not(.ghost) {
     box-shadow: inset 0 0 0 0.1rem var(--error-200), inset 0 0 1.2rem 0 var(--white-300), inset 0 0 0.3rem 0.2rem var(--white-300);
 }
 

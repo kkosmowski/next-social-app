@@ -25,13 +25,14 @@
 
   "POSTS.TITLE": "All posts",
   "POSTS.CREATE": "Add new post",
-  "POSTS.ADD.CONTENT.LABEL": "Post content",
-  "POSTS.ADD.CONTENT.PLACEHOLDER": "Post content...",
-  "POSTS.ADD.TAGS.LABEL": "Tags",
-  "POSTS.ADD.TAGS.PLACEHOLDER": "tag1, tag2, tag3",
-  "POSTS.ADD.TITLE.LABEL": "Post title",
-  "POSTS.ADD.TITLE.PLACEHOLDER": "Post title...",
-  "POSTS.ADD.SUBMIT": "Submit new post",
+  "POSTS.FORM.CONTENT.LABEL": "Post content",
+  "POSTS.FORM.CONTENT.PLACEHOLDER": "Post content...",
+  "POSTS.FORM.TAGS.LABEL": "Tags",
+  "POSTS.FORM.TAGS.PLACEHOLDER": "tag1, tag2, tag3",
+  "POSTS.FORM.TITLE.LABEL": "Post title",
+  "POSTS.FORM.TITLE.PLACEHOLDER": "Post title...",
+  "POSTS.FORM.SUBMIT.ADD": "Submit new post",
+  "POSTS.FORM.SUBMIT.EDIT": "Update post",
   "POSTS.DELETE.CONFIRM.TITLE": "Confirm post deletion",
   "POSTS.DELETE.CONFIRM.DESCRIPTION": "Are you sure you want to remove this post? This operation cannot be undone.",
 
@@ -46,5 +47,6 @@
   "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.RESOURCE_NOT_FOUND": "Provided resource could not be found.",
   "ERROR.FORBIDDEN_ACTION": "Attempted action is forbidden due to lack of permissions.",
+  "ERROR.INVALID_PAYLOAD": "Something is wrong with the payload.",
   "ERROR.EMPTY_INPUT": "This field cannot be empty."
 }

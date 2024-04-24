@@ -15,6 +15,7 @@ button {
 
 button:disabled {
     cursor: not-allowed !important;
+    opacity: 0.7;
 }
 
 button:not(.ghost,.icon) {

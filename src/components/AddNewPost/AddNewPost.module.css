@@ -5,17 +5,6 @@
     margin-block-end: 3rem;
 }
 
-.label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.textarea    {
-    height: 12rem;
-    resize: vertical;
-}
-
 .controls {
     display: flex;
     gap: 1rem;

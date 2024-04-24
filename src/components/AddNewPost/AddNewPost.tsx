@@ -1,80 +1,63 @@
 'use client';
 
-import type { ChangeEvent, FormEventHandler } from 'react';
-import { useState } from 'react';
+import type { FormEvent } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import useIntl from '@/app/hooks/useIntl';
-import TextArea from '@/components/TextArea';
-import Input from '@/components/Input';
-import type { AddPostPayload } from '@/types/post';
-import type { FormErrors } from '@/types/common';
+import type { AddPostPayload, AddPostResponse } from '@/types/post';
+import usePostForm from '@/hooks/usePostForm';
+import api from '@/api';
+import endpoints from '@/consts/endpoints';
+import { handleError } from '@/utils/handleError';
 
 import styles from './AddNewPost.module.css';
 
 type Props = {
-  isLoading: boolean;
-  errors?: FormErrors<AddPostPayload>;
-  onCancel: VoidFunction;
-  onSubmit: FormEventHandler;
+  onClose: VoidFunction;
 };
 
-function AddNewPost({ isLoading, errors, onCancel, onSubmit }: Props) {
+function AddNewPost({ onClose }: Props) {
   const { t } = useIntl();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [tags, setTags] = useState('');
+  const { TitleInput, ContentTextArea, TagsInput, isLoading, handleSubmit, endLoading, resetErrors, setErrors } =
+    usePostForm();
+  const router = useRouter();
 
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const addPost = async (payload: AddPostPayload) => {
+    try {
+      return api.post<AddPostPayload, AddPostResponse>(endpoints.posts, payload);
+    } catch (e) {
+      const error = handleError(e);
+      endLoading();
+      setErrors((errors) => ({
+        ...errors,
+        global: error.message ?? 'ERROR.UNKNOWN',
+      }));
+    }
   };
 
-  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const handleClose = () => {
+    resetErrors();
+    onClose();
   };
 
-  const handleTagsChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTags(e.target.value);
+  const handleAddNewPost = async (event: FormEvent) => {
+    await handleSubmit(event, addPost);
+    handleClose();
+    router.refresh();
   };
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <Input
-        autoFocus
-        label={t('POSTS.ADD.TITLE.LABEL')}
-        name="title"
-        value={title}
-        onChange={handleTitleChange}
-        placeholder={t('POSTS.ADD.TITLE.PLACEHOLDER')}
-        error={errors?.title}
-        required
-      />
-
-      <TextArea
-        label={t('POSTS.ADD.CONTENT.LABEL')}
-        name="content"
-        value={content}
-        onChange={handleContentChange}
-        minLength={2}
-        placeholder={t('POSTS.ADD.CONTENT.PLACEHOLDER')}
-        className={styles.textarea}
-        error={errors?.content}
-        required
-      />
-
-      <Input
-        label={t('POSTS.ADD.TAGS.LABEL')}
-        name="tags"
-        value={tags}
-        onChange={handleTagsChange}
-        placeholder={t('POSTS.ADD.TAGS.PLACEHOLDER')}
-        error={errors?.tags}
-      />
+    <form className={styles.form} onSubmit={handleAddNewPost}>
+      {TitleInput}
+      {ContentTextArea}
+      {TagsInput}
 
       <footer className={styles.controls}>
         <button className="primary filled" type="submit" disabled={isLoading}>
-          {t(isLoading ? 'COMMON.LOADING' : 'POSTS.ADD.SUBMIT')}
+          {t(isLoading ? 'COMMON.LOADING' : 'POSTS.FORM.SUBMIT.ADD')}
         </button>
-        <button className="secondary" type="button" disabled={isLoading} onClick={onCancel}>
+        <button className="secondary" type="button" disabled={isLoading} onClick={handleClose}>
           {t('COMMON.CANCEL')}
         </button>
       </footer>

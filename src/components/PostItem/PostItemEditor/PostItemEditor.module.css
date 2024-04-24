@@ -6,28 +6,18 @@
     box-shadow: var(--basic-shadow);
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    padding-block-end: 0.2rem;
-}
-
-.title {
-    font-weight: 500;
-}
-
-.content {
-    padding-block-start: 1.2rem;
-    white-space: pre-wrap;
-    word-break: break-word;
-    line-height: 1.5;
-    font-size: 1.4rem;
+.wrapper input,
+.wrapper textarea {
+    background-color: var(--white-50);
+    padding: 0.4rem;
+    box-shadow: 0 0 0 0.1rem var(--shadow-color);
 }
 
 .details {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-block-end: 0.4rem;
 }
 
 .author {
@@ -41,22 +31,15 @@
     color: var(--secondary-400);
 }
 
+.controls {
+    display: flex;
+    margin-block-start: 1rem;
+    gap: 1rem;
+}
+
 @media (min-width: 1024px) {
     .wrapper {
         padding: 1rem 2rem 2rem;
-    }
-
-    .header {
-        padding-block-end: 0.4rem;
-    }
-
-    .title {
-        font-size: 1.6rem;
-    }
-
-    .content {
-        padding-block-start: 1.6rem;
-        font-size: 1.5rem;
     }
 
     .author {
@@ -64,7 +47,7 @@
     }
 
     .details {
-        gap: 1rem;
+        gap: 2rem;
     }
 
     .date {

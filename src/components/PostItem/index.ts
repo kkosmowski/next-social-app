@@ -1,3 +1,3 @@
-import PostItem from './PostItem';
+import PostItemController from './PostItemController';
 
-export default PostItem;
+export default PostItemController;

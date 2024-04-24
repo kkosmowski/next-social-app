@@ -10,26 +10,32 @@ import PostControls from '@/components/PostControls';
 
 import styles from './PostItem.module.css';
 
-async function PostItem(props: Post) {
+type Props = Post & {
+  onEdit: VoidFunction;
+};
+
+function PostItem(props: Props) {
+  const { id, title, content, user, tags, likes, created, onEdit } = props;
+
   return (
     <article className={styles.wrapper}>
       <header className={styles.header}>
-        <h3 className={styles.title}>{props.title}</h3>
-        <PostControls postId={props.id} authorId={props.user.id} />
+        <h3 className={styles.title}>{title}</h3>
+        <PostControls postId={id} authorId={user.id} onEdit={onEdit} />
       </header>
 
       <section className={styles.details}>
         <address className={styles.author}>
-          <Link href={dynamicRoute(Routes.user, { username: props.user.username })}>{props.user.username}</Link>
+          <Link href={dynamicRoute(Routes.user, { username: user.username })}>{user.username}</Link>
         </address>
-        <time className={styles.date}>{formatDate(props.created, 'd-MM-yyyy hh:mm')}</time>
+        <time className={styles.date}>{formatDate(created, 'd-MM-yyyy hh:mm')}</time>
       </section>
 
-      <p className={styles.content} dangerouslySetInnerHTML={{ __html: props.content }} />
+      <p className={styles.content} dangerouslySetInnerHTML={{ __html: content }} />
 
-      <TagsList tags={props.tags} />
+      <TagsList tags={tags} />
 
-      <PostActions postId={props.id} likes={props.likes} />
+      <PostActions postId={id} likes={likes} />
     </article>
   );
 }

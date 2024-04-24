@@ -1,9 +1,11 @@
 'use client';
 
-type Props = {};
+type Props = {
+  disabled?: boolean;
+};
 
-function ShareButton({}: Props) {
-  return <button>Share</button>;
+function ShareButton({ disabled }: Props) {
+  return <button disabled={disabled}>Share</button>;
 }
 
 export default ShareButton;

@@ -25,11 +25,28 @@
 
   "POSTS.TITLE": "Wszystkie posty",
   "POSTS.CREATE": "Dodaj nowy post",
+  "POSTS.FORM.CONTENT.LABEL": "Treść posta",
+  "POSTS.FORM.CONTENT.PLACEHOLDER": "Treść posta...",
+  "POSTS.FORM.TAGS.LABEL": "Tagi",
+  "POSTS.FORM.TAGS.PLACEHOLDER": "tag1, tag2, tag3",
+  "POSTS.FORM.TITLE.LABEL": "Tytuł posta",
+  "POSTS.FORM.TITLE.PLACEHOLDER": "Tytuł posta...",
+  "POSTS.FORM.SUBMIT.ADD": "Dodaj nowy post",
+  "POSTS.FORM.SUBMIT.EDIT": "Zaktualizuj post",
+  "POSTS.DELETE.CONFIRM.TITLE": "Potwierdź usunięcie posta",
+  "POSTS.DELETE.CONFIRM.DESCRIPTION": "Czy na pewno chcesz usunąć ten post? Tej operacji nie da się cofnąć.",
 
   "COMMON.BACK": "Wróć",
+  "COMMON.CANCEL": "Anuluj",
+  "COMMON.CONFIRM": "Potwierdż",
+  "COMMON.DELETE": "Usuń",
   "COMMON.DONE": "Gotowe",
+  "COMMON.EDIT": "Zmień",
   "COMMON.LOADING": "Ładowanie",
 
   "ERROR.UNKNOWN": "Coś poszło nie tak. ",
+  "ERROR.RESOURCE_NOT_FOUND": "Zasób nie został odnaleziony.",
+  "ERROR.FORBIDDEN_ACTION": "Ta akcaj nie jest dostępna z powodu braku uprawnień.",
+  "ERROR.INVALID_PAYLOAD": "Coś jest nie tak z przesłanymi danymi.",
   "ERROR.EMPTY_INPUT": "To pole nie może być puste."
 }

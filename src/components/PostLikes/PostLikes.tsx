@@ -4,12 +4,13 @@ import styles from './PostLikes.module.css';
 
 type Props = {
   isLoading: boolean;
+  disabled?: boolean;
   likesCount: number;
   isLikedByCurrentUser: boolean;
   onLike: VoidFunction;
 };
 
-function PostLikes({ isLoading, likesCount, isLikedByCurrentUser, onLike }: Props) {
+function PostLikes({ isLoading, disabled, likesCount, isLikedByCurrentUser, onLike }: Props) {
   const className = isLikedByCurrentUser ? `${styles.active} icon` : 'icon';
   let content = '👍';
 
@@ -18,7 +19,7 @@ function PostLikes({ isLoading, likesCount, isLikedByCurrentUser, onLike }: Prop
   }
 
   return (
-    <button className={className} onClick={onLike} disabled={isLoading}>
+    <button className={className} onClick={onLike} disabled={disabled || isLoading}>
       {content}
     </button>
   );

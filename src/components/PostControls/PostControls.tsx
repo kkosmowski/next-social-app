@@ -15,9 +15,10 @@ import styles from './PostControls.module.css';
 type Props = {
   postId: string;
   authorId: string;
+  onEdit: VoidFunction;
 };
 
-function PostControls({ postId, authorId }: Props) {
+function PostControls({ postId, authorId, onEdit }: Props) {
   const { t } = useIntl();
   const { user } = useAuth();
   const { ask } = useConfirmation();
@@ -50,7 +51,9 @@ function PostControls({ postId, authorId }: Props) {
   return (
     <aside className={styles.wrapper}>
       {'|'}
-      <button className="primary ghost">{t('COMMON.EDIT')}</button>
+      <button className="primary ghost" onClick={() => onEdit()}>
+        {t('COMMON.EDIT')}
+      </button>
       <button className="error ghost" onClick={handleDelete}>
         {t('COMMON.DELETE')}
       </button>

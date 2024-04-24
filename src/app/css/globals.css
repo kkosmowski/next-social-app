@@ -20,6 +20,7 @@
 
   --shadow-color: var(--white-300);
   --basic-shadow: 3px 4px 0 0 var(--shadow-color);
+  --transparent-shadow: 3px 4px 0 0 var(--transparent-black-11);
 }
 
 * {

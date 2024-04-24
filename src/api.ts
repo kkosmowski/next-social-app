@@ -48,6 +48,25 @@ class ApiClient {
     throw new Error((await res.json()).error);
   }
 
+  async patch<T, R>(endpoint: Endpoint | DynamicEndpoint, body?: T, options?: FetchOptions): Promise<R> {
+    const res = await this.fetch(endpoint, {
+      ...options,
+      init: {
+        ...options?.init,
+        method: 'PATCH',
+        body: JSON.stringify(body),
+      },
+    });
+
+    if (res.ok) {
+      if (res.status !== 204) {
+        return res.json();
+      }
+      return Promise.resolve() as Promise<R>;
+    }
+    throw new Error((await res.json()).error);
+  }
+
   async delete<T, R>(endpoint: Endpoint | DynamicEndpoint, body?: T, options?: FetchOptions): Promise<R> {
     const res = await this.fetch(endpoint, {
       ...options,
