@@ -19,8 +19,12 @@ export type PostLike = Omit<Model, 'updated'> & {
   userId: string;
 };
 
+export type CommentLike = Omit<Model, 'updated'> & {
+  userId: string;
+};
+
 export type Comment = Model & {
-  post: Post;
+  postId: string;
   user: User;
   content: string;
   likes: PostLike[];

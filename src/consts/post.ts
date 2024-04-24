@@ -1,1 +1,1 @@
-export const MAX_POST_CONTENT_URL_LENGTH = 100;
+export const MAX_CONTENT_URL_LENGTH = 100;

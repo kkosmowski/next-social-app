@@ -10,6 +10,10 @@ const postEndpoints = {
   postLike: '/posts/:postId/like',
 } as const;
 
+const commentEndpoints = {
+  commentLike: '/comments/:commentId/like',
+} as const;
+
 const userEndpoints = {
   user: '/users/:username',
 } as const;
@@ -17,6 +21,7 @@ const userEndpoints = {
 const endpoints = {
   ...authEndpoints,
   ...postEndpoints,
+  ...commentEndpoints,
   ...userEndpoints,
 };
 

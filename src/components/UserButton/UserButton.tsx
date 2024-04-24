@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -11,6 +9,7 @@ import { Routes } from '@/consts/navigation';
 import type { NavLink } from '@/types/navigation';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { useAuth } from '@/contexts/AuthProvider';
+import useBoolean from '@/hooks/useBoolean';
 
 import styles from './UserButton.module.css';
 
@@ -38,15 +37,11 @@ const userButtonOptions: NavLink[] = [
 function UserButton() {
   const { t, localeCode } = useIntl();
   const { user, logout } = useAuth();
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuVisible((visible) => !visible);
-  };
+  const [menuVisible, { set: showMenu, unset: hideMenu }] = useBoolean(false);
 
   return (
     <section className={styles.wrapper}>
-      <button className={`${styles.button} xs-icon`} onClick={toggleMenu}>
+      <button className={`${styles.button} xs-icon`} onClick={showMenu}>
         {user?.avatarUrl ? (
           <Image src={user.avatarUrl} className={styles.avatar} width={24} height={24} alt={t('NAV.USER.AVATAR_ALT')} />
         ) : (
@@ -57,8 +52,8 @@ function UserButton() {
 
       {menuVisible && (
         <>
-          <Backdrop onClick={toggleMenu} />
-          <menu className={styles.floatingMenu} onClick={toggleMenu}>
+          <Backdrop onClick={hideMenu} />
+          <menu className={styles.floatingMenu} onClick={hideMenu}>
             {userButtonOptions.map(({ key, route, label }) => (
               <Link key={key} href={route({ localeCode })} className={styles.menuItem}>
                 {t(label)}

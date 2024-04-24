@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     padding: .8rem 1.2rem 1.2rem;
-    background-color: var(--white-100);
-    box-shadow: var(--basic-shadow);
 }
 
 .header {
@@ -14,31 +12,6 @@
 
 .title {
     font-weight: 500;
-}
-
-.content {
-    padding-block-start: 1.2rem;
-    white-space: pre-wrap;
-    word-break: break-word;
-    line-height: 1.5;
-    font-size: 1.4rem;
-}
-
-.details {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.author {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.4rem;
-}
-
-.date {
-    font-size: 1.3rem;
-    color: var(--secondary-400);
 }
 
 @media (min-width: 1024px) {
@@ -52,22 +25,5 @@
 
     .title {
         font-size: 1.6rem;
-    }
-
-    .content {
-        padding-block-start: 1.6rem;
-        font-size: 1.5rem;
-    }
-
-    .author {
-        font-size: 1.5rem;
-    }
-
-    .details {
-        gap: 2rem;
-    }
-
-    .date {
-        font-size: 1.4rem;
     }
 }

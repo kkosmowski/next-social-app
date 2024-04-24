@@ -1,16 +1,16 @@
 'use client';
 
-import styles from './PostLikes.module.css';
+import styles from './LikeButton.module.css';
 
 type Props = {
-  isLoading: boolean;
+  isLoading?: boolean;
   disabled?: boolean;
   likesCount: number;
   isLikedByCurrentUser: boolean;
   onLike: VoidFunction;
 };
 
-function PostLikes({ isLoading, disabled, likesCount, isLikedByCurrentUser, onLike }: Props) {
+function LikeButton({ isLoading, disabled, likesCount, isLikedByCurrentUser, onLike }: Props) {
   const className = isLikedByCurrentUser ? `${styles.active} icon` : 'icon';
   let content = '👍';
 
@@ -25,4 +25,4 @@ function PostLikes({ isLoading, disabled, likesCount, isLikedByCurrentUser, onLi
   );
 }
 
-export default PostLikes;
+export default LikeButton;

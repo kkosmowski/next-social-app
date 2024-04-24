@@ -1,0 +1,6 @@
+.commentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-block-start: 1rem;
+}

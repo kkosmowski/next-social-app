@@ -1,0 +1,5 @@
+.footer {
+    display: flex;
+    gap: 1rem;
+    padding-block-start: 0.4rem;
+}

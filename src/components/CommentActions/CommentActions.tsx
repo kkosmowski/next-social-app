@@ -4,35 +4,32 @@ import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import CommentButton from '@/components/CommentButton';
-import LikeButton from '../LikeButton';
-import ShareButton from '@/components/ShareButton';
-import type { PostLike } from '@/types/post';
+import LikeButton from '@/components/LikeButton';
 import { useAuth } from '@/contexts/AuthProvider';
-import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
+import type { CommentLike } from '@/types/post';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import api from '@/api';
+import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import endpoints from '@/consts/endpoints';
+import ReplyButton from '@/components/ReplyButton';
 
-import styles from './PostActions.module.css';
+import styles from './CommentActions.module.css';
 
 type Props = {
-  postId: string;
-  likes: PostLike[];
-  isEditMode?: boolean;
-  onComment: VoidFunction;
+  commentId: string;
+  likes: CommentLike[];
 };
 
-async function addLike(postId: string) {
-  await api.post(dynamicEndpoint(endpoints.postLike, { postId }));
+async function addLike(commentId: string) {
+  await api.post(dynamicEndpoint(endpoints.commentLike, { commentId }));
 }
 
-async function removeLike(postId: string) {
-  await api.delete(dynamicEndpoint(endpoints.postLike, { postId }));
+async function removeLike(commentId: string) {
+  await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }));
 }
 
-function PostActions({ postId, likes, isEditMode, onComment }: Props) {
+function CommentActions({ commentId, likes }: Props) {
   const { user } = useAuth();
   const router = useRouter();
   const likesCount = likes.length;
@@ -48,9 +45,9 @@ function PostActions({ postId, likes, isEditMode, onComment }: Props) {
     }
 
     if (isLikedByCurrentUser) {
-      await removeLike(postId);
+      await removeLike(commentId);
     } else {
-      await addLike(postId);
+      await addLike(commentId);
     }
     router.refresh();
     setIsLoading(false);
@@ -60,17 +57,14 @@ function PostActions({ postId, likes, isEditMode, onComment }: Props) {
     <footer className={styles.footer}>
       <LikeButton
         isLoading={isLoading}
-        disabled={isEditMode}
         isLikedByCurrentUser={isLikedByCurrentUser}
         likesCount={likesCount}
         onLike={handleLike}
       />
 
-      <CommentButton disabled={isEditMode} onClick={onComment} />
-
-      <ShareButton disabled={isEditMode} />
+      <ReplyButton onReply={() => {}} />
     </footer>
   );
 }
 
-export default PostActions;
+export default CommentActions;

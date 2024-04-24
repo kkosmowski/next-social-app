@@ -1,20 +1,32 @@
 'use client';
 
-import { useState } from 'react';
-
 import type { Post } from '@/types/post';
+import CommentSection from '@/components/CommentSection';
+import useBoolean from '@/hooks/useBoolean';
 
 import PostItem from './PostItem';
 import PostItemEditor from './PostItemEditor';
 
-function PostItemController(props: Post) {
-  const [isEditMode, setIsEditMode] = useState(false);
+function PostItemController(post: Post) {
+  const [isEditMode, { set: setEditMode, unset: unsetEditMode }] = useBoolean(false);
+  const [isAddingComment, { set: setAddingComment, unset: unsetAddingComment }] = useBoolean(false);
 
-  if (isEditMode) {
-    return <PostItemEditor onClose={() => setIsEditMode(false)} {...props} />;
-  }
+  return (
+    <article>
+      {isEditMode ? (
+        <PostItemEditor onClose={unsetEditMode} {...post} />
+      ) : (
+        <PostItem onEdit={setEditMode} {...post} onComment={setAddingComment} />
+      )}
 
-  return <PostItem onEdit={() => setIsEditMode(true)} {...props} />;
+      <CommentSection
+        postId={post.id}
+        comments={post.comments}
+        isAddingNewComment={isAddingComment}
+        onCloseAddingComment={unsetAddingComment}
+      />
+    </article>
+  );
 }
 
 export default PostItemController;

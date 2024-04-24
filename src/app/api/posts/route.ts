@@ -18,7 +18,7 @@ export async function GET() {
 
   const posts = await pb.posts.getFullList({
     sort: '-created',
-    expand: 'comments,likes,post_likes_via_post,user',
+    expand: 'user, post_likes_via_post, comments_via_post.user, comments_via_post.comment_likes_via_comment',
   });
 
   const mappedPosts: Post[] = posts.map(mapPostRecordToPost);

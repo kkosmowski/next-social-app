@@ -35,6 +35,9 @@
   "POSTS.FORM.SUBMIT.EDIT": "Zaktualizuj post",
   "POSTS.DELETE.CONFIRM.TITLE": "Potwierdź usunięcie posta",
   "POSTS.DELETE.CONFIRM.DESCRIPTION": "Czy na pewno chcesz usunąć ten post? Tej operacji nie da się cofnąć.",
+  "POSTS.COMMENT": "Skomentuj",
+  "POSTS.COMMENT_REPLY": "Odpowiedz",
+  "POSTS.SHARE": "Udostępnij",
 
   "COMMON.BACK": "Wróć",
   "COMMON.CANCEL": "Anuluj",

@@ -73,6 +73,11 @@ li {
   background-color: var(--white-200);
 }
 
+.card {
+  background-color: var(--white-100);
+  box-shadow: var(--basic-shadow);
+}
+
 @media (min-width: 1024px) {
   .page-section {
     width: min(120rem, 100%);
