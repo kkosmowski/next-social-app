@@ -57,7 +57,7 @@ function CommentItemEditor(props: Props) {
 
       <footer className={styles.controls}>
         <button className="primary filled" type="submit" disabled={isLoading}>
-          {t(isLoading ? 'COMMON.LOADING' : 'POSTS.COMMENT.EDIT.SUBMIT')}
+          {t(isLoading ? 'COMMON.LOADING' : 'COMMENTS.EDIT.SUBMIT')}
         </button>
 
         <button className="secondary" type="button" disabled={isLoading} onClick={onClose}>

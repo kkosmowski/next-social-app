@@ -49,3 +49,31 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return response.unknownError(e);
   }
 }
+
+export async function DELETE(_: NextRequest, { params }: Params) {
+  const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
+
+  if (!isLoggedIn) {
+    return response.unauthorized;
+  }
+
+  const { commentId } = params;
+
+  try {
+    const record = await pb.comments.getOne(commentId);
+
+    if (record.user !== user.id) {
+      return response.forbidden;
+    }
+  } catch (e) {
+    return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
+  }
+
+  try {
+    await pb.comments.delete(commentId);
+
+    return response.noContent;
+  } catch (e) {
+    return response.unknownError(e);
+  }
+}

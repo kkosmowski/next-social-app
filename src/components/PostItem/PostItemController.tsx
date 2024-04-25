@@ -10,6 +10,7 @@ import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import endpoints from '@/consts/endpoints';
 import { handleError } from '@/utils/handleError';
 import useIntl from '@/app/hooks/useIntl';
+import { useConfirmation } from '@/contexts/ConfirmationProvider';
 
 import PostItemEditor from './PostItemEditor';
 import PostItem from './PostItem';
@@ -19,6 +20,7 @@ function PostItemController(post: Post) {
   const [isAddingComment, { set: setAddingComment, unset: unsetAddingComment }] = useBoolean(false);
   const router = useRouter();
   const { t } = useIntl();
+  const { ask } = useConfirmation();
 
   const handleDelete = async () => {
     try {
@@ -30,12 +32,22 @@ function PostItemController(post: Post) {
     }
   };
 
+  const confirmDelete = () => {
+    ask(
+      {
+        title: 'POSTS.DELETE.CONFIRM.TITLE',
+        description: 'POSTS.DELETE.CONFIRM.DESCRIPTION',
+      },
+      { onConfirm: handleDelete },
+    );
+  };
+
   return (
     <section>
       {isEditMode ? (
         <PostItemEditor {...post} onClose={unsetEditMode} />
       ) : (
-        <PostItem {...post} onEdit={setEditMode} onComment={setAddingComment} onDelete={handleDelete} />
+        <PostItem {...post} onEdit={setEditMode} onComment={setAddingComment} onDelete={confirmDelete} />
       )}
 
       <CommentSection post={post} isAddingNewComment={isAddingComment} onCloseAddingComment={unsetAddingComment} />

@@ -12,7 +12,7 @@ function ReplyButton({ disabled, onReply }: Props) {
 
   return (
     <button disabled={disabled} onClick={onReply}>
-      {t('POSTS.COMMENT_REPLY')}
+      {t('COMMENTS.REPLY')}
     </button>
   );
 }

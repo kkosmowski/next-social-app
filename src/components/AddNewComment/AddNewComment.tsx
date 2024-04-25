@@ -60,13 +60,13 @@ function AddNewComment({ post, isVisible, onClose }: Props) {
   return (
     <form className={`${styles.wrapper} card`} onSubmit={handleAddComment}>
       <h3 className={styles.title}>
-        {t('POSTS.COMMENT.ADD.TITLE', { postTitle: post.title, em: (str) => <em>{str}</em> })}
+        {t('COMMENTS.ADD.TITLE', { postTitle: post.title, em: (str) => <em>{str}</em> })}
       </h3>
 
       {ContentTextArea}
 
       <footer className={styles.footer}>
-        <button className="primary filled">{t('POSTS.COMMENT.ADD.SUBMIT')}</button>
+        <button className="primary filled">{t('COMMENTS.ADD.SUBMIT')}</button>
         <button className="secondary" type="button" onClick={onClose}>
           {t('COMMON.CANCEL')}
         </button>

@@ -77,12 +77,12 @@ function useCommentForm(options?: Options) {
   const ContentTextArea = useMemo(
     () => (
       <TextArea
-        label={t('POSTS.COMMENT.ADD.LABEL')}
+        label={t('COMMENTS.ADD.LABEL')}
         name="content"
         value={values.content}
         onChange={handleChange}
         minLength={2}
-        placeholder={t('POSTS.COMMENT.ADD.PLACEHOLDER')}
+        placeholder={t('COMMENTS.ADD.PLACEHOLDER')}
         className={styles.textarea}
         error={errors?.content}
         resize="vertical"
