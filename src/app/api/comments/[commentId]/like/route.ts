@@ -3,15 +3,15 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 import session from '@/app/api/[utils]/SessionClient';
-import type { PostLikeDbModel } from '@/types/post';
-import type { Model } from '@/types/common';
-import mapPostLikeRecordToPostLike from '@/utils/dataMappers/mapPostLikeRecordToPostLike';
-import { HttpStatus } from '@/consts/api';
 import response from '@/app/api/[consts]/response';
+import { HttpStatus } from '@/consts/api';
+import type { CommentLikeDbModel } from '@/types/comment';
+
+import Model = models.Model;
 
 type Params = {
   params: {
-    postId: string;
+    commentId: string;
   };
 };
 
@@ -22,15 +22,15 @@ export async function POST(_: NextRequest, { params }: Params) {
     return response.unauthorized;
   }
 
-  const newLike: Omit<PostLikeDbModel, keyof Model> = {
+  const newLike: Omit<CommentLikeDbModel, keyof Model> = {
+    comment: params.commentId,
     user: user.id,
-    post: params.postId,
   };
 
   try {
-    const createdLike = await pb.postLikes.create(newLike);
+    const createdLike = await pb.commentLikes.create(newLike);
 
-    return NextResponse.json(mapPostLikeRecordToPostLike(createdLike), { status: HttpStatus.Created });
+    return NextResponse.json(createdLike, { status: HttpStatus.Created });
   } catch (e) {
     return response.unknownError(e);
   }
@@ -44,8 +44,8 @@ export async function DELETE(_: NextRequest, { params }: Params) {
   }
 
   try {
-    const likeToDelete = await pb.postLikes.getFirstListItem(`post="${params.postId}" && user="${user.id}"`);
-    await pb.postLikes.delete(likeToDelete.id);
+    const likeToDelete = await pb.commentLikes.getFirstListItem(`comment="${params.commentId}" && user="${user.id}"`);
+    await pb.commentLikes.delete(likeToDelete.id);
 
     return response.noContent;
   } catch (e) {

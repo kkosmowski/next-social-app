@@ -47,13 +47,17 @@ function PostActions({ postId, likes, isEditMode, onComment }: Props) {
       return;
     }
 
-    if (isLikedByCurrentUser) {
-      await removeLike(postId);
-    } else {
-      await addLike(postId);
+    try {
+      if (isLikedByCurrentUser) {
+        await removeLike(postId);
+      } else {
+        await addLike(postId);
+      }
+      router.refresh();
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
     }
-    router.refresh();
-    setIsLoading(false);
   };
 
   return (

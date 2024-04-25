@@ -41,10 +41,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   try {
     const comment = await pb.comments.create(commentData, { expand: 'user, comment_likes_via_comment' });
 
-    return new NextResponse(JSON.stringify(mapCommentRecordToComment(comment)), {
-      status: HttpStatus.Created,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json(mapCommentRecordToComment(comment), { status: HttpStatus.Created });
   } catch (e) {
     return response.unknownError(e);
   }

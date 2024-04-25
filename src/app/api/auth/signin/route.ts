@@ -28,12 +28,7 @@ export async function POST(request: Request) {
       ?.split('=')[1];
     const finalCookie = [pbCookie, getIsLoggedCookie(pbCookieExpDateString)].join(', ');
 
-    return new NextResponse(JSON.stringify(data), {
-      headers: {
-        'Set-Cookie': finalCookie,
-        'Content-Type': 'application/json',
-      },
-    });
+    return NextResponse.json(data, { headers: { 'Set-Cookie': finalCookie } });
   } catch (e) {
     return NextResponse.json(
       { error: 'Invalid credentials.', code: ERROR_INVALID_CREDENTIALS },

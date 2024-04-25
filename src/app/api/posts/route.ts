@@ -48,10 +48,7 @@ export async function POST(request: NextRequest) {
     const record = await pb.posts.create(data, { expand: 'user' });
     const post = mapPostRecordToPost(record);
 
-    return new NextResponse(JSON.stringify(post), {
-      status: HttpStatus.Created,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json(post, { status: HttpStatus.Created });
   } catch (e) {
     return response.unknownError(e);
   }

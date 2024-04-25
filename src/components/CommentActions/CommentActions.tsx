@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import LikeButton from '@/components/LikeButton';
 import { useAuth } from '@/contexts/AuthProvider';
-import type { CommentLike } from '@/types/post';
+import type { CommentLike } from '@/types/comment';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import api from '@/api';
@@ -44,13 +44,17 @@ function CommentActions({ commentId, likes }: Props) {
       return;
     }
 
-    if (isLikedByCurrentUser) {
-      await removeLike(commentId);
-    } else {
-      await addLike(commentId);
+    try {
+      if (isLikedByCurrentUser) {
+        await removeLike(commentId);
+      } else {
+        await addLike(commentId);
+      }
+      router.refresh();
+      setIsLoading(false);
+    } catch (e) {
+      setIsLoading(false);
     }
-    router.refresh();
-    setIsLoading(false);
   };
 
   return (
