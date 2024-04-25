@@ -3,12 +3,12 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0.6rem 1.2rem;
-    margin-inline-start: 1.6rem;
+    margin-inline-start: var(--comment-indent-xs);
 }
 
 @media (min-width: 1024px) {
     .comment {
         padding: 1rem 1.6rem;
-        margin-inline-start: 3.2rem;
+        margin-inline-start: var(--comment-indent-md);
     }
 }

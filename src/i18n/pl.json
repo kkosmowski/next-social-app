@@ -36,6 +36,10 @@
   "POSTS.DELETE.CONFIRM.TITLE": "Potwierdź usunięcie posta",
   "POSTS.DELETE.CONFIRM.DESCRIPTION": "Czy na pewno chcesz usunąć ten post? Tej operacji nie da się cofnąć.",
   "POSTS.COMMENT": "Skomentuj",
+  "POSTS.COMMENT.ADD.LABEL": "Treść komentarza",
+  "POSTS.COMMENT.ADD.PLACEHOLDER": "Treść komentarza...",
+  "POSTS.COMMENT.ADD.TITLE": "Dodaj komentarz do <em>{ postTitle }</em>",
+  "POSTS.COMMENT.ADD.SUBMIT": "Wyślij komentarz",
   "POSTS.COMMENT_REPLY": "Odpowiedz",
   "POSTS.SHARE": "Udostępnij",
 

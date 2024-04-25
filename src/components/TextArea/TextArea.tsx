@@ -13,21 +13,30 @@ export type TextAreaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'n
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
   error?: TranslationKey;
   ghost?: boolean;
+  resize?: 'horizontal' | 'vertical' | false;
 };
 
-function buildClassName({ error, ghost, className }: Pick<TextAreaProps, 'error' | 'ghost' | 'className'>) {
-  let result = className;
+function buildClassName({
+  error,
+  ghost,
+  resize,
+  className,
+}: Pick<TextAreaProps, 'error' | 'ghost' | 'resize' | 'className'>) {
+  let result = className ?? '';
 
   if (error) result += ' error';
   if (ghost) result += ' ghost';
+  if (resize === false) result += ` ${styles.resizeNone}`;
+  else if (resize === 'horizontal') result += ` ${styles.resizeX}`;
+  else if (resize === 'vertical') result += ` ${styles.resizeY}`;
 
-  return result;
+  return result.trimStart();
 }
 
 function TextArea(props: TextAreaProps) {
-  const { label, labelHidden, name, value, onChange, error, ghost, className, ...inputProps } = props;
+  const { label, labelHidden, name, value, onChange, error, ghost, resize, className, ...inputProps } = props;
   const { t } = useIntl();
-  const _className = buildClassName({ error, ghost, className });
+  const _className = buildClassName({ error, ghost, resize, className });
 
   return (
     <label className={styles.label}>

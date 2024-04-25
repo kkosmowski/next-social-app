@@ -1,6 +1,6 @@
-import type { Post, PostModel } from '@/types/post';
+import type { Post, PostDbModel } from '@/types/post';
 
-function mapPostToPostRecord(post: Partial<Post>): Partial<PostModel> {
+function mapPostToPostRecord(post: Partial<Post>): Partial<PostDbModel> {
   return {
     title: post.title,
     content: post.content,

@@ -18,9 +18,12 @@
   --z-modal: 200;
   --z-menu: 300;
 
-  --shadow-color: var(--white-300);
+  --shadow-color: var(--white-350);
   --basic-shadow: 3px 4px 0 0 var(--shadow-color);
   --transparent-shadow: 3px 4px 0 0 var(--transparent-black-11);
+
+  --comment-indent-xs: 1.6rem;
+  --comment-indent-md: 3.2rem;
 }
 
 * {

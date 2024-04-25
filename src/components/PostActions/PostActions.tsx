@@ -21,7 +21,7 @@ type Props = {
   postId: string;
   likes: PostLike[];
   isEditMode?: boolean;
-  onComment: VoidFunction;
+  onComment?: VoidFunction;
 };
 
 async function addLike(postId: string) {

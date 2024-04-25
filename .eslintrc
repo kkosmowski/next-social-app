@@ -19,7 +19,12 @@
         "proseWrap": "always"
       }
     ],
-    "no-console": "warn",
+    "no-console": [
+      "warn",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
 
     "arrow-body-style": ["error", "as-needed"],
 

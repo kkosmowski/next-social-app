@@ -14,17 +14,12 @@ function PostItemController(post: Post) {
   return (
     <article>
       {isEditMode ? (
-        <PostItemEditor onClose={unsetEditMode} {...post} />
+        <PostItemEditor {...post} onClose={unsetEditMode} />
       ) : (
-        <PostItem onEdit={setEditMode} {...post} onComment={setAddingComment} />
+        <PostItem {...post} onEdit={setEditMode} onComment={setAddingComment} />
       )}
 
-      <CommentSection
-        postId={post.id}
-        comments={post.comments}
-        isAddingNewComment={isAddingComment}
-        onCloseAddingComment={unsetAddingComment}
-      />
+      <CommentSection post={post} isAddingNewComment={isAddingComment} onCloseAddingComment={unsetAddingComment} />
     </article>
   );
 }

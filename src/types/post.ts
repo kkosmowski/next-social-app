@@ -1,13 +1,13 @@
-import type { Model } from '@/types/common';
-import type { User } from '@/types/user';
+import type { Model } from './common';
+import type { User } from './user';
+import type { Comment } from './comment';
 
-// should be used only on server side
-export type PostLikeModel = Model & {
+export type PostLikeDbModel = Model & {
   post: string;
   user: string;
 };
 
-export type PostModel = Model & {
+export type PostDbModel = Model & {
   title: string;
   content: string;
   user: string;
@@ -17,17 +17,6 @@ export type PostModel = Model & {
 export type PostLike = Omit<Model, 'updated'> & {
   postId: string;
   userId: string;
-};
-
-export type CommentLike = Omit<Model, 'updated'> & {
-  userId: string;
-};
-
-export type Comment = Model & {
-  postId: string;
-  user: User;
-  content: string;
-  likes: PostLike[];
 };
 
 export type Post = Model & {

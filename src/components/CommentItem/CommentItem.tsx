@@ -1,4 +1,4 @@
-import type { Comment } from '@/types/post';
+import type { Comment } from '@/types/comment';
 import CommentActions from '@/components/CommentActions';
 import ItemDetails from '@/components/ItemDetails';
 import ItemContent from '@/components/ItemContent';

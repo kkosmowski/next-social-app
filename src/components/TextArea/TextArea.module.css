@@ -15,3 +15,15 @@
     font-size: 1.3rem;
     color: var(--error-600);
 }
+
+.resizeNone {
+    resize: none;
+}
+
+.resizeX {
+    resize: horizontal;
+}
+
+.resizeY {
+    resize: vertical;
+}

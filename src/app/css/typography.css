@@ -37,3 +37,12 @@ a:hover {
     color: var(--primary-500);
     text-decoration: underline;
 }
+
+strong {
+    font-weight: 600;
+}
+
+em {
+    font-style: normal;
+    font-weight: 500;
+}

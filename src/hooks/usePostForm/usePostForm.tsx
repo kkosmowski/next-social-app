@@ -7,6 +7,7 @@ import type { FormErrors } from '@/types/common';
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import useIntl from '@/app/hooks/useIntl';
+import filterUnique from '@/utils/filterUnique';
 
 import styles from './usePostForm.module.css';
 
@@ -62,10 +63,17 @@ function usePostForm(options?: Options) {
         return;
       }
 
+      const tags = formData.data.tags
+        ? formData.data.tags
+            .split(/,\s?/g)
+            .map((tag) => tag.toLowerCase().trim())
+            .filter(filterUnique)
+        : [];
+
       const payload: AddPostPayload = {
-        title: formData.data.title,
-        content: formData.data.content,
-        tags: formData.data.tags ? formData.data.tags.split(/,\s?/g) : [],
+        title: formData.data.title.trim(),
+        content: formData.data.content.trim(),
+        tags,
       };
 
       await callback(payload);
@@ -107,6 +115,7 @@ function usePostForm(options?: Options) {
         placeholder={t('POSTS.FORM.CONTENT.PLACEHOLDER')}
         className={styles.textarea}
         error={errors?.content}
+        resize="vertical"
         required
         labelHidden={options?.ghostInputs}
         ghost={options?.ghostInputs}

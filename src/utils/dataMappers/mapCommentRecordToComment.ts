@@ -1,6 +1,6 @@
 import type { RecordModel } from 'pocketbase';
 
-import type { Comment } from '@/types/post';
+import type { Comment } from '@/types/comment';
 import hydrateContent from '@/utils/hydrateContent';
 import mapCommentLikeRecordToCommentLike from '@/utils/dataMappers/mapCommentLikeRecordToCommentLike';
 

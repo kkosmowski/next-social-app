@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 import session from '@/app/api/[utils]/SessionClient';
 import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
-import type { PostLikeModel } from '@/types/post';
+import type { PostLikeDbModel } from '@/types/post';
 import type { Model } from '@/types/common';
 import mapPostLikeRecordToPostLike from '@/utils/dataMappers/mapPostLikeRecordToPostLike';
 import { ERROR_UNKNOWN } from '@/consts/common';
@@ -26,7 +26,7 @@ export async function POST(_: NextRequest, { params }: Params) {
     );
   }
 
-  const newLike: Omit<PostLikeModel, keyof Model> = {
+  const newLike: Omit<PostLikeDbModel, keyof Model> = {
     user: user.id,
     post: params.postId,
   };

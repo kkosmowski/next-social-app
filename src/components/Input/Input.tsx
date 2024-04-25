@@ -16,12 +16,12 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'name' | 'v
 };
 
 function buildClassName({ error, ghost, className }: Pick<InputProps, 'error' | 'ghost' | 'className'>) {
-  let result = className;
+  let result = className ?? '';
 
   if (error) result += ' error';
   if (ghost) result += ' ghost';
 
-  return result;
+  return result.trimStart();
 }
 
 function Input(props: InputProps) {

@@ -1,24 +1,23 @@
-import type { Comment } from '@/types/post';
+import type { Post } from '@/types/post';
 import AddNewComment from '@/components/AddNewComment';
 import CommentItem from '@/components/CommentItem';
 
 import styles from './CommentSection.module.css';
 
 type Props = {
-  postId: string;
+  post: Post;
   isAddingNewComment: boolean;
-  comments: Comment[];
   onCloseAddingComment: VoidFunction;
 };
 
-function CommentSection({ postId, isAddingNewComment, comments, onCloseAddingComment }: Props) {
+function CommentSection({ post, isAddingNewComment, onCloseAddingComment }: Props) {
   return (
     <>
-      <AddNewComment postId={postId} isVisible={isAddingNewComment} onClose={onCloseAddingComment} />
+      <AddNewComment post={post} isVisible={isAddingNewComment} onClose={onCloseAddingComment} />
 
-      {!!comments.length && (
+      {!!post.comments.length && (
         <ul className={styles.commentsList}>
-          {comments.map((comment) => (
+          {post.comments.map((comment) => (
             <CommentItem key={comment.id} {...comment} />
           ))}
         </ul>
