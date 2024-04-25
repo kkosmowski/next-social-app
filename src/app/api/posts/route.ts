@@ -5,11 +5,11 @@ import { cookies } from 'next/headers';
 import type { AddPostPayload, Post } from '@/types/post';
 import mapPostRecordToPost from '@/utils/dataMappers/mapPostRecordToPost';
 import session from '@/app/api/[utils]/SessionClient';
-import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
 import { HttpStatus } from '@/consts/api';
 import validatePostPayload from '@/app/api/[utils]/validatePostPayload';
 import { ERROR_INVALID_PAYLOAD } from '@/consts/common';
 import mapPostToPostRecord from '@/utils/dataMappers/mapPostToPostRecord';
+import response from '@/app/api/[consts]/response';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,10 +29,7 @@ export async function POST(request: NextRequest) {
   const { pb, isLoggedIn, user } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json(
-      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
-      { status: HttpStatus.Unauthorized },
-    );
+    return response.unauthorized;
   }
 
   const payload: AddPostPayload = await request.json();
@@ -46,11 +43,16 @@ export async function POST(request: NextRequest) {
   }
 
   const data = mapPostToPostRecord({ ...payload, user });
-  const record = await pb.posts.create(data, { expand: 'user' });
-  const post = mapPostRecordToPost(record);
 
-  return new NextResponse(JSON.stringify(post), {
-    status: HttpStatus.Created,
-    headers: { 'Content-Type': 'application/json' },
-  });
+  try {
+    const record = await pb.posts.create(data, { expand: 'user' });
+    const post = mapPostRecordToPost(record);
+
+    return new NextResponse(JSON.stringify(post), {
+      status: HttpStatus.Created,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (e) {
+    return response.unknownError(e);
+  }
 }

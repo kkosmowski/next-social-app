@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 import session from '@/app/api/[utils]/SessionClient';
-import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
 import type { Model } from '@/types/common';
-import { ERROR_INVALID_PAYLOAD, ERROR_UNKNOWN } from '@/consts/common';
+import { ERROR_INVALID_PAYLOAD } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
 import type { AddCommentPayload, CommentDbModel } from '@/types/comment';
 import mapCommentRecordToComment from '@/utils/dataMappers/mapCommentRecordToComment';
+import response from '@/app/api/[consts]/response';
 
 type Params = {
   params: {
@@ -20,10 +20,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json(
-      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
-      { status: HttpStatus.Unauthorized },
-    );
+    return response.unauthorized;
   }
 
   const payload: AddCommentPayload = await request.json();
@@ -49,6 +46,6 @@ export async function POST(request: NextRequest, { params }: Params) {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: HttpStatus.InternalServerError });
+    return response.unknownError(e);
   }
 }

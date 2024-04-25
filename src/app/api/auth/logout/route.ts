@@ -3,8 +3,8 @@ import { cookies } from 'next/headers';
 
 import { ERROR_NOT_LOGGED_IN, IS_LOGGED_COOKIE_KEY, PB_AUTH_COOKIE_KEY } from '@/consts/auth';
 import session from '@/app/api/[utils]/SessionClient';
-import { ERROR_UNKNOWN } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
+import response from '@/app/api/[consts]/response';
 
 export async function POST() {
   const { isLoggedIn } = await session.refreshData(cookies().toString());
@@ -20,11 +20,8 @@ export async function POST() {
     session.logout();
     cookies().delete(PB_AUTH_COOKIE_KEY);
     cookies().delete(IS_LOGGED_COOKIE_KEY);
-    return new NextResponse(undefined, { status: HttpStatus.NoContent });
+    return response.noContent;
   } catch (e) {
-    return NextResponse.json(
-      { error: 'Unknown error during logging out', code: ERROR_UNKNOWN },
-      { status: HttpStatus.InternalServerError },
-    );
+    return response.unknownError(e);
   }
 }

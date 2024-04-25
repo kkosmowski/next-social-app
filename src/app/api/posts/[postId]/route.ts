@@ -3,18 +3,13 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import session from '@/app/api/[utils]/SessionClient';
-import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
-import {
-  ERROR_FORBIDDEN_ACTION,
-  ERROR_INVALID_PAYLOAD,
-  ERROR_RESOURCE_NOT_FOUND,
-  ERROR_UNKNOWN,
-} from '@/consts/common';
+import { ERROR_INVALID_PAYLOAD, ERROR_RESOURCE_NOT_FOUND } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
 import validatePostPayload from '@/app/api/[utils]/validatePostPayload';
 import mapPostRecordToPost from '@/utils/dataMappers/mapPostRecordToPost';
 import type { AddPostPayload } from '@/types/post';
 import mapPostToPostRecord from '@/utils/dataMappers/mapPostToPostRecord';
+import response from '@/app/api/[consts]/response';
 
 type Params = {
   params: {
@@ -26,10 +21,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   const { isLoggedIn, pb, user } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json(
-      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
-      { status: HttpStatus.Unauthorized },
-    );
+    return response.unauthorized;
   }
 
   const { postId } = params;
@@ -48,10 +40,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     const record = await pb.posts.getOne(postId);
 
     if (record.user !== user.id) {
-      return NextResponse.json(
-        { error: 'Forbidden action. Lack of permissions.', code: ERROR_FORBIDDEN_ACTION },
-        { status: HttpStatus.Forbidden },
-      );
+      return response.forbidden;
     }
   } catch (e) {
     return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
@@ -61,7 +50,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     const newRecord = await pb.posts.update(postId, mapPostToPostRecord(payload), { expand: 'user' });
     return NextResponse.json(mapPostRecordToPost(newRecord));
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: HttpStatus.InternalServerError });
+    return response.unknownError(e);
   }
 }
 
@@ -69,10 +58,7 @@ export async function DELETE(_: Request, { params }: Params) {
   const { isLoggedIn, pb, user } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
-    return NextResponse.json(
-      { error: 'User is not logged in.', code: ERROR_NOT_LOGGED_IN },
-      { status: HttpStatus.Unauthorized },
-    );
+    return response.unauthorized;
   }
 
   const { postId } = params;
@@ -81,10 +67,7 @@ export async function DELETE(_: Request, { params }: Params) {
     const record = await pb.posts.getOne(postId);
 
     if (record.user !== user.id) {
-      return NextResponse.json(
-        { error: 'Forbidden action. Lack of permissions.', code: ERROR_FORBIDDEN_ACTION },
-        { status: HttpStatus.Forbidden },
-      );
+      return response.forbidden;
     }
   } catch (e) {
     return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
@@ -92,8 +75,8 @@ export async function DELETE(_: Request, { params }: Params) {
 
   try {
     await pb.posts.delete(postId);
-    return new NextResponse(undefined, { status: HttpStatus.NoContent });
+    return response.noContent;
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_UNKNOWN }, { status: HttpStatus.InternalServerError });
+    return response.unknownError(e);
   }
 }

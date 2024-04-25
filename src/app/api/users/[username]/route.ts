@@ -6,6 +6,7 @@ import mapUserRecordToUser from '@/utils/dataMappers/mapUserRecordToUser';
 import { ERROR_NO_USER_FOUND } from '@/consts/auth';
 import session from '@/app/api/[utils]/SessionClient';
 import { HttpStatus } from '@/consts/api';
+import response from '@/app/api/[consts]/response';
 
 type Params = {
   params: {
@@ -23,6 +24,10 @@ export async function GET(_: NextRequest, { params }: Params) {
     );
   }
 
-  const record = await pb.users.getFirstListItem(`username="${params.username}"`);
-  return NextResponse.json(mapUserRecordToUser(record));
+  try {
+    const record = await pb.users.getFirstListItem(`username="${params.username}"`);
+    return NextResponse.json(mapUserRecordToUser(record));
+  } catch (e) {
+    return response.unknownError(e);
+  }
 }
