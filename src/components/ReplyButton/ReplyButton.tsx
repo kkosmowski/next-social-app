@@ -3,13 +3,18 @@
 import useIntl from '@/app/hooks/useIntl';
 
 type Props = {
+  disabled?: boolean;
   onReply: VoidFunction;
 };
 
-function ReplyButton({ onReply }: Props) {
+function ReplyButton({ disabled, onReply }: Props) {
   const { t } = useIntl();
 
-  return <button onClick={onReply}>{t('POSTS.COMMENT_REPLY')}</button>;
+  return (
+    <button disabled={disabled} onClick={onReply}>
+      {t('POSTS.COMMENT_REPLY')}
+    </button>
+  );
 }
 
 export default ReplyButton;

@@ -40,6 +40,7 @@
   "POSTS.COMMENT.ADD.PLACEHOLDER": "Treść komentarza...",
   "POSTS.COMMENT.ADD.TITLE": "Dodaj komentarz do <em>{ postTitle }</em>",
   "POSTS.COMMENT.ADD.SUBMIT": "Wyślij komentarz",
+  "POSTS.COMMENT.EDIT.SUBMIT": "Zaktualizuj komentarz",
   "POSTS.COMMENT_REPLY": "Odpowiedz",
   "POSTS.SHARE": "Udostępnij",
 
@@ -49,6 +50,7 @@
   "COMMON.DELETE": "Usuń",
   "COMMON.DONE": "Gotowe",
   "COMMON.EDIT": "Zmień",
+  "COMMON.EDITED": "(edytowano)",
   "COMMON.LOADING": "Ładowanie",
 
   "ERROR.UNKNOWN": "Coś poszło nie tak. ",

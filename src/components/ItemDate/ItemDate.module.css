@@ -1,0 +1,10 @@
+.date {
+    font-size: 1.3rem;
+    color: var(--secondary-400);
+}
+
+@media (min-width: 1024px) {
+    .date {
+        font-size: 1.4rem;
+    }
+}

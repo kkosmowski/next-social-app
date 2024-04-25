@@ -30,7 +30,7 @@ function AddNewComment({ post, isVisible, onClose }: Props) {
   const addComment = async (payload: AddCommentPayload) => {
     try {
       return api.post<AddCommentPayload, AddCommentResponse>(
-        dynamicEndpoint(endpoints.comment, { postId: post.id }),
+        dynamicEndpoint(endpoints.commentPost, { postId: post.id }),
         payload,
       );
     } catch (e) {

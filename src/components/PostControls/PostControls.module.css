@@ -1,8 +1,0 @@
-.wrapper {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-inline-start: 2rem;
-    font-size: 1.4rem;
-    color: var(--secondary-100);
-}

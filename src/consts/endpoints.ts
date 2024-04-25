@@ -8,10 +8,11 @@ const postEndpoints = {
   posts: '/posts',
   post: '/posts/:postId',
   postLike: '/posts/:postId/like',
+  commentPost: '/posts/:postId/comment',
 } as const;
 
 const commentEndpoints = {
-  comment: '/posts/:postId/comment',
+  comment: '/comments/:commentId',
   commentLike: '/comments/:commentId/like',
 } as const;
 

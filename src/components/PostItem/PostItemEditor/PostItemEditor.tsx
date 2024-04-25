@@ -2,13 +2,9 @@
 
 import type { FormEvent } from 'react';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import type { Post, AddPostPayload, AddPostResponse } from '@/types/post';
-import dynamicRoute from '@/app/utils/dynamicRoute';
-import { Routes } from '@/consts/navigation';
-import formatDate from '@/utils/formatDate';
 import PostActions from '@/components/PostActions';
 import useIntl from '@/app/hooks/useIntl';
 import usePostForm from '@/hooks/usePostForm';
@@ -16,6 +12,7 @@ import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import { handleError } from '@/utils/handleError';
 import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
+import ItemDetails from '@/components/ItemDetails';
 
 import styles from './PostItemEditor.module.css';
 
@@ -24,12 +21,12 @@ type Props = Post & {
 };
 
 function PostItemEditor(props: Props) {
-  const { id, title, content, tags, user, created, likes, onClose } = props;
+  const { id, title, content, tags, user, created, updated, likes, onClose } = props;
   const { TitleInput, ContentTextArea, TagsInput, isLoading, handleSubmit, endLoading, setErrors } = usePostForm({
     initialValues: {
       title,
       content,
-      tags: tags.join(','),
+      tags: tags.join(', '),
     },
     ghostInputs: true,
   });
@@ -56,15 +53,10 @@ function PostItemEditor(props: Props) {
   };
 
   return (
-    <form className={styles.wrapper} onSubmit={handleUpdatePost}>
+    <form className={styles.form} onSubmit={handleUpdatePost}>
       <header className={styles.header}>{TitleInput}</header>
 
-      <section className={styles.details}>
-        <address className={styles.author}>
-          <Link href={dynamicRoute(Routes.user, { username: user.username })}>{user.username}</Link>
-        </address>
-        <time className={styles.date}>{formatDate(created, 'd-MM-yyyy hh:mm')}</time>
-      </section>
+      <ItemDetails created={created} updated={updated} user={user} noControls />
 
       {ContentTextArea}
       {TagsInput}
@@ -73,6 +65,7 @@ function PostItemEditor(props: Props) {
         <button className="primary filled" type="submit" disabled={isLoading}>
           {t(isLoading ? 'COMMON.LOADING' : 'POSTS.FORM.SUBMIT.EDIT')}
         </button>
+
         <button className="secondary" type="button" disabled={isLoading} onClick={onClose}>
           {t('COMMON.CANCEL')}
         </button>

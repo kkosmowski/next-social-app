@@ -19,6 +19,7 @@ import styles from './CommentActions.module.css';
 type Props = {
   commentId: string;
   likes: CommentLike[];
+  isEditMode?: boolean;
 };
 
 async function addLike(commentId: string) {
@@ -29,7 +30,7 @@ async function removeLike(commentId: string) {
   await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }));
 }
 
-function CommentActions({ commentId, likes }: Props) {
+function CommentActions({ commentId, likes, isEditMode }: Props) {
   const { user } = useAuth();
   const router = useRouter();
   const likesCount = likes.length;
@@ -61,12 +62,13 @@ function CommentActions({ commentId, likes }: Props) {
     <footer className={styles.footer}>
       <LikeButton
         isLoading={isLoading}
+        disabled={isEditMode}
         isLikedByCurrentUser={isLikedByCurrentUser}
         likesCount={likesCount}
         onLike={handleLike}
       />
 
-      <ReplyButton onReply={() => {}} />
+      <ReplyButton onReply={() => {}} disabled={isEditMode} />
     </footer>
   );
 }

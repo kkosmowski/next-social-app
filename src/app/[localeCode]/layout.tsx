@@ -8,7 +8,7 @@ import ServerIntlProvider from '@/contexts/ServerIntlProvider';
 import Navigation from '@/components/Navigation';
 import AuthProvider from '@/contexts/AuthProvider';
 import session from '@/app/api/[utils]/SessionClient';
-import ConfirmationProvider from '@/contexts/ConfirmationProvider/ConfirmationProvider';
+import ConfirmationProvider from '@/contexts/ConfirmationProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 

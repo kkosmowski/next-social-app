@@ -22,6 +22,8 @@ const getFormData = <T>(form: EventTarget): { data: T; errors: FormErrors<T> | u
 
     if (element.required && !element.value) {
       if (!errors) errors = {} as FormErrors<T>;
+      // eslint-disable-next-line
+      // @ts-ignore
       errors[name] = ERROR_EMPTY_INPUT;
     }
   }

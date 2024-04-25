@@ -1,3 +1,3 @@
-import CommentItem from './CommentItem';
+import CommentItemController from './CommentItemController';
 
-export default CommentItem;
+export default CommentItemController;

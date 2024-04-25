@@ -1,9 +1,6 @@
 .form {
     display: flex;
     flex-direction: column;
-    padding: .8rem 1.2rem 1.2rem;
-    background-color: var(--white-100);
-    box-shadow: var(--basic-shadow);
 }
 
 .form input,
@@ -20,7 +17,7 @@
 
 .controls {
     display: flex;
-    margin-block-start: 1rem;
+    margin-block-start: 0.4rem;
     gap: 1rem;
 }
 
