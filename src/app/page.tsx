@@ -2,10 +2,10 @@ import { redirect } from 'next/navigation';
 
 import { Routes } from '@/consts/navigation';
 import dynamicRoute from '@/app/utils/dynamicRoute';
-import type { ServerComponentProps } from '@/types/common';
+import { defaultLocale } from '@/i18n/config';
 
-async function RootRoute({ params: { locale } }: ServerComponentProps) {
-  redirect(dynamicRoute(Routes.home, { locale }));
+async function RootRoute() {
+  redirect(dynamicRoute(Routes.home, { locale: defaultLocale }));
 }
 
 export default RootRoute;
