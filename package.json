@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "api": "./pocketbase serve",
+    "dev": "HOST=0.0.0.0 next dev",
+    "api": "HOST=0.0.0.0 ./pocketbase serve",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@formatjs/intl": "^2.10.1",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
     "next": "14.1.4",
     "next-i18n-router": "^5.4.0",
     "pocketbase": "^0.21.1",

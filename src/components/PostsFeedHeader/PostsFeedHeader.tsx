@@ -1,5 +1,7 @@
 'use client';
 
+import Add from '@mui/icons-material/Add';
+
 import useIntl from '@/app/hooks/useIntl';
 import AddNewPost from '@/components/AddNewPost';
 import useBoolean from '@/hooks/useBoolean';
@@ -16,7 +18,7 @@ function PostsFeedHeader() {
         <h2>{t('POSTS.TITLE')}</h2>
         {!isAddingPost && (
           <button className="ghost primary" onClick={setAddingPost}>
-            + {t('POSTS.CREATE')}
+            <Add /> {t('POSTS.CREATE')}
           </button>
         )}
       </header>

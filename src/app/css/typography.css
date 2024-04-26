@@ -46,3 +46,7 @@ em {
     font-style: normal;
     font-weight: 500;
 }
+
+svg.MuiSvgIcon-root {
+    font-size: 1.6rem;
+}

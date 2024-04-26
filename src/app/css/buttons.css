@@ -2,7 +2,7 @@ button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.4rem;
     background-color: transparent;
     border: 0;
     font-family: inherit;
@@ -102,8 +102,16 @@ button.primary {
     color: var(--primary-500);
 }
 
+button.primary > svg {
+    color: var(--primary-400);
+}
+
 button.primary.ghost:hover {
     color: var(--primary-300);
+}
+
+button.primary.ghost:hover > svg {
+    color: var(--primary-200);
 }
 
 button.primary:not(.ghost,:disabled,.filled):hover {
@@ -118,16 +126,32 @@ button.secondary {
     color: var(--secondary-500);
 }
 
+button.secondary > svg {
+    color: var(--secondary-400);
+}
+
 button.secondary.ghost:hover {
     color: var(--secondary-300);
+}
+
+button.secondary.ghost:hover > svg {
+    color: var(--secondary-200);
 }
 
 button.error {
     color: var(--error-500);
 }
 
+button.error > svg {
+    color: var(--error-400);
+}
+
 button.error.ghost:hover {
     color: var(--error-300);
+}
+
+button.error.ghost:hover > svg {
+    color: var(--error-200);
 }
 
 @media (max-width: 1023px) {
@@ -144,7 +168,6 @@ button.error.ghost:hover {
 
 @media (min-width: 1024px) {
     button {
-        gap: 1rem;
         font-size: 1.4rem;
     }
 

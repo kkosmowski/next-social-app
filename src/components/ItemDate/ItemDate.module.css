@@ -3,6 +3,12 @@
     color: var(--secondary-400);
 }
 
+.date,
+.edited {
+    display: inline-flex;
+    align-items: center;
+}
+
 @media (min-width: 1024px) {
     .date {
         font-size: 1.4rem;

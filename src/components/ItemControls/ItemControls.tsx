@@ -1,5 +1,8 @@
 'use client';
 
+import Edit from '@mui/icons-material/Edit';
+import Delete from '@mui/icons-material/Delete';
+
 import useIntl from '@/app/hooks/useIntl';
 import { useAuth } from '@/contexts/AuthProvider';
 
@@ -21,10 +24,10 @@ function ItemControls({ authorId, onEdit, onDelete }: Props) {
     <>
       {'|'}
       <button className="primary ghost" onClick={() => onEdit()}>
-        {t('COMMON.EDIT')}
+        <Edit /> <span className="md-only">{t('COMMON.EDIT')}</span>
       </button>
       <button className="error ghost" onClick={onDelete}>
-        {t('COMMON.DELETE')}
+        <Delete /> <span className="md-only">{t('COMMON.DELETE')}</span>
       </button>
     </>
   );
