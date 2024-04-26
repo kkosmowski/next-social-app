@@ -19,7 +19,7 @@ function PostItemController(post: Post) {
   const [isEditMode, { set: setEditMode, unset: unsetEditMode }] = useBoolean(false);
   const [isAddingComment, { set: setAddingComment, unset: unsetAddingComment }] = useBoolean(false);
   const router = useRouter();
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const { ask } = useConfirmation();
 
   const handleDelete = async () => {
@@ -47,7 +47,13 @@ function PostItemController(post: Post) {
       {isEditMode ? (
         <PostItemEditor {...post} onClose={unsetEditMode} />
       ) : (
-        <PostItem {...post} onEdit={setEditMode} onComment={setAddingComment} onDelete={confirmDelete} />
+        <PostItem
+          {...post}
+          locale={locale}
+          onEdit={setEditMode}
+          onComment={setAddingComment}
+          onDelete={confirmDelete}
+        />
       )}
 
       <CommentSection post={post} isAddingNewComment={isAddingComment} onCloseAddingComment={unsetAddingComment} />

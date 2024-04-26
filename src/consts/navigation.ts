@@ -2,27 +2,27 @@ import type { NavLink } from '@/types/navigation';
 import dynamicRoute from '@/app/utils/dynamicRoute';
 
 export enum Routes {
-  home = '/:localeCode/',
-  messages = '/:localeCode/messages',
-  profile = '/:localeCode/me',
-  editProfile = '/:localeCode/edit-profile',
-  settings = '/:localeCode/settings',
+  home = '/:locale/',
+  messages = '/:locale/messages',
+  profile = '/:locale/me',
+  editProfile = '/:locale/edit-profile',
+  settings = '/:locale/settings',
 
-  login = '/:localeCode/login',
+  login = '/:locale/login',
 
-  user = '/:localeCode/users/:username',
+  user = '/:locale/users/:username',
 }
 
 export const navigationLinks: NavLink[] = [
   {
     key: Routes.home,
-    route: ({ localeCode }) => dynamicRoute(Routes.home, { localeCode }),
+    route: ({ locale }) => dynamicRoute(Routes.home, { locale }),
     label: 'NAV.HOME',
     access: 'all',
   },
   {
     key: Routes.messages,
-    route: ({ localeCode }) => dynamicRoute(Routes.messages, { localeCode }),
+    route: ({ locale }) => dynamicRoute(Routes.messages, { locale }),
     label: 'NAV.MESSAGES',
     access: 'logged-only',
   },

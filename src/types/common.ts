@@ -6,8 +6,8 @@ export type PropsWithChildren<T = unknown> = T & {
   children: ReactNode;
 };
 
-export type PageProps<T = unknown, P = unknown> = T & {
-  params: P & { localeCode: string };
+export type ServerComponentProps<T = unknown, P = unknown> = T & {
+  params: P & { locale: string };
 };
 
 export type Model = {

@@ -16,6 +16,7 @@ import dynamicRoute from '@/app/utils/dynamicRoute';
 import { Routes } from '@/consts/navigation';
 import session from '@/app/api/[utils]/SessionClient';
 import { handleError } from '@/utils/handleError';
+import useIntl from '@/app/hooks/useIntl';
 
 type AuthContextValues = {
   isLoggedIn: boolean | undefined;
@@ -45,6 +46,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>();
   const [loginApiError, setLoginApiError] = useState<TranslationKey | undefined>();
   const [user, setUser] = useState<User | null>(null);
+  const { locale } = useIntl();
   const router = useRouter();
 
   useEffect(() => {
@@ -62,7 +64,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   const clearCurrentUser = useCallback(() => {
     setUser(null);
     setIsLoggedIn(false);
-    router.push(dynamicRoute(Routes.home));
+    router.push(dynamicRoute(Routes.home, { locale }));
   }, []);
 
   const getMe = useCallback(async (signal: AbortSignal) => {

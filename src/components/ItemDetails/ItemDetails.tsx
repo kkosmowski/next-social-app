@@ -6,10 +6,12 @@ import type { Model } from '@/types/common';
 import type { User } from '@/types/user';
 import ItemControls from '@/components/ItemControls';
 import ItemDate from '@/components/ItemDate';
+import type { Locale } from '@/types/i18n';
 
 import styles from './ItemDetails.module.css';
 
 type Props = Pick<Model, 'created' | 'updated'> & {
+  locale: Locale;
   user: User;
 } & (
     | {
@@ -20,11 +22,11 @@ type Props = Pick<Model, 'created' | 'updated'> & {
     | { noControls: true; onEdit?: never; onDelete?: never }
   );
 
-function ItemDetails({ user, created, updated, noControls, onEdit, onDelete }: Props) {
+function ItemDetails({ locale, user, created, updated, noControls, onEdit, onDelete }: Props) {
   return (
     <section className={styles.details}>
       <address className={styles.author}>
-        <Link href={dynamicRoute(Routes.user, { username: user.username })}>{user.username}</Link>
+        <Link href={dynamicRoute(Routes.user, { username: user.username, locale })}>{user.username}</Link>
       </address>
 
       <ItemDate created={created} updated={updated} />

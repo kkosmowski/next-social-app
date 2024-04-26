@@ -5,20 +5,22 @@ import LoggedOnly from '@/components/LoggedOnly';
 import GuestOnly from '@/components/GuestOnly';
 import UserButton from '@/components/UserButton';
 import SignInButton from '@/components/SignInButton';
-import session from '@/app/api/[utils]/SessionClient';
+import type { Locale } from '@/types/i18n';
 
 import styles from './Navigation.module.css';
 
-async function Navigation() {
-  const localeCode = session.getLocaleCode();
+type Props = {
+  locale: Locale;
+};
 
+async function Navigation({ locale }: Props) {
   return (
     <header className={styles.header}>
       <AppLogo />
 
       <nav className={styles.nav}>
         {navigationLinks.map(({ key, route, label, access }) => (
-          <NavigationLink key={key} route={route({ localeCode })} label={label} access={access} />
+          <NavigationLink key={key} route={route({ locale })} label={label} access={access} />
         ))}
       </nav>
 

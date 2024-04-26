@@ -2,17 +2,17 @@ import Image from 'next/image';
 
 import type { User } from '@/types/user';
 import getIntl from '@/app/utils/getIntl';
-import session from '@/app/api/[utils]/SessionClient';
+import type { Locale } from '@/types/i18n';
 
 import styles from './UserDetails.module.css';
 
 type Props = {
   user: User;
+  locale: Locale;
 };
 
-async function UserDetails({ user }: Props) {
-  const localeCode = session.getLocaleCode();
-  const { t } = await getIntl(localeCode);
+async function UserDetails({ user, locale }: Props) {
+  const { t } = await getIntl(locale);
 
   return (
     <section className={`${styles.column} ${styles.wrapper}`}>

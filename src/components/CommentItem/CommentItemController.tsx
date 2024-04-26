@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 
 import useBoolean from '@/hooks/useBoolean';
@@ -16,7 +18,7 @@ import CommentItem from './CommentItem';
 function CommentItemController(comment: Comment) {
   const [isEditMode, { set: setEditMode, unset: unsetEditMode }] = useBoolean(false);
   const router = useRouter();
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const { ask } = useConfirmation();
 
   const handleDelete = async () => {
@@ -44,7 +46,7 @@ function CommentItemController(comment: Comment) {
       {isEditMode ? (
         <CommentItemEditor {...comment} onClose={unsetEditMode} />
       ) : (
-        <CommentItem {...comment} onEdit={setEditMode} onDelete={confirmDelete} />
+        <CommentItem {...comment} locale={locale} onEdit={setEditMode} onDelete={confirmDelete} />
       )}
     </article>
   );

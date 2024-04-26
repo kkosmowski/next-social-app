@@ -1,10 +1,10 @@
-import type { PageProps } from '@/types/common';
+import type { ServerComponentProps } from '@/types/common';
 import getIntl from '@/app/utils/getIntl';
 
 import LoginForm from './LoginForm';
 import styles from './page.module.css';
 
-async function LoginPage({ params: { localeCode } }: PageProps) {
+async function LoginPage({ params: { localeCode } }: ServerComponentProps) {
   const { t } = await getIntl(localeCode);
 
   return (

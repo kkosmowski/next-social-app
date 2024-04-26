@@ -1,6 +1,6 @@
-import type { PageProps } from '@/types/common';
+import type { ServerComponentProps } from '@/types/common';
 
-async function EditProfilePage({ params }: PageProps) {
+async function EditProfilePage({ params }: ServerComponentProps) {
   console.log(params);
   return (
     <section>

@@ -16,26 +16,26 @@ import styles from './UserButton.module.css';
 const userButtonOptions: NavLink[] = [
   {
     key: Routes.profile,
-    route: ({ localeCode }) => dynamicRoute(Routes.profile, { localeCode }),
+    route: ({ locale }) => dynamicRoute(Routes.profile, { locale }),
     label: 'NAV.USER.PROFILE',
     access: 'logged-only',
   },
   {
     key: Routes.editProfile,
-    route: ({ localeCode }) => dynamicRoute(Routes.editProfile, { localeCode }),
+    route: ({ locale }) => dynamicRoute(Routes.editProfile, { locale }),
     label: 'NAV.USER.EDIT',
     access: 'logged-only',
   },
   {
     key: Routes.settings,
-    route: ({ localeCode }) => dynamicRoute(Routes.settings, { localeCode }),
+    route: ({ locale }) => dynamicRoute(Routes.settings, { locale }),
     label: 'NAV.USER.SETTINGS',
     access: 'logged-only',
   },
 ];
 
 function UserButton() {
-  const { t, localeCode } = useIntl();
+  const { t, locale } = useIntl();
   const { user, logout } = useAuth();
   const [menuVisible, { set: showMenu, unset: hideMenu }] = useBoolean(false);
 
@@ -55,7 +55,7 @@ function UserButton() {
           <Backdrop onClick={hideMenu} />
           <menu className={styles.floatingMenu} onClick={hideMenu}>
             {userButtonOptions.map(({ key, route, label }) => (
-              <Link key={key} href={route({ localeCode })} className={styles.menuItem}>
+              <Link key={key} href={route({ locale })} className={styles.menuItem}>
                 {t(label)}
               </Link>
             ))}

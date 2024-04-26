@@ -13,6 +13,7 @@ import api from '@/api';
 import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import endpoints from '@/consts/endpoints';
 import ReplyButton from '@/components/ReplyButton';
+import useIntl from '@/app/hooks/useIntl';
 
 import styles from './CommentActions.module.css';
 
@@ -31,6 +32,7 @@ async function removeLike(commentId: string) {
 }
 
 function CommentActions({ commentId, likes, isEditMode }: Props) {
+  const { locale } = useIntl();
   const { user } = useAuth();
   const router = useRouter();
   const likesCount = likes.length;
@@ -41,7 +43,7 @@ function CommentActions({ commentId, likes, isEditMode }: Props) {
   const handleLike = async () => {
     setIsLoading(true);
     if (!user) {
-      router.push(dynamicRoute(Routes.login));
+      router.push(dynamicRoute(Routes.login, { locale }));
       return;
     }
 

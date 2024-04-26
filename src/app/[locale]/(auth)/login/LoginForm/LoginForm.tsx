@@ -25,7 +25,7 @@ const getInitialErrors = (globalError: TranslationKey | undefined): FormErrors<L
 });
 
 function LoginForm() {
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const router = useRouter();
   const { login, loginApiError, isLoggedIn } = useAuth();
   const [email, setEmail] = useState('');
@@ -35,7 +35,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.push(dynamicRoute(Routes.home));
+      router.push(dynamicRoute(Routes.home, { locale }));
     }
   }, [isLoggedIn]);
 

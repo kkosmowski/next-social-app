@@ -3,17 +3,19 @@ import TagsList from '@/components/TagsList';
 import PostActions from '@/components/PostActions';
 import ItemDetails from '@/components/ItemDetails';
 import ItemContent from '@/components/ItemContent';
+import type { Locale } from '@/types/i18n';
 
 import styles from './PostItem.module.css';
 
 type Props = Post & {
+  locale: Locale;
   onEdit: VoidFunction;
   onComment: VoidFunction;
   onDelete: VoidFunction;
 };
 
 function PostItem(props: Props) {
-  const { id, title, content, user, tags, likes, created, updated, onEdit, onComment, onDelete } = props;
+  const { locale, id, title, content, user, tags, likes, created, updated, onEdit, onComment, onDelete } = props;
 
   return (
     <article className={`${styles.wrapper} card`}>
@@ -21,7 +23,14 @@ function PostItem(props: Props) {
         <h3 className={styles.title}>{title}</h3>
       </header>
 
-      <ItemDetails user={user} created={created} updated={updated} onEdit={onEdit} onDelete={onDelete} />
+      <ItemDetails
+        locale={locale}
+        user={user}
+        created={created}
+        updated={updated}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
 
       <ItemContent content={content} />
 

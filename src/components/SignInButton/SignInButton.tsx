@@ -9,11 +9,11 @@ import dynamicRoute from '@/app/utils/dynamicRoute';
 import styles from './SignInButton.module.css';
 
 function SignInButton() {
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const router = useRouter();
 
   const logIn = () => {
-    router.push(dynamicRoute(Routes.login));
+    router.push(dynamicRoute(Routes.login, { locale }));
   };
 
   return (
