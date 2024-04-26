@@ -4,7 +4,7 @@ import type { FormEvent } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import type { AddCommentPayload, AddCommentResponse, Comment } from '@/types/comment';
+import type { AddCommentPayload, AddCommentResponse, Comment, SubComment } from '@/types/comment';
 import CommentActions from '@/components/CommentActions';
 import ItemDetails from '@/components/ItemDetails';
 import useCommentForm from '@/hooks/useCommentForm';
@@ -16,7 +16,7 @@ import { handleError } from '@/utils/handleError';
 
 import styles from './CommentItemEditor.module.css';
 
-type Props = Comment & {
+type Props = (Comment | SubComment) & {
   onClose: VoidFunction;
 };
 
@@ -25,7 +25,7 @@ function CommentItemEditor(props: Props) {
   const { ContentTextArea, isLoading, handleSubmit, endLoading, setErrors } = useCommentForm({
     initialValues: { content },
   });
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const router = useRouter();
 
   const updateComment = async (payload: AddCommentPayload) => {
@@ -52,7 +52,7 @@ function CommentItemEditor(props: Props) {
 
   return (
     <form className={styles.form} onSubmit={handleUpdateComment}>
-      <ItemDetails created={created} updated={updated} user={user} noControls />
+      <ItemDetails locale={locale} created={created} updated={updated} user={user} noControls />
       {ContentTextArea}
 
       <footer className={styles.controls}>

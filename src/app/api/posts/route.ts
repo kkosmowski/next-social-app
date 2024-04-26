@@ -16,9 +16,15 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
   const { pb } = await session.refreshData(cookies().toString());
 
+  const postLikes = 'post_likes_via_post';
+  const comments = 'comments_via_post';
+  const commentLikes = `${comments}.comment_likes_via_comment`;
+  const subComments = `${comments}.subcomments_via_comment`;
+  const subCommentLikes = `${subComments}.subcomment_likes_via_comment`;
+
   const posts = await pb.posts.getFullList({
     sort: '-created',
-    expand: 'user, post_likes_via_post, comments_via_post.user, comments_via_post.comment_likes_via_comment',
+    expand: `user, ${postLikes}, ${comments}.user, ${commentLikes}, ${subComments}.user, ${subCommentLikes}`,
   });
 
   const mappedPosts: Post[] = posts.map(mapPostRecordToPost);

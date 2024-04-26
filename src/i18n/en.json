@@ -45,6 +45,7 @@
   "COMMENTS.DELETE.CONFIRM.TITLE": "Confirm comment deletion",
   "COMMENTS.DELETE.CONFIRM.DESCRIPTION": "Are you sure you want to remove this comment? This operation cannot be undone.",
   "COMMENTS.REPLY": "Reply",
+  "COMMENTS.REPLY.TITLE": "Reply to <em>{ author }</em>'s comment",
 
   "COMMON.BACK": "Back",
   "COMMON.CANCEL": "Cancel",

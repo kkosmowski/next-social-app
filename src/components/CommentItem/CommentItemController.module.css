@@ -5,9 +5,18 @@
     margin-inline-start: var(--comment-indent-xs);
 }
 
+.subComment {
+    margin-inline-start: calc(2 * var(--comment-indent-xs));
+}
+
 @media (min-width: 1024px) {
     .wrapper {
         padding: 1rem 1.6rem;
         margin-inline-start: var(--comment-indent-md);
+    }
+
+    .subComment {
+        padding: 1rem 1.6rem;
+        margin-inline-start: calc(2 * var(--comment-indent-md));
     }
 }

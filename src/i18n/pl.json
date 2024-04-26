@@ -45,6 +45,7 @@
   "COMMENTS.DELETE.CONFIRM.TITLE": "Potwierdź usunięcie komentarza",
   "COMMENTS.DELETE.CONFIRM.DESCRIPTION": "Czy na pewno chcesz usunąć ten komentarz? Tej operacji nie da się cofnąć.",
   "COMMENTS.REPLY": "Odpowiedz",
+  "COMMENTS.REPLY.TITLE": "Odpowiedz na komentarz <em>{ author }</em>",
 
   "COMMON.BACK": "Wróć",
   "COMMON.CANCEL": "Anuluj",

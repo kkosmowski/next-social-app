@@ -1,9 +1,11 @@
 'use client';
 
+import { useRef } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import useBoolean from '@/hooks/useBoolean';
-import type { Comment } from '@/types/comment';
+import type { Comment, SubComment } from '@/types/comment';
 import api from '@/api';
 import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import endpoints from '@/consts/endpoints';
@@ -15,11 +17,25 @@ import styles from './CommentItemController.module.css';
 import CommentItemEditor from './CommentItemEditor';
 import CommentItem from './CommentItem';
 
-function CommentItemController(comment: Comment) {
+type Props = {
+  onReply: (element: HTMLDivElement, comment: Comment | SubComment) => void;
+} & (
+  | {
+      isSubComment: false;
+      comment: Comment;
+    }
+  | {
+      isSubComment: true;
+      comment: SubComment;
+    }
+);
+
+function CommentItemController({ onReply, isSubComment, comment }: Props) {
   const [isEditMode, { set: setEditMode, unset: unsetEditMode }] = useBoolean(false);
   const router = useRouter();
   const { t, locale } = useIntl();
   const { ask } = useConfirmation();
+  const templateRef = useRef<HTMLDivElement>(null);
 
   const handleDelete = async () => {
     try {
@@ -42,13 +58,28 @@ function CommentItemController(comment: Comment) {
   };
 
   return (
-    <article className={`${styles.wrapper} card`}>
-      {isEditMode ? (
-        <CommentItemEditor {...comment} onClose={unsetEditMode} />
-      ) : (
-        <CommentItem {...comment} locale={locale} onEdit={setEditMode} onDelete={confirmDelete} />
-      )}
-    </article>
+    <>
+      <article className={`${styles.wrapper} ${isSubComment && styles.subComment} card`}>
+        {isEditMode ? (
+          <CommentItemEditor {...comment} onClose={unsetEditMode} />
+        ) : (
+          <CommentItem
+            comment={comment}
+            locale={locale}
+            onEdit={setEditMode}
+            onReply={() => onReply(templateRef.current!, comment)}
+            onDelete={confirmDelete}
+          />
+        )}
+      </article>
+
+      <div ref={templateRef} />
+
+      {!isSubComment &&
+        comment.subComments.map((subComment) => (
+          <CommentItemController key={subComment.id} comment={subComment} isSubComment={true} onReply={onReply} />
+        ))}
+    </>
   );
 }
 

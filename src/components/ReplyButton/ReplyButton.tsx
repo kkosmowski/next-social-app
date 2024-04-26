@@ -4,7 +4,7 @@ import useIntl from '@/app/hooks/useIntl';
 
 type Props = {
   disabled?: boolean;
-  onReply: VoidFunction;
+  onReply?: VoidFunction;
 };
 
 function ReplyButton({ disabled, onReply }: Props) {

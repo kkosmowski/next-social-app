@@ -13,6 +13,7 @@ const postEndpoints = {
 
 const commentEndpoints = {
   comment: '/comments/:commentId',
+  commentComment: '/comments/:commentId/comment',
   commentLike: '/comments/:commentId/like',
 } as const;
 

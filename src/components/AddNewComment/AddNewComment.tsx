@@ -8,27 +8,41 @@ import { useRouter } from 'next/navigation';
 import type { Post } from '@/types/post';
 import useIntl from '@/app/hooks/useIntl';
 import useCommentForm from '@/hooks/useCommentForm';
-import type { AddCommentPayload, AddCommentResponse } from '@/types/comment';
+import type { AddCommentPayload, AddCommentResponse, Comment, CommentFormValues, SubComment } from '@/types/comment';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import { handleError } from '@/utils/handleError';
 import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
+import isSubComment from '@/utils/isSubComment';
 
 import styles from './AddNewComment.module.css';
 
 type Props = {
   post: Post;
-  isVisible: boolean;
+  comment?: Comment | SubComment;
   onClose: VoidFunction;
 };
 
-function AddNewComment({ post, isVisible, onClose }: Props) {
+function AddNewComment({ post, comment, onClose }: Props) {
   const { t } = useIntl();
   const router = useRouter();
   const { ContentTextArea, handleSubmit, resetForm, endLoading, setErrors } = useCommentForm();
 
-  const addComment = async (payload: AddCommentPayload) => {
+  const title = comment
+    ? t('COMMENTS.REPLY.TITLE', { author: comment.user.username, em: (str) => <em>{str}</em> })
+    : t('COMMENTS.ADD.TITLE', { postTitle: post.title, em: (str) => <em>{str}</em> });
+
+  const addComment = async (payload: CommentFormValues) => {
     try {
+      if (comment) {
+        // to avoid sub comments to sub comments, we flatten the tree by creating sub comments to "main" comment
+        const commentId = isSubComment(comment) ? comment.commentId : comment.id;
+
+        return api.post<AddCommentPayload, AddCommentResponse>(
+          dynamicEndpoint(endpoints.commentComment, { commentId }),
+          { ...payload },
+        );
+      }
       return api.post<AddCommentPayload, AddCommentResponse>(
         dynamicEndpoint(endpoints.commentPost, { postId: post.id }),
         payload,
@@ -53,15 +67,9 @@ function AddNewComment({ post, isVisible, onClose }: Props) {
     resetForm();
   }, [resetForm]);
 
-  if (!isVisible) {
-    return null;
-  }
-
   return (
-    <form className={`${styles.wrapper} card`} onSubmit={handleAddComment}>
-      <h3 className={styles.title}>
-        {t('COMMENTS.ADD.TITLE', { postTitle: post.title, em: (str) => <em>{str}</em> })}
-      </h3>
+    <form className={`${styles.wrapper} ${!!comment && styles.reply} card`} onSubmit={handleAddComment}>
+      <h3 className={styles.title}>{title}</h3>
 
       {ContentTextArea}
 

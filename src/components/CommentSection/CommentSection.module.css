@@ -4,3 +4,7 @@
     gap: 1rem;
     margin-block-start: 1rem;
 }
+
+.commentsList > :empty {
+    display: none;
+}

@@ -1,16 +1,19 @@
-import type { Comment } from '@/types/comment';
+import type { Comment, SubComment } from '@/types/comment';
 import CommentActions from '@/components/CommentActions';
 import ItemDetails from '@/components/ItemDetails';
 import ItemContent from '@/components/ItemContent';
 import type { Locale } from '@/types/i18n';
 
-type Props = Comment & {
+type Props = {
+  comment: Comment | SubComment;
   locale: Locale;
   onEdit: VoidFunction;
+  onReply: VoidFunction;
   onDelete: VoidFunction;
 };
 
-function CommentItem({ locale, id, content, user, created, updated, likes, onEdit, onDelete }: Props) {
+function CommentItem({ locale, comment, onEdit, onReply, onDelete }: Props) {
+  const { id, content, user, created, updated, likes } = comment;
   return (
     <>
       <ItemDetails
@@ -22,7 +25,7 @@ function CommentItem({ locale, id, content, user, created, updated, likes, onEdi
         onDelete={onDelete}
       />
       <ItemContent content={content} smallPadding />
-      <CommentActions commentId={id} likes={likes} />
+      <CommentActions commentId={id} likes={likes} onReply={onReply} />
     </>
   );
 }

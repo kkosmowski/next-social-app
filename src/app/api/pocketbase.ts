@@ -27,6 +27,14 @@ class PocketBase extends _PocketBase {
   get commentLikes() {
     return this.collection('comment_likes');
   }
+
+  get subComments() {
+    return this.collection('subcomments');
+  }
+
+  get subCommentLikes() {
+    return this.collection('subcomment_likes');
+  }
 }
 
 export default PocketBase;

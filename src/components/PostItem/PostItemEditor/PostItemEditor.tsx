@@ -30,7 +30,7 @@ function PostItemEditor(props: Props) {
     },
     ghostInputs: true,
   });
-  const { t } = useIntl();
+  const { t, locale } = useIntl();
   const router = useRouter();
 
   const updatePost = async (payload: AddPostPayload) => {
@@ -56,7 +56,7 @@ function PostItemEditor(props: Props) {
     <form className={styles.form} onSubmit={handleUpdatePost}>
       <header className={styles.header}>{TitleInput}</header>
 
-      <ItemDetails created={created} updated={updated} user={user} noControls />
+      <ItemDetails locale={locale} created={created} updated={updated} user={user} noControls />
 
       {ContentTextArea}
       {TagsInput}

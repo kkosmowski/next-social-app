@@ -7,6 +7,12 @@ export type CommentDbModel = Model & {
   content: string;
 };
 
+export type SubCommentDbModel = Model & {
+  user: string;
+  comment: string;
+  content: string;
+};
+
 export type CommentLikeDbModel = Model & {
   comment: string;
   user: string;
@@ -21,6 +27,11 @@ export type Comment = Model & {
   user: User;
   content: string;
   likes: CommentLike[];
+  subComments: SubComment[];
+};
+
+export type SubComment = Omit<Comment, 'postId' | 'subComments'> & {
+  commentId: string;
 };
 
 export type CommentFormValues = AddCommentPayload;

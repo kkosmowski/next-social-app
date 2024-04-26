@@ -1,6 +1,6 @@
 import type { RecordModel } from 'pocketbase';
 
-import type { CommentLike } from '@/types/post';
+import type { CommentLike } from '@/types/comment';
 
 function mapCommentLikeRecordToCommentLike(record: RecordModel): CommentLike {
   return {

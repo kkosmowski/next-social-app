@@ -21,6 +21,7 @@ type Props = {
   commentId: string;
   likes: CommentLike[];
   isEditMode?: boolean;
+  onReply?: VoidFunction;
 };
 
 async function addLike(commentId: string) {
@@ -31,7 +32,7 @@ async function removeLike(commentId: string) {
   await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }));
 }
 
-function CommentActions({ commentId, likes, isEditMode }: Props) {
+function CommentActions({ commentId, likes, isEditMode, onReply }: Props) {
   const { locale } = useIntl();
   const { user } = useAuth();
   const router = useRouter();
@@ -70,7 +71,7 @@ function CommentActions({ commentId, likes, isEditMode }: Props) {
         onLike={handleLike}
       />
 
-      <ReplyButton onReply={() => {}} disabled={isEditMode} />
+      <ReplyButton onReply={onReply} disabled={isEditMode} />
     </footer>
   );
 }
