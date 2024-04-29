@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import session from '@/app/api/[utils]/SessionClient';
-import { ERROR_INVALID_PAYLOAD, ERROR_RESOURCE_NOT_FOUND } from '@/consts/common';
+import { ERROR_RESOURCE_NOT_FOUND } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
 import validatePostPayload from '@/app/api/[utils]/validatePostPayload';
 import mapPostRecordToPost from '@/utils/dataMappers/mapPostRecordToPost';
@@ -27,13 +27,10 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   const { postId } = params;
 
   const payload: AddPostPayload = await request.json();
-  const [isValid, validationError] = validatePostPayload(payload);
+  const [isValid, invalidFields] = validatePostPayload(payload);
 
   if (!isValid) {
-    return NextResponse.json(
-      { error: validationError, code: ERROR_INVALID_PAYLOAD },
-      { status: HttpStatus.BadRequest },
-    );
+    return response.badRequest<AddPostPayload>(invalidFields);
   }
 
   try {

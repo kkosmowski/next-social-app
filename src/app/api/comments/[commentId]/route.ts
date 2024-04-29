@@ -4,8 +4,8 @@ import { cookies } from 'next/headers';
 
 import session from '@/app/api/[utils]/SessionClient';
 import response from '@/app/api/[consts]/response';
-import type { AddCommentPayload } from '@/types/comment';
-import { ERROR_INVALID_PAYLOAD, ERROR_RESOURCE_NOT_FOUND } from '@/consts/common';
+import type { DeleteCommentPayload, UpdateCommentPayload } from '@/types/comment';
+import { ERROR_RESOURCE_NOT_FOUND } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
 import mapCommentRecordToComment from '@/utils/dataMappers/mapCommentRecordToComment';
 
@@ -22,17 +22,16 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     return response.unauthorized;
   }
 
-  const payload: AddCommentPayload = await request.json();
+  const payload: UpdateCommentPayload = await request.json();
 
   if (!payload.content) {
-    return NextResponse.json(
-      { error: 'Field content is not valid.', code: ERROR_INVALID_PAYLOAD },
-      { status: HttpStatus.BadRequest },
-    );
+    return response.badRequest<UpdateCommentPayload>(['content']);
   }
 
+  const pbCollection = payload.isSubComment ? pb.subComments : pb.comments;
+
   try {
-    const record = await pb.comments.getOne(params.commentId);
+    const record = await pbCollection.getOne(params.commentId);
 
     if (record.user !== user.id) {
       return response.forbidden;
@@ -42,7 +41,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 
   try {
-    const newComment = await pb.comments.update(params.commentId, { content: payload.content }, { expand: 'user' });
+    const newComment = await pbCollection.update(params.commentId, { content: payload.content }, { expand: 'user' });
 
     return NextResponse.json(mapCommentRecordToComment(newComment));
   } catch (e) {
@@ -50,7 +49,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
   }
 }
 
-export async function DELETE(_: NextRequest, { params }: Params) {
+export async function DELETE(request: Request, { params }: Params) {
   const { isLoggedIn, user, pb } = await session.refreshData(cookies().toString());
 
   if (!isLoggedIn) {
@@ -60,20 +59,27 @@ export async function DELETE(_: NextRequest, { params }: Params) {
   const { commentId } = params;
 
   try {
-    const record = await pb.comments.getOne(commentId);
+    const payload: DeleteCommentPayload = await request.json();
+    const pbCollection = payload.isSubComment ? pb.subComments : pb.comments;
 
-    if (record.user !== user.id) {
-      return response.forbidden;
+    try {
+      const record = await pbCollection.getOne(commentId);
+
+      if (record.user !== user.id) {
+        return response.forbidden;
+      }
+    } catch (e) {
+      return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
+    }
+
+    try {
+      await pbCollection.delete(commentId);
+
+      return response.noContent;
+    } catch (e) {
+      return response.unknownError(e);
     }
   } catch (e) {
-    return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
-  }
-
-  try {
-    await pb.comments.delete(commentId);
-
-    return response.noContent;
-  } catch (e) {
-    return response.unknownError(e);
+    return response.badRequest<DeleteCommentPayload>(['isSubComment']);
   }
 }

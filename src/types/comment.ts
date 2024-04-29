@@ -38,3 +38,16 @@ export type CommentFormValues = AddCommentPayload;
 
 export type AddCommentPayload = Pick<Comment, 'content'>;
 export type AddCommentResponse = Comment;
+
+export type UpdateCommentPayload = AddCommentPayload & {
+  isSubComment: boolean;
+};
+export type UpdateCommentResponse = Comment;
+
+export type LikeCommentPayload = {
+  isSubComment: boolean;
+};
+
+export type DeleteCommentPayload = {
+  isSubComment: boolean;
+};

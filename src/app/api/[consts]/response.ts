@@ -2,11 +2,18 @@ import { NextResponse } from 'next/server';
 
 import { ERROR_NOT_LOGGED_IN } from '@/consts/auth';
 import { HttpStatus } from '@/consts/api';
-import { ERROR_FORBIDDEN_ACTION, ERROR_UNKNOWN } from '@/consts/common';
+import { ERROR_FORBIDDEN_ACTION, ERROR_INVALID_PAYLOAD, ERROR_UNKNOWN } from '@/consts/common';
 
 const response = {
   // 204
   noContent: new NextResponse(undefined, { status: HttpStatus.NoContent }),
+
+  // 400
+  badRequest: <P>(fields: (keyof P)[]) =>
+    NextResponse.json(
+      { error: `Invalid payload fields: ${fields.join(', ')}.`, code: ERROR_INVALID_PAYLOAD },
+      { status: HttpStatus.BadRequest },
+    ),
 
   // 401
   unauthorized: NextResponse.json(

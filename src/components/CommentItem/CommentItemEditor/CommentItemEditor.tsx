@@ -4,7 +4,13 @@ import type { FormEvent } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import type { AddCommentPayload, AddCommentResponse, Comment, SubComment } from '@/types/comment';
+import type {
+  AddCommentPayload,
+  Comment,
+  SubComment,
+  UpdateCommentPayload,
+  UpdateCommentResponse,
+} from '@/types/comment';
 import CommentActions from '@/components/CommentActions';
 import ItemDetails from '@/components/ItemDetails';
 import useCommentForm from '@/hooks/useCommentForm';
@@ -17,11 +23,12 @@ import { handleError } from '@/utils/handleError';
 import styles from './CommentItemEditor.module.css';
 
 type Props = (Comment | SubComment) & {
+  isSubComment: boolean;
   onClose: VoidFunction;
 };
 
 function CommentItemEditor(props: Props) {
-  const { id, content, user, created, updated, likes, onClose } = props;
+  const { id, content, user, created, updated, likes, isSubComment, onClose } = props;
   const { ContentTextArea, isLoading, handleSubmit, endLoading, setErrors } = useCommentForm({
     initialValues: { content },
   });
@@ -30,9 +37,9 @@ function CommentItemEditor(props: Props) {
 
   const updateComment = async (payload: AddCommentPayload) => {
     try {
-      return api.patch<AddCommentPayload, AddCommentResponse>(
+      return api.patch<UpdateCommentPayload, UpdateCommentResponse>(
         dynamicEndpoint(endpoints.comment, { commentId: id }),
-        payload,
+        { ...payload, isSubComment },
       );
     } catch (e) {
       const error = handleError(e);
@@ -65,7 +72,7 @@ function CommentItemEditor(props: Props) {
         </button>
       </footer>
 
-      <CommentActions commentId={id} likes={likes} isEditMode />
+      <CommentActions isSubComment={isSubComment} commentId={id} likes={likes} isEditMode />
     </form>
   );
 }

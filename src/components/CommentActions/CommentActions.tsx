@@ -19,20 +19,21 @@ import styles from './CommentActions.module.css';
 
 type Props = {
   commentId: string;
+  isSubComment: boolean;
   likes: CommentLike[];
   isEditMode?: boolean;
   onReply?: VoidFunction;
 };
 
-async function addLike(commentId: string) {
-  await api.post(dynamicEndpoint(endpoints.commentLike, { commentId }));
+async function addLike(commentId: string, isSubComment: boolean) {
+  await api.post(dynamicEndpoint(endpoints.commentLike, { commentId }), { isSubComment });
 }
 
-async function removeLike(commentId: string) {
-  await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }));
+async function removeLike(commentId: string, isSubComment: boolean) {
+  await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }), { isSubComment });
 }
 
-function CommentActions({ commentId, likes, isEditMode, onReply }: Props) {
+function CommentActions({ commentId, isSubComment, likes, isEditMode, onReply }: Props) {
   const { locale } = useIntl();
   const { user } = useAuth();
   const router = useRouter();
@@ -50,9 +51,9 @@ function CommentActions({ commentId, likes, isEditMode, onReply }: Props) {
 
     try {
       if (isLikedByCurrentUser) {
-        await removeLike(commentId);
+        await removeLike(commentId, isSubComment);
       } else {
-        await addLike(commentId);
+        await addLike(commentId, isSubComment);
       }
       router.refresh();
       setIsLoading(false);

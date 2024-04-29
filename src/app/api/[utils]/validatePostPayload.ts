@@ -1,23 +1,23 @@
 import type { AddPostPayload } from '@/types/post';
 
-function validatePostPayload(payload: AddPostPayload): [true, undefined] | [false, string] {
+function validatePostPayload<P extends AddPostPayload>(payload: P): [true, undefined] | [false, (keyof P)[]] {
   let isValid = true;
-  const invalid = [];
+  const invalidFields: (keyof P)[] = [];
 
   if (!payload.title) {
     isValid = false;
-    invalid.push('title');
+    invalidFields.push('title');
   }
 
   if (!payload.content) {
     isValid = false;
-    invalid.push('content');
+    invalidFields.push('content');
   }
 
   if (isValid) {
     return [isValid, undefined];
   }
-  return [isValid, `These fields are not valid: ${invalid.join(', ')}.`];
+  return [isValid, invalidFields];
 }
 
 export default validatePostPayload;

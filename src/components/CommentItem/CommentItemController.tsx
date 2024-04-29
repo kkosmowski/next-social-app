@@ -39,7 +39,7 @@ function CommentItemController({ onReply, isSubComment, comment }: Props) {
 
   const handleDelete = async () => {
     try {
-      await api.delete(dynamicEndpoint(endpoints.comment, { commentId: comment.id }));
+      await api.delete(dynamicEndpoint(endpoints.comment, { commentId: comment.id }), { isSubComment });
       router.refresh();
     } catch (e) {
       const error = handleError(e);
@@ -61,7 +61,7 @@ function CommentItemController({ onReply, isSubComment, comment }: Props) {
     <>
       <article className={`${styles.wrapper} ${isSubComment && styles.subComment} card`}>
         {isEditMode ? (
-          <CommentItemEditor {...comment} onClose={unsetEditMode} />
+          <CommentItemEditor isSubComment={isSubComment} {...comment} onClose={unsetEditMode} />
         ) : (
           <CommentItem
             comment={comment}

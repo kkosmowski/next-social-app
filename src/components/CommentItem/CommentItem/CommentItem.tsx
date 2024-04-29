@@ -3,6 +3,7 @@ import CommentActions from '@/components/CommentActions';
 import ItemDetails from '@/components/ItemDetails';
 import ItemContent from '@/components/ItemContent';
 import type { Locale } from '@/types/i18n';
+import isSubComment from '@/utils/isSubComment';
 
 type Props = {
   comment: Comment | SubComment;
@@ -25,7 +26,7 @@ function CommentItem({ locale, comment, onEdit, onReply, onDelete }: Props) {
         onDelete={onDelete}
       />
       <ItemContent content={content} smallPadding />
-      <CommentActions commentId={id} likes={likes} onReply={onReply} />
+      <CommentActions commentId={id} isSubComment={isSubComment(comment)} likes={likes} onReply={onReply} />
     </>
   );
 }

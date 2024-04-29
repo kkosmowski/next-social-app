@@ -4,7 +4,6 @@ import { cookies } from 'next/headers';
 
 import session from '@/app/api/[utils]/SessionClient';
 import type { Model } from '@/types/common';
-import { ERROR_INVALID_PAYLOAD } from '@/consts/common';
 import { HttpStatus } from '@/consts/api';
 import type { AddCommentPayload, CommentDbModel } from '@/types/comment';
 import mapCommentRecordToComment from '@/utils/dataMappers/mapCommentRecordToComment';
@@ -26,10 +25,7 @@ export async function POST(request: NextRequest, { params }: Params) {
   const payload: AddCommentPayload = await request.json();
 
   if (!payload.content) {
-    return NextResponse.json(
-      { error: 'Field content is not valid.', code: ERROR_INVALID_PAYLOAD },
-      { status: HttpStatus.BadRequest },
-    );
+    return response.badRequest<AddCommentPayload>(['content']);
   }
 
   const commentData: Omit<CommentDbModel, keyof Model> = {
