@@ -1,6 +1,9 @@
 import { useCallback, useState } from 'react';
 
-type UseBooleanReturnValue = [boolean, { set: VoidFunction; unset: VoidFunction; toggle: VoidFunction }];
+type UseBooleanReturnValue = [
+  boolean,
+  { set: VoidFunction; unset: VoidFunction; toggle: (callback?: (value: boolean) => void) => void },
+];
 
 function useBoolean(initialValue: boolean): UseBooleanReturnValue {
   const [isOn, setIsOn] = useState(initialValue);
@@ -13,9 +16,15 @@ function useBoolean(initialValue: boolean): UseBooleanReturnValue {
     setIsOn(false);
   }, [setIsOn]);
 
-  const toggle = useCallback(() => {
-    setIsOn((value) => !value);
-  }, [setIsOn]);
+  const toggle = useCallback(
+    (callback?: (value: boolean) => void) => {
+      setIsOn((value) => {
+        callback?.(!value);
+        return !value;
+      });
+    },
+    [setIsOn],
+  );
 
   return [isOn, { set, unset, toggle }];
 }

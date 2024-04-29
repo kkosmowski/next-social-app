@@ -5,6 +5,10 @@
     margin-block-start: 1rem;
 }
 
+.commentsList > .commentsList {
+    margin-block-start: 0;
+}
+
 .commentsList > :empty {
     display: none;
 }

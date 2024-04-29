@@ -15,6 +15,7 @@ import { Routes } from '@/consts/navigation';
 import api from '@/api';
 import endpoints from '@/consts/endpoints';
 import useIntl from '@/app/hooks/useIntl';
+import ToggleCommentsButton from '@/components/ToggleRepliesButton';
 
 import styles from './PostActions.module.css';
 
@@ -22,7 +23,10 @@ type Props = {
   postId: string;
   likes: PostLike[];
   isEditMode?: boolean;
+  commentsVisible?: boolean;
+  commentsCount: number;
   onComment?: VoidFunction;
+  onToggleComments?: VoidFunction;
 };
 
 async function addLike(postId: string) {
@@ -33,7 +37,15 @@ async function removeLike(postId: string) {
   await api.delete(dynamicEndpoint(endpoints.postLike, { postId }));
 }
 
-function PostActions({ postId, likes, isEditMode, onComment }: Props) {
+function PostActions({
+  postId,
+  likes,
+  isEditMode,
+  commentsCount,
+  commentsVisible,
+  onComment,
+  onToggleComments,
+}: Props) {
   const { locale } = useIntl();
   const { user } = useAuth();
   const router = useRouter();
@@ -75,6 +87,10 @@ function PostActions({ postId, likes, isEditMode, onComment }: Props) {
       <CommentButton disabled={isEditMode} onClick={onComment} />
 
       <ShareButton disabled={isEditMode} />
+
+      {!!commentsCount && (
+        <ToggleCommentsButton visible={commentsVisible} count={commentsCount} onToggle={onToggleComments} />
+      )}
     </footer>
   );
 }

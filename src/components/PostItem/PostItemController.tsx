@@ -17,12 +17,23 @@ import useIntl from '@/app/hooks/useIntl';
 import { useConfirmation } from '@/contexts/ConfirmationProvider';
 import AddNewComment from '@/components/AddNewComment';
 import type { Comment, SubComment } from '@/types/comment';
+import { LS_FALSE } from '@/consts/common';
 
 import PostItemEditor from './PostItemEditor';
 import PostItem from './PostItem';
 
+const commentsVisibilityKey = (postId: string) => `${postId}_comments_visible`;
+
+function loadCommentsVisibility(post: Post) {
+  if (!post.comments.length) {
+    return true;
+  }
+  return localStorage.getItem(commentsVisibilityKey(post.id)) !== LS_FALSE;
+}
+
 function PostItemController(post: Post) {
   const [isEditMode, { set: setEditMode, unset: unsetEditMode }] = useBoolean(false);
+  const [commentsVisible, { toggle: toggleCommentsVisibility }] = useBoolean(loadCommentsVisibility(post));
   const router = useRouter();
   const { t, locale } = useIntl();
   const { ask } = useConfirmation();
@@ -45,6 +56,17 @@ function PostItemController(post: Post) {
     }
   };
 
+  const handleToggleComments = () => {
+    toggleCommentsVisibility((value) => {
+      const key = commentsVisibilityKey(post.id);
+      if (value) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, LS_FALSE);
+      }
+    });
+  };
+
   const confirmDelete = () => {
     ask(
       {
@@ -64,14 +86,16 @@ function PostItemController(post: Post) {
           templateRef={templateRef}
           {...post}
           locale={locale}
+          commentsVisible={commentsVisible}
           onEdit={setEditMode}
           onComment={handleAddComment}
           onDelete={confirmDelete}
+          onToggleComments={handleToggleComments}
         />
       )}
       {Portal}
 
-      <CommentSection post={post} onReply={handleAddComment} />
+      <CommentSection visible={commentsVisible} items={post.comments} onReply={handleAddComment} />
     </section>
   );
 }

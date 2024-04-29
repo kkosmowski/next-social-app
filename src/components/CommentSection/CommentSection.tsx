@@ -1,21 +1,21 @@
-import type { Post } from '@/types/post';
 import CommentItem from '@/components/CommentItem';
-import type { Comment, SubComment } from '@/types/comment';
+import type { Comment, OnReplyFn, SubComment } from '@/types/comment';
 
 import styles from './CommentSection.module.css';
 
 type Props = {
-  post: Post;
-  onReply: (element: HTMLDivElement | null, comment: Comment | SubComment) => void;
+  visible: boolean;
+  items: Comment[] | SubComment[];
+  onReply: OnReplyFn;
 };
 
-function CommentSection({ post, onReply }: Props) {
+function CommentSection({ visible, items, onReply }: Props) {
   return (
     <>
-      {!!post.comments.length && (
+      {!!items.length && visible && (
         <ul className={styles.commentsList}>
-          {post.comments.map((comment) => (
-            <CommentItem key={comment.id} comment={comment} isSubComment={false} onReply={onReply} />
+          {items.map((comment) => (
+            <CommentItem key={comment.id} comment={comment} onReply={onReply} />
           ))}
         </ul>
       )}

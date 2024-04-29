@@ -54,7 +54,11 @@
   "COMMON.DONE": "Gotowe",
   "COMMON.EDIT": "Zmień",
   "COMMON.EDITED": "(edytowano)",
+  "COMMON.HIDE_COMMENTS": "Ukryj komentarze ({ count })",
+  "COMMON.HIDE_REPLIES": "Ukryj odpowiedzi ({ count })",
   "COMMON.LOADING": "Ładowanie",
+  "COMMON.SHOW_COMMENTS": "Pokaż komentarze ({ count })",
+  "COMMON.SHOW_REPLIES": "Pokaż odpowiedzi ({ count })",
 
   "ERROR.UNKNOWN": "Coś poszło nie tak. ",
   "ERROR.RESOURCE_NOT_FOUND": "Zasób nie został odnaleziony.",

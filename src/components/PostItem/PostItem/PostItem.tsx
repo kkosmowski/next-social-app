@@ -12,14 +12,34 @@ import styles from './PostItem.module.css';
 type Props = Post & {
   templateRef: MutableRefObject<HTMLDivElement | null>;
   locale: Locale;
+  commentsVisible: boolean;
   onEdit: VoidFunction;
   onComment: (element: HTMLDivElement | null) => void;
   onDelete: VoidFunction;
+  onToggleComments: VoidFunction;
 };
 
 function PostItem(props: Props) {
-  const { templateRef, locale, id, title, content, user, tags, likes, created, updated, onEdit, onComment, onDelete } =
-    props;
+  const {
+    templateRef,
+    locale,
+    id,
+    title,
+    content,
+    user,
+    tags,
+    comments,
+    likes,
+    created,
+    updated,
+    commentsVisible,
+    onEdit,
+    onComment,
+    onDelete,
+    onToggleComments,
+  } = props;
+
+  const totalCommentsCount = comments.reduce((total, comment) => total + 1 + comment.subComments.length, 0);
 
   return (
     <>
@@ -41,7 +61,14 @@ function PostItem(props: Props) {
 
         <TagsList tags={tags} />
 
-        <PostActions postId={id} likes={likes} onComment={() => onComment(templateRef.current)} />
+        <PostActions
+          postId={id}
+          likes={likes}
+          commentsVisible={commentsVisible}
+          commentsCount={totalCommentsCount}
+          onComment={() => onComment(templateRef.current)}
+          onToggleComments={onToggleComments}
+        />
       </article>
 
       <div className={styles.commentTemplate} ref={templateRef} />

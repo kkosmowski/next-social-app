@@ -51,3 +51,5 @@ export type LikeCommentPayload = {
 export type DeleteCommentPayload = {
   isSubComment: boolean;
 };
+
+export type OnReplyFn = (element: HTMLDivElement, comment: Comment | SubComment) => void;

@@ -7,14 +7,19 @@ import isSubComment from '@/utils/isSubComment';
 
 type Props = {
   comment: Comment | SubComment;
+  repliesVisible: boolean;
   locale: Locale;
   onEdit: VoidFunction;
   onReply: VoidFunction;
   onDelete: VoidFunction;
+  onToggleReplies?: VoidFunction;
 };
 
-function CommentItem({ locale, comment, onEdit, onReply, onDelete }: Props) {
+function CommentItem({ locale, repliesVisible, comment, onEdit, onReply, onDelete, onToggleReplies }: Props) {
   const { id, content, user, created, updated, likes } = comment;
+  const _isSubComment = isSubComment(comment);
+  const repliesCount = _isSubComment ? 0 : comment.subComments.length;
+
   return (
     <>
       <ItemDetails
@@ -26,7 +31,15 @@ function CommentItem({ locale, comment, onEdit, onReply, onDelete }: Props) {
         onDelete={onDelete}
       />
       <ItemContent content={content} smallPadding />
-      <CommentActions commentId={id} isSubComment={isSubComment(comment)} likes={likes} onReply={onReply} />
+      <CommentActions
+        commentId={id}
+        isSubComment={_isSubComment}
+        repliesCount={repliesCount}
+        repliesVisible={repliesVisible}
+        likes={likes}
+        onReply={onReply}
+        onToggleReplies={onToggleReplies}
+      />
     </>
   );
 }

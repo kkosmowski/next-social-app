@@ -54,7 +54,11 @@
   "COMMON.DONE": "Done",
   "COMMON.EDIT": "Edit",
   "COMMON.EDITED": "(edited)",
+  "COMMON.HIDE_COMMENTS": "Hide comments ({ count })",
+  "COMMON.HIDE_REPLIES": "Hide replies ({ count })",
   "COMMON.LOADING": "Loading",
+  "COMMON.SHOW_COMMENTS": "Show comments ({ count })",
+  "COMMON.SHOW_REPLIES": "Show replies ({ count })",
 
   "ERROR.UNKNOWN": "Something went wrong.",
   "ERROR.RESOURCE_NOT_FOUND": "Provided resource could not be found.",

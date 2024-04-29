@@ -14,6 +14,7 @@ import dynamicEndpoint from '@/app/utils/dynamicEndpoint';
 import endpoints from '@/consts/endpoints';
 import ReplyButton from '@/components/ReplyButton';
 import useIntl from '@/app/hooks/useIntl';
+import ToggleCommentsButton from '@/components/ToggleRepliesButton';
 
 import styles from './CommentActions.module.css';
 
@@ -22,7 +23,10 @@ type Props = {
   isSubComment: boolean;
   likes: CommentLike[];
   isEditMode?: boolean;
+  repliesVisible?: boolean;
+  repliesCount?: number;
   onReply?: VoidFunction;
+  onToggleReplies?: VoidFunction;
 };
 
 async function addLike(commentId: string, isSubComment: boolean) {
@@ -33,7 +37,16 @@ async function removeLike(commentId: string, isSubComment: boolean) {
   await api.delete(dynamicEndpoint(endpoints.commentLike, { commentId }), { isSubComment });
 }
 
-function CommentActions({ commentId, isSubComment, likes, isEditMode, onReply }: Props) {
+function CommentActions({
+  commentId,
+  isSubComment,
+  likes,
+  isEditMode,
+  repliesCount,
+  repliesVisible,
+  onReply,
+  onToggleReplies,
+}: Props) {
   const { locale } = useIntl();
   const { user } = useAuth();
   const router = useRouter();
@@ -73,6 +86,10 @@ function CommentActions({ commentId, isSubComment, likes, isEditMode, onReply }:
       />
 
       <ReplyButton onReply={onReply} disabled={isEditMode} />
+
+      {!!repliesCount && (
+        <ToggleCommentsButton visible={repliesVisible} subComments count={repliesCount} onToggle={onToggleReplies} />
+      )}
     </footer>
   );
 }
