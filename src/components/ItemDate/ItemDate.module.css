@@ -3,6 +3,10 @@
     color: var(--secondary-400);
 }
 
+.date:hover {
+    text-decoration: underline var(--secondary-200);
+}
+
 .date,
 .edited {
     display: inline-flex;

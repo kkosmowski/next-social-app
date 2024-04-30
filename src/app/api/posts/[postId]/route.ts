@@ -10,12 +10,27 @@ import mapPostRecordToPost from '@/utils/dataMappers/mapPostRecordToPost';
 import type { AddPostPayload } from '@/types/post';
 import mapPostToPostRecord from '@/utils/dataMappers/mapPostToPostRecord';
 import response from '@/app/api/[consts]/response';
+import getPostsExpand from '@/app/api/[utils]/getPostsExpand';
 
 type Params = {
   params: {
     postId: string;
   };
 };
+
+export async function GET(request: NextRequest, { params }: Params) {
+  const { pb } = await session.refreshData(cookies().toString());
+  const { postId } = params;
+
+  try {
+    const postsExpand = getPostsExpand();
+    const record = await pb.posts.getOne(postId, { expand: postsExpand });
+
+    return NextResponse.json(mapPostRecordToPost(record));
+  } catch (e) {
+    return NextResponse.json({ error: e, code: ERROR_RESOURCE_NOT_FOUND }, { status: HttpStatus.NotFound });
+  }
+}
 
 export async function PATCH(request: NextRequest, { params }: Params) {
   const { isLoggedIn, pb, user } = await session.refreshData(cookies().toString());

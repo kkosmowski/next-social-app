@@ -9,21 +9,22 @@ import { HttpStatus } from '@/consts/api';
 import validatePostPayload from '@/app/api/[utils]/validatePostPayload';
 import mapPostToPostRecord from '@/utils/dataMappers/mapPostToPostRecord';
 import response from '@/app/api/[consts]/response';
+import getPostsExpand from '../[utils]/getPostsExpand';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const { pb } = await session.refreshData(cookies().toString());
 
-  const postLikes = 'post_likes_via_post';
-  const comments = 'comments_via_post';
-  const commentLikes = `${comments}.comment_likes_via_comment`;
-  const subComments = `${comments}.subcomments_via_comment`;
-  const subCommentLikes = `${subComments}.subcomment_likes_via_comment`;
+  const postExpand = getPostsExpand();
+
+  const url = new URL(request.url);
+  const tag = url.searchParams.get('tagName');
 
   const posts = await pb.posts.getFullList({
+    ...(!!tag && { filter: `tags~'${tag}'` }),
     sort: '-created',
-    expand: `user, ${postLikes}, ${comments}.user, ${commentLikes}, ${subComments}.user, ${subCommentLikes}`,
+    expand: postExpand,
   });
 
   const mappedPosts: Post[] = posts.map(mapPostRecordToPost);

@@ -1,5 +1,3 @@
-import type { MutableRefObject } from 'react';
-
 import type { Post } from '@/types/post';
 import TagsList from '@/components/TagsList';
 import PostActions from '@/components/PostActions';
@@ -10,18 +8,16 @@ import type { Locale } from '@/types/i18n';
 import styles from './PostItem.module.css';
 
 type Props = Post & {
-  templateRef: MutableRefObject<HTMLDivElement | null>;
   locale: Locale;
   commentsVisible: boolean;
   onEdit: VoidFunction;
-  onComment: (element: HTMLDivElement | null) => void;
+  onComment: () => void;
   onDelete: VoidFunction;
   onToggleComments: VoidFunction;
 };
 
 function PostItem(props: Props) {
   const {
-    templateRef,
     locale,
     id,
     title,
@@ -49,6 +45,7 @@ function PostItem(props: Props) {
         </header>
 
         <ItemDetails
+          id={id}
           locale={locale}
           user={user}
           created={created}
@@ -59,19 +56,17 @@ function PostItem(props: Props) {
 
         <ItemContent content={content} />
 
-        <TagsList tags={tags} />
+        <TagsList locale={locale} tags={tags} />
 
         <PostActions
           postId={id}
           likes={likes}
           commentsVisible={commentsVisible}
           commentsCount={totalCommentsCount}
-          onComment={() => onComment(templateRef.current)}
+          onComment={onComment}
           onToggleComments={onToggleComments}
         />
       </article>
-
-      <div className={styles.commentTemplate} ref={templateRef} />
     </>
   );
 }

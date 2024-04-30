@@ -16,7 +16,10 @@ function mapCommentRecordToComment(record: RecordModel): Comment {
     content: hydrateContent(record.content),
     likes: record.expand?.comment_likes_via_comment?.map(mapCommentLikeRecordToCommentLike) ?? [],
     user: mapUserRecordToUser(record.expand?.user),
-    subComments: record.expand?.subcomments_via_comment?.map(mapSubCommentRecordToSubComment) ?? [],
+    subComments:
+      record.expand?.subcomments_via_comment?.map((subComment: RecordModel) =>
+        mapSubCommentRecordToSubComment(subComment, record.post),
+      ) ?? [],
   };
 }
 

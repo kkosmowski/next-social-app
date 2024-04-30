@@ -37,6 +37,9 @@
   "POSTS.DELETE.CONFIRM.DESCRIPTION": "Czy na pewno chcesz usunąć ten post? Tej operacji nie da się cofnąć.",
   "POSTS.COMMENT": "Skomentuj",
   "POSTS.SHARE": "Udostępnij",
+  "POSTS.WITH_TAG.TITLE": "Posty z tagiem \"#<em>{ tagName }</em>\"",
+
+  "COMMENTS.TITLE": "Komentarze",
   "COMMENTS.ADD.LABEL": "Treść komentarza",
   "COMMENTS.ADD.PLACEHOLDER": "Treść komentarza...",
   "COMMENTS.ADD.TITLE": "Dodaj komentarz do <em>{ postTitle }</em>",

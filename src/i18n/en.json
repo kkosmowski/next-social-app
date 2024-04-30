@@ -37,6 +37,9 @@
   "POSTS.DELETE.CONFIRM.DESCRIPTION": "Are you sure you want to remove this post? This operation cannot be undone.",
   "POSTS.COMMENT": "Comment",
   "POSTS.SHARE": "Share",
+  "POSTS.WITH_TAG.TITLE": "Posts tagged with \"#<em>{ tagName }</em>\"",
+
+  "COMMENTS.TITLE": "Comments",
   "COMMENTS.ADD.LABEL": "Comment content",
   "COMMENTS.ADD.PLACEHOLDER": "Comment content...",
   "COMMENTS.ADD.TITLE": "Add comment to <em>{ postTitle }</em>",

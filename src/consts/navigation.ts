@@ -11,6 +11,10 @@ export enum Routes {
   login = '/:locale/login',
 
   user = '/:locale/users/:username',
+
+  post = '/:locale/post/:postId',
+
+  taggedPosts = '/:locale/tag/:tagName',
 }
 
 export const navigationLinks: NavLink[] = [

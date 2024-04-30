@@ -1,0 +1,17 @@
+.commentsTitle {
+    margin-block-start: 0.8rem;
+    font-size: 1.5rem;
+    margin-inline-start: var(--comment-indent-xs);
+}
+
+.commentTemplate:not(:empty) {
+    margin-block-start: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .commentsTitle {
+        margin-block-start: 1rem;
+        font-size: 1.6rem;
+        margin-inline-start: var(--comment-indent-md);
+    }
+}

@@ -30,7 +30,7 @@ export type Comment = Model & {
   subComments: SubComment[];
 };
 
-export type SubComment = Omit<Comment, 'postId' | 'subComments'> & {
+export type SubComment = Omit<Comment, 'subComments'> & {
   commentId: string;
 };
 

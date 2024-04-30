@@ -32,6 +32,7 @@ export type PostFormValues = Pick<Post, 'title' | 'content'> & {
   tags: string;
 };
 
+export type GetPostResponse = Post;
 export type GetPostsResponse = Post[];
 export type AddPostPayload = Pick<Post, 'title' | 'content' | 'tags'>;
 export type AddPostResponse = Post;

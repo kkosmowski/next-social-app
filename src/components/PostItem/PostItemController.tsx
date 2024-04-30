@@ -21,6 +21,7 @@ import { LS_FALSE } from '@/consts/common';
 
 import PostItemEditor from './PostItemEditor';
 import PostItem from './PostItem';
+import styles from './PostItemController.module.css';
 
 const commentsVisibilityKey = (postId: string) => `${postId}_comments_visible`;
 
@@ -83,17 +84,21 @@ function PostItemController(post: Post) {
         <PostItemEditor {...post} onClose={unsetEditMode} />
       ) : (
         <PostItem
-          templateRef={templateRef}
           {...post}
           locale={locale}
           commentsVisible={commentsVisible}
           onEdit={setEditMode}
-          onComment={handleAddComment}
+          onComment={() => handleAddComment(templateRef.current)}
           onDelete={confirmDelete}
           onToggleComments={handleToggleComments}
         />
       )}
+
+      {commentsVisible && !!post.comments.length && <h3 className={styles.commentsTitle}>{t('COMMENTS.TITLE')}</h3>}
+
       {Portal}
+
+      <div className={styles.commentTemplate} ref={templateRef} />
 
       <CommentSection visible={commentsVisible} items={post.comments} onReply={handleAddComment} />
     </section>

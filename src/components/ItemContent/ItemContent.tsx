@@ -2,11 +2,11 @@ import styles from './ItemContent.module.css';
 
 type Props = {
   content: string;
-  smallPadding?: boolean;
+  noSpacing?: boolean;
 };
 
-function ItemContent({ content, smallPadding }: Props) {
-  const className = smallPadding ? `${styles.content} ${styles.smallPadding}` : styles.content;
+function ItemContent({ content, noSpacing }: Props) {
+  const className = noSpacing ? `${styles.content} ${styles.noSpacing}` : styles.content;
 
   return <p className={className} dangerouslySetInnerHTML={{ __html: content }} />;
 }

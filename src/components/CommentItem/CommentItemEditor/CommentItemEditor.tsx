@@ -28,7 +28,7 @@ type Props = (Comment | SubComment) & {
 };
 
 function CommentItemEditor(props: Props) {
-  const { id, content, user, created, updated, likes, isSubComment, onClose } = props;
+  const { id, postId, content, user, created, updated, likes, isSubComment, onClose } = props;
   const { ContentTextArea, isLoading, handleSubmit, endLoading, setErrors } = useCommentForm({
     initialValues: { content },
   });
@@ -59,7 +59,7 @@ function CommentItemEditor(props: Props) {
 
   return (
     <form className={styles.form} onSubmit={handleUpdateComment}>
-      <ItemDetails locale={locale} created={created} updated={updated} user={user} noControls />
+      <ItemDetails id={postId} locale={locale} created={created} updated={updated} user={user} noControls />
       {ContentTextArea}
 
       <footer className={styles.controls}>

@@ -56,7 +56,7 @@ function PostItemEditor(props: Props) {
     <form className={styles.form} onSubmit={handleUpdatePost}>
       <header className={styles.header}>{TitleInput}</header>
 
-      <ItemDetails locale={locale} created={created} updated={updated} user={user} noControls />
+      <ItemDetails id={id} locale={locale} created={created} updated={updated} user={user} noControls />
 
       {ContentTextArea}
       {TagsInput}

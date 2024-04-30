@@ -4,6 +4,10 @@
     padding: 0.8rem 0.8rem 1rem;
 }
 
+.wrapper.small {
+    padding: 0.6rem 0.8rem;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -11,6 +15,7 @@
 }
 
 .title {
+    font-size: 1.6rem;
     font-weight: 500;
 }
 
@@ -19,11 +24,11 @@
         padding: 1rem 2rem 2rem;
     }
 
-    .header {
-        padding-block-end: 0.4rem;
+    .wrapper.small {
+        padding: 0.6rem 1.6rem 1rem;
     }
 
-    .title {
-        font-size: 1.6rem;
+    .header {
+        padding-block-end: 0.4rem;
     }
 }

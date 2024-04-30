@@ -6,9 +6,10 @@ import mapCommentLikeRecordToCommentLike from '@/utils/dataMappers/mapCommentLik
 
 import mapUserRecordToUser from './mapUserRecordToUser';
 
-function mapSubCommentRecordToSubComment(record: RecordModel): SubComment {
+function mapSubCommentRecordToSubComment(record: RecordModel, postId: string): SubComment {
   return {
     id: record.id,
+    postId,
     commentId: record.comment,
     created: record.created,
     updated: record.updated,

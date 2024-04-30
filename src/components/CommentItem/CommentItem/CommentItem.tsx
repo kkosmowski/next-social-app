@@ -16,13 +16,14 @@ type Props = {
 };
 
 function CommentItem({ locale, repliesVisible, comment, onEdit, onReply, onDelete, onToggleReplies }: Props) {
-  const { id, content, user, created, updated, likes } = comment;
+  const { id, postId, content, user, created, updated, likes } = comment;
   const _isSubComment = isSubComment(comment);
   const repliesCount = _isSubComment ? 0 : comment.subComments.length;
 
   return (
     <>
       <ItemDetails
+        id={postId}
         locale={locale}
         created={created}
         updated={updated}

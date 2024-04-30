@@ -10,8 +10,10 @@ import type { Locale } from '@/types/i18n';
 
 import styles from './ItemDetails.module.css';
 
-type Props = Pick<Model, 'created' | 'updated'> & {
+type Props = Pick<Model, 'id' | 'created' | 'updated'> & {
   locale: Locale;
+  noSpacing?: boolean;
+  noEditInfo?: boolean;
   user: User;
 } & (
     | {
@@ -22,14 +24,25 @@ type Props = Pick<Model, 'created' | 'updated'> & {
     | { noControls: true; onEdit?: never; onDelete?: never }
   );
 
-function ItemDetails({ locale, user, created, updated, noControls, onEdit, onDelete }: Props) {
+function ItemDetails({
+  locale,
+  noSpacing,
+  noEditInfo,
+  id,
+  user,
+  created,
+  updated,
+  noControls,
+  onEdit,
+  onDelete,
+}: Props) {
   return (
-    <section className={styles.details}>
+    <section className={`${styles.details} ${noSpacing && styles.noSpacing}`}>
       <address className={styles.author}>
         <Link href={dynamicRoute(Routes.user, { username: user.username, locale })}>{user.username}</Link>
       </address>
 
-      <ItemDate created={created} updated={updated} />
+      <ItemDate id={id} noEditInfo={noEditInfo} created={created} updated={updated} />
 
       {!noControls && <ItemControls authorId={user.id} onEdit={onEdit} onDelete={onDelete} />}
     </section>

@@ -1,11 +1,14 @@
 import Link from 'next/link';
 
+import type { DynamicRoute } from '@/app/utils/dynamicRoute';
+
 type Props = {
-  name: string;
+  link: DynamicRoute;
+  tagName: string;
 };
 
-function PostTag({ name }: Props) {
-  return <Link href="#">#{name}</Link>;
+function PostTag({ link, tagName }: Props) {
+  return <Link href={link}>#{tagName}</Link>;
 }
 
 export default PostTag;

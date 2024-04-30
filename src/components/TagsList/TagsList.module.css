@@ -2,4 +2,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    font-size: 1.3rem;
+}
+
+@media (min-width: 1024px) {
+    .list {
+        font-size: 1.4rem;
+    }
 }

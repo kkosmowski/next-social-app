@@ -6,6 +6,10 @@
     font-size: 1.4rem;
 }
 
+.noSpacing {
+    padding-block-start: 0;
+}
+
 @media (min-width: 1024px) {
     .content {
         font-size: 1.5rem;
